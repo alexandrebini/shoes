@@ -3,8 +3,8 @@ class Photo < ActiveRecord::Base
   has_one :store, through: :shoe
 
   has_attached_file :data,
-    path: ':rails_root/public/system/shoes/:id_partition/:fingerprint/:basename_:style.:extension',
-    url: '/system/:attachment/shoes/:id_partition/:fingerprint/:basename_:style.:extension'
+    path: ':rails_root/public/system/shoes/:id_partition/:basename_:style_:fingerprint.:extension',
+    url: '/system/:attachment/shoes/:id_partition/:basename_:style_:fingerprint.:extension'
 
   validates_presence_of :source_url
 
