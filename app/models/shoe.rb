@@ -10,5 +10,33 @@ class Shoe < ActiveRecord::Base
 
   friendly_id :name, use: :slugged
 
-  validates_presence_of :description, :name
+  validates_presence_of :name
+
+  def price=value
+    unless prices.last && prices.last.value == value
+      self.prices.build(value: value)
+    end
+  end
+
+  def photos_urls=urls
+    urls.compact.uniq.each do |url|
+      unless photos.where(source_url: url).exists?
+        photos.build(source_url: url)
+      end
+    end
+  end
+
+  def grid=numerations
+    new_numerations = numerations.compact.uniq.map do |numeration|
+      self.numerations.where(number: numeration).first_or_initialize
+    end
+    self.numerations.replace new_numerations
+  end
+
+  def color_set=colors
+    new_colors = colors.compact.uniq.map do |color|
+      Color.where(name: color).first_or_initialize
+    end
+    self.colors.replace new_colors
+  end
 end

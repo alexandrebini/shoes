@@ -8,5 +8,5 @@ class Store < ActiveRecord::Base
     path: ':rails_root/public/system/:attachment/:id/:basename_:style.:extension',
     url: '/system/:attachment/:id/:basename_:style.:extension'
 
-  validates_presence_of :logo, :name, :start_url, :verification_matcher
+  validates_presence_of :name, :start_url, :verification_matcher
 end

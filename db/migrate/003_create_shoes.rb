@@ -5,8 +5,9 @@ class CreateShoes < ActiveRecord::Migration
       t.references :store
       t.boolean :available
       t.string :name
-      t.string :description
+      t.text :description
       t.string :slug
+      t.string :source_url
       t.timestamps
     end
     add_index :shoes, :available
@@ -14,5 +15,6 @@ class CreateShoes < ActiveRecord::Migration
     add_index :shoes, :name
     add_index :shoes, :slug, unique: true
     add_index :shoes, :store_id
+    add_index :shoes, :source_url
   end
 end

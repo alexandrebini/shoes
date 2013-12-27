@@ -1,7 +1,7 @@
 module Crawler
   class Worker
     def perform(photo_id)
-      @photo = Asset.find(photo_id)
+      @photo = Photo.find(photo_id)
 
       unless @photo.downloading?
         download_logger "\nShoe #{ @photo.id } is not downloading. Current status: #{ @photo.status }"

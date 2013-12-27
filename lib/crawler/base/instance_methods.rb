@@ -35,7 +35,11 @@ module Crawler
       log "\ncrawling a list of shoes #{ @pages_count += 1 }/#{ @pages.size } from #{ url }"
       begin
         get_shoes Nokogiri::HTML(open_url url)
-      rescue
+      rescue Exception => e
+        p '--------------------------'
+        p e
+        puts e
+        puts e.backtrace.join("\n")
         log "\nerror on crawling #{ url }. Trying again..."
       end
     end
