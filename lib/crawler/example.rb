@@ -4,8 +4,8 @@ module Crawler
 
     acts_as_crawler
 
-    def source
-      @source ||= Source.where(
+    def store
+      @store ||= Store.where(
         name: 'Vandal',
         url: 'http://www.vandal.com.br',
         start_url: 'http://www.vandal.com.br/?new_products=true&ajax=1',
@@ -14,18 +14,18 @@ module Crawler
     end
 
     def pages_urls(page)
-      [@source.start_url]
+      [@store.start_url]
     end
 
     def shoes_urls(page)
       page.css('.col-md-3.col-sm-4.col-xs-6 > a').map do |a|
-        "#{ source.url }/#{ a.attr(:href) }"
+        "#{ store.url }/#{ a.attr(:href) }"
       end
     end
 
     def parse_shoe(options)
       Shoe.create(
-        source: source,
+        store: store,
         source_url: options[:url],
         title: parse_title(options[:page]),
         stamp_url: parse_stamp(options),
@@ -41,12 +41,12 @@ module Crawler
     end
 
     def parse_stamp(options)
-      "http:#{ options[:page].css('#source-url').text }"
+      "http:#{ options[:page].css('#store-url').text }"
     end
 
     def parse_photos(options)
       options[:page].css('.carousel-inner img').map do |img|
-        "#{ source.url }/#{ img.attr(:src) }"
+        "#{ store.url }/#{ img.attr(:src) }"
       end
     end
 

@@ -10,7 +10,7 @@ module Crawler
       @count = 0
       @threads_number = 20
 
-      page = Nokogiri::HTML(open_url send(self.crawler_options[:source]).start_url)
+      page = Nokogiri::HTML(open_url send(self.crawler_options[:store]).start_url)
       get_pages(page)
       finalize!
       self
@@ -69,9 +69,9 @@ module Crawler
     private
     def open_url(url, options={})
       default_options = {
-        verification_matcher: self.source.verification_matcher,
+        verification_matcher: self.store.verification_matcher,
         proxy: false,
-        name: self.source.slug
+        name: self.store.slug
       }
       options.merge!(default_options)
       Crawler::UrlOpener.instance.open_url(url, options)
@@ -82,13 +82,13 @@ module Crawler
     end
 
     def log(args)
-      @logger ||= Logger.new("#{ Rails.root }/log/#{ self.source.slug }.log")
+      @logger ||= Logger.new("#{ Rails.root }/log/#{ self.store.slug }.log")
       @logger << args
       puts args
     end
 
     def fail_log(args)
-      @fail_logger ||= Logger.new("#{ Rails.root }/log/#{ self.source.slug }.fail.log")
+      @fail_logger ||= Logger.new("#{ Rails.root }/log/#{ self.store.slug }.fail.log")
       @fail_logger << args
       @fail_logger << "\n"
     end

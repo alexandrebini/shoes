@@ -2,12 +2,12 @@ namespace :shoes do
   desc 'status'
   task status: :environment do
     include ActionView::Helpers::NumberHelper
-    sources = Source.all.sort_by{ |r| r.shoes.downloaded.count }.reverse
+    sources = Store.all.sort_by{ |r| r.shoes.downloaded.count }.reverse
     sources.each do |source|
-      downloaded = "downloaded: #{ number_with_delimiter source.shoes.downloaded.count }"
-      downloading = "downloading: #{ number_with_delimiter source.shoes.downloading.count }"
-      pending = "pending: #{ number_with_delimiter source.shoes.pending.count }"
-      puts "#{ source.slug.ljust(15) } #{ downloaded.ljust(25) } #{ downloading.ljust(25) } #{ pending.ljust(25) }"
+      downloaded = "downloaded: #{ number_with_delimiter store.shoes.downloaded.count }"
+      downloading = "downloading: #{ number_with_delimiter store.shoes.downloading.count }"
+      pending = "pending: #{ number_with_delimiter store.shoes.pending.count }"
+      puts "#{ store.slug.ljust(15) } #{ downloaded.ljust(25) } #{ downloading.ljust(25) } #{ pending.ljust(25) }"
     end
 
     downloaded = "downloaded: #{ number_with_delimiter Shoe.downloaded.count }"
