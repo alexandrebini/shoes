@@ -36,10 +36,6 @@ module Crawler
       begin
         get_shoes Nokogiri::HTML(open_url url)
       rescue Exception => e
-        p '--------------------------'
-        p e
-        puts e
-        puts e.backtrace.join("\n")
         log "\nerror on crawling #{ url }. Trying again..."
       end
     end

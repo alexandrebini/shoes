@@ -11,5 +11,6 @@ module Crawler
   autoload :ClassMethods,     File.expand_path('../base/class_methods', __FILE__)
   autoload :InstanceMethods,  File.expand_path('../base/instance_methods', __FILE__)
 
+  autoload :Corello,          File.expand_path('../corello', __FILE__)
   autoload :Melissa,          File.expand_path('../melissa', __FILE__)
 end
