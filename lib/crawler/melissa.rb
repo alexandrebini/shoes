@@ -59,9 +59,13 @@ module Crawler
       end
     end
 
-    def parse_grid(options)
-      options[:page].css('#sizes-of-gender-female > li > label').map do |label|
-        label.text
+    def parse_grid(page)
+      sizes = page.css('.product-options').first.text
+        .match(/spConfig(.*)/).to_a.first
+        .match(/Tamanho\"\,\"options\"\:(.*)/).to_a.first
+
+      sizes.scan(/"label":"\d+\"/).map do |size|
+        size.split(':').last.gsub(/\D/, '').to_i
       end
     end
 
@@ -74,7 +78,7 @@ module Crawler
         description: parse_description(options[:page]),
         price: parse_price(options[:page]),
         photos_urls: parse_photos(options),
-        # grid: parse_grid(options),
+        grid: parse_grid(options[:page]),
         color_set: parse_colors(options)
       )
     end
