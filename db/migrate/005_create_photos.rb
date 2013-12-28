@@ -15,6 +15,7 @@ class CreatePhotos < ActiveRecord::Migration
     add_index :photos, :status
     add_index :photos, :shoe_id
     add_index :photos, :main
+    add_index :photos, :source_url
     add_index :photos, [:shoe_id, :main]
     add_index :photos, [:shoe_id, :status]
   end

@@ -11,7 +11,8 @@ class Shoe < ActiveRecord::Base
 
   friendly_id :name, use: :slugged
 
-  validates_presence_of :name
+  validates :name, presence: true
+  validates :source_url, presence: true
 
   def price=value
     unless prices.last && prices.last.value == value
@@ -21,7 +22,7 @@ class Shoe < ActiveRecord::Base
 
   def photos_urls=urls
     urls.compact.uniq.each do |url|
-      unless photos.where(source_url: url).exists?
+      unless photos.where(source_url: url).lock(true).exists?
         photos.build(source_url: url)
       end
     end
@@ -36,7 +37,7 @@ class Shoe < ActiveRecord::Base
 
   def color_set=colors
     new_colors = colors.compact.uniq.map do |color|
-      Color.where(name: color).first_or_initialize
+      Color.where(name: color).lock(true).first_or_initialize
     end
     self.colors.replace new_colors
   end

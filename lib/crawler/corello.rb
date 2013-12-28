@@ -10,12 +10,11 @@ module Crawler
 
     def pages_urls(page)
       categories_urls(page).map do |category_url|
-        p category_url
         category_pages Nokogiri::HTML(open_url category_url)
       end
     end
 
-    def shoes_urls(page)
+    def shoes_urls(page, options={})
       page.css('a[rel="product"]').map do |a|
         a.attr(:href)
       end
@@ -23,8 +22,8 @@ module Crawler
 
     def parse_shoe(options)
       options[:product_view] = product_view(options)
-
-      Shoe.create(
+      shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
+      shoe.update_attributes({
         store: store,
         source_url: options[:url],
         name: parse_name(options[:page]),
@@ -34,8 +33,9 @@ module Crawler
         category_name: parse_category_name(options[:page]),
         photos_urls: parse_photos(options[:page]),
         grid: parse_grid(options),
-        color_set: parse_colors(options)
-      )
+        color_set: parse_colors(options),
+        crawled_at: Time.now
+      })
     end
 
     def parse_name(page)
@@ -54,7 +54,7 @@ module Crawler
     def parse_category_name(page)
       reject = %(home todos)
       page.css('#breadcrumbs li a').map do |a|
-        a.text.strip if reject.include?(a.text.strip.downcase)
+        a.text.strip unless reject.include?(a.text.strip.downcase)
       end.join(' ')
     end
 
@@ -70,7 +70,7 @@ module Crawler
     end
 
     def parse_colors(options)
-      options[:product_view].css('li img').first.attr(:alt).split('/').map(&:strip)
+      options[:product_view].css('li a').first.attr(:title).split('/').map(&:strip)
     end
 
     def parse_grid(options)

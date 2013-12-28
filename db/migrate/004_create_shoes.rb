@@ -9,6 +9,7 @@ class CreateShoes < ActiveRecord::Migration
       t.text :description
       t.string :slug
       t.string :source_url
+      t.datetime :crawled_at
       t.timestamps
     end
     add_index :shoes, :brand_id
