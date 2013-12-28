@@ -45,7 +45,9 @@ class Shoe < ActiveRecord::Base
     self.category = Category.where(name: name.downcase).lock(true).first_or_create
   end
 
-  def brand_set=brand
-    self.brand = Brand.where(brand).lock(true).first_or_create
+  def brand_name_url=options
+    self.brand = Brand.where(
+      name: options[:name].downcase,
+      url: options[:url]).lock(true).first_or_create
   end
 end

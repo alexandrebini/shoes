@@ -46,7 +46,7 @@ module Crawler
         photos_urls: parse_photos(options),
         grid: parse_grid(options[:page]),
         color_set: parse_colors(options),
-        brand_set: parse_brand(options[:page])
+        brand_name_url: parse_brand(options[:page])
       )
     end
 
@@ -58,13 +58,7 @@ module Crawler
 
     def parse_brand(page)
       link_brand = page.css('.sector_two_and_three .footer_treatment div a').last
-      image_src = page.css('div.logo a img').first.attr(:src)
-
-      {
-        name: link_brand.text,
-        url: link_brand.attr(:href)
-        logo: image_src
-      }
+      { name: link_brand.text.match(/Melissa/).to_a.first, url: link_brand.attr(:href) }
     end
 
     def parse_shoe(options)

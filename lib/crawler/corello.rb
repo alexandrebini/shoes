@@ -19,7 +19,7 @@ module Crawler
       end
     end
 
-    def shoes_urls(page)
+    def shoes_urls(page, options={})
       page.css('a[rel="product"]').map do |a|
         a.attr(:href)
       end
