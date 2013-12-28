@@ -3,6 +3,7 @@ class Shoe < ActiveRecord::Base
 
   belongs_to :brand
   belongs_to :store
+  belongs_to :category
   has_many :photos, dependent: :destroy
   has_many :prices, dependent: :destroy
   has_many :numerations, dependent: :destroy
