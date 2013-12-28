@@ -8,8 +8,27 @@ module Crawler
       @store ||= Store.where(name: 'Melissa').first
     end
 
+    def categories
+      @categories ||= { }
+    end
+
     def pages_urls(page)
-      [store.start_url]
+      cats = page.css('.attribute-filter.estilo ol li a')
+
+      Array.new.tap do |pages|
+        pages << store.start_url
+        cats.each do |cat|
+          category = create_category(cat.attr(:title).downcase)
+          href = cat.attr(:href)
+          set_categories({url: href, category: category})
+          pages << href
+        end
+      end
+    end
+
+    def set_categories(options)
+      type = options.url.match(/arquetipo\=(.*)/).to_i
+      categories[type] = category
     end
 
     def shoes_urls(page)
@@ -19,7 +38,8 @@ module Crawler
     end
 
     def parse_shoe(options)
-      script = options[:page].css('#product-options-wrapper script').first.text
+      script = options[:page].css('#product-options-wrapper script').first
+      script ? script = script.text : return
       parent_id = script.match(/ptId(.*)\;/).to_a.first.scan(/\d+/).first.to_i
       product_ids = script.scan(/\"\d+\":\"\d+\"/).map do |r|
         r.split(':').last.gsub('"', '').to_i
@@ -33,6 +53,21 @@ module Crawler
 
     def parse_name(options)
       options[:product_view].css('img').first.attr(:title)
+    end
+
+    def parse_category_name(page)
+      category_name = page.css('.attribute-filter.estilo .item-filtered').text
+        .gsub('Excluir Este Item', '')
+      p '====================='
+      p '====================='
+      p '====================='
+      p '====================='
+
+      p page
+      p '====================='
+      p '====================='
+      p '====================='
+      categories[category_name.downcase]
     end
 
     def parse_description(page)
@@ -49,8 +84,8 @@ module Crawler
 
     def parse_colors(options)
       title = options[:product_view].css('img').first.attr(:title)
-      colors = title.match(/\(.*\)$/).first
-      colors = title.match(/\-(.*)$/).first unless colors
+      colors = title.match(/\(.*\)$/).to_a.first
+      colors = title.match(/\-(.*)$/).to_a.first unless colors
       return unless colors
       colors.split('/').map do |color|
         color.gsub(/\(|\)/, '').strip
@@ -71,6 +106,7 @@ module Crawler
     def create_shoe(options)
       Shoe.create(
         store: store,
+        category: parse_category_name(options[:page]),
         source_url: options[:url],
         name: parse_name(options),
         description: parse_description(options[:page]),
@@ -79,6 +115,12 @@ module Crawler
         grid: parse_grid(options[:page]),
         color_set: parse_colors(options)
       )
+    end
+
+    def create_category(name)
+      Category.where(
+        name: name
+      ).first_or_create
     end
 
     def product_view(options)
