@@ -17,3 +17,12 @@ corello = Store.new(
   logo: 'http://shop.corello.com.br/locales/global/img/logo.png'
 )
 p "Corello created? #{ corello.save }"
+
+carmensteffens = Store.new(
+  name: 'Carmen Steffens',
+  url: 'http://www.carmensteffens.com.br/',
+  start_url: 'http://www.carmensteffens.com.br/',
+  verification_matcher: 'UA-25208798-1',
+  logo: 'http://www.carmensteffens.com.br/estilo/images/003/header-logo.jpg'
+)
+p "Carmen Steffens created? #{ carmensteffens.save }"
