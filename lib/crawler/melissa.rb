@@ -5,12 +5,7 @@ module Crawler
     acts_as_crawler
 
     def store
-      @store ||= Store.where(
-        name: 'Melissa',
-        url: 'http://lojamelissa.com.br',
-        start_url: 'http://lojamelissa.com.br',
-        verification_matcher: 'UA-1507369-1'
-      ).first_or_create
+      @store ||= Store.where(name: 'Melissa').first
     end
 
     def pages_urls(page)
@@ -54,7 +49,10 @@ module Crawler
 
     def parse_colors(options)
       title = options[:product_view].css('img').first.attr(:title)
-      title.match(/\(.*\)$/)[0].split('/').map do |color|
+      colors = title.match(/\(.*\)$/).first
+      colors = title.match(/\-(.*)$/).first unless colors
+      return unless colors
+      colors.split('/').map do |color|
         color.gsub(/\(|\)/, '').strip
       end
     end

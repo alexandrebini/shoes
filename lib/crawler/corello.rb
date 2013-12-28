@@ -5,12 +5,7 @@ module Crawler
     acts_as_crawler
 
     def store
-      @store ||= Store.where(
-        name: 'Corello',
-        url: 'http://shop.corello.com.br',
-        start_url: 'http://shop.corello.com.br/categoria/1/2/0/MaisRecente/Decrescente/60/1//0/0/.aspx',
-        verification_matcher: 'UA-26309255-1'
-      ).first_or_create
+      @store ||= Store.where(name: 'Corello').first
     end
 
     def pages_urls(page)
