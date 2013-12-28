@@ -9,13 +9,8 @@ module Crawler
     end
 
     def pages_urls(page)
-      total_pages = page.css('li.numbers a').last.text.to_i
-
-      Array.new.tap do |pages|
-        pages << store.start_url
-        2.upto(total_pages).each do |page|
-          pages << "#{ store.url }/categoria/1/2/0/MaisRecente/Decrescente/60/#{ page }//0/0/.aspx"
-        end
+      categories_urls(page).map do |category_url|
+        category_pages Nokogiri::HTML(open_url category_url)
       end
     end
 
@@ -27,17 +22,20 @@ module Crawler
 
     def parse_shoe(options)
       options[:product_view] = product_view(options)
-
-      Shoe.create(
+      shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
+      shoe.update_attributes({
         store: store,
         source_url: options[:url],
         name: parse_name(options[:page]),
         description: parse_description(options[:page]),
+        category_name: parse_category_name(options[:page]),
         price: parse_price(options[:page]),
+        category_name: parse_category_name(options[:page]),
         photos_urls: parse_photos(options[:page]),
         grid: parse_grid(options),
-        color_set: parse_colors(options)
-      )
+        color_set: parse_colors(options),
+        crawled_at: Time.now
+      })
     end
 
     def parse_name(page)
@@ -53,6 +51,13 @@ module Crawler
       page.css('#lblPrecoPor').text.scan(/\d+/).join.to_i
     end
 
+    def parse_category_name(page)
+      reject = %(home todos)
+      page.css('#breadcrumbs li a').map do |a|
+        a.text.strip unless reject.include?(a.text.strip.downcase)
+      end.join(' ')
+    end
+
     def parse_photos(page)
       url = page.css('#Zoom1').first.attr(:href)
       thumbs = page.css('ul.thumbs li img').map{ |r| r.attr(:src) }.compact.uniq
@@ -65,7 +70,7 @@ module Crawler
     end
 
     def parse_colors(options)
-      options[:product_view].css('li img').first.attr(:alt).split('/').map(&:strip)
+      options[:product_view].css('li a').first.attr(:title).split('/').map(&:strip)
     end
 
     def parse_grid(options)
@@ -75,6 +80,26 @@ module Crawler
     end
 
     private
+    def categories_urls(page)
+      crawl_categories = %w(sapatos sandálias sapatilhas peep\ toe botas)
+      page.css('#nav li a').map do |a|
+        if crawl_categories.include?(a.text.strip.downcase)
+          a.attr(:href)
+        end
+      end.compact.uniq
+    end
+
+    def category_pages(page)
+      total_pages = page.css('li.numbers a').last.text.to_i rescue 1
+      category_id = page.css('#CategoriaCodigo').first.attr(:value)
+
+      Array.new.tap do |pages|
+        1.upto(total_pages).each do |page|
+          pages << "http://shop.corello.com.br/categoria/1/#{ category_id }/0/MaisRecente/Decrescente/60/#{ page }//0/0/.aspx"
+        end
+      end
+    end
+
     def product_view(options)
       product_id = options[:page].css('meta[name="itemId"]').first.attr(:content)
 

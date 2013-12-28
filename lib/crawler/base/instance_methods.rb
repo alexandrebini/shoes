@@ -6,7 +6,8 @@ module Crawler
       @pages = []
       @pages_count = 0
       @pages_threads = []
-      @total = 0
+      @shoes_urls = []
+      @semaphore = Mutex.new
       @count = 0
       @threads_number = 20
 
@@ -14,11 +15,11 @@ module Crawler
       get_pages(page)
       finalize!
       self
-      puts "Done! #{ @count }/#{ @total }"
+      puts "Done! #{ @count }/#{ @shoes_urls.size }"
     end
 
     def get_pages(page)
-      @pages = send(self.crawler_options[:pages_urls], page).compact.uniq
+      @pages = send(self.crawler_options[:pages_urls], page).flatten.compact.uniq
 
       begin
         @pages.shuffle.each_slice(slice_size @pages).map do |pages_slice|
@@ -38,15 +39,17 @@ module Crawler
       rescue Exception => e
         p "\n #{ e }\n" + e.backtrace.join("\n")
         log "\nerror on crawling #{ url }. Trying again..."
+        log "#{ e }\n#{ e.backtrace.join("\n") }"
       end
     end
 
     def get_shoes(page, options={})
       links = send(self.crawler_options[:shoes_urls], page, options).compact.uniq
-      links -= Shoe.where('source_url in (?)', links).map(&:source_url)
+      @semaphore.synchronize do
+        links -= @shoes_urls
+        @shoes_urls += links
+      end
       return if links.size == 0
-
-      @total += links.size
 
       begin
         links.shuffle.each { |link| crawl_shoe(link) }
@@ -56,7 +59,7 @@ module Crawler
     end
 
     def crawl_shoe(url)
-      log "\ncrawling shoe #{ @count += 1 }/#{ @total } from #{ url }"
+      log "\ncrawling shoe #{ @count += 1 }/#{ @shoes_urls.size } from #{ url }"
       page = Nokogiri::HTML(open_url url)
       send(self.crawler_options[:parse_shoe], page: page, url: url)
     rescue Exception => e

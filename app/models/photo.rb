@@ -6,10 +6,10 @@ class Photo < ActiveRecord::Base
     path: ':rails_root/public/system/shoes/:id_partition/:basename_:style_:fingerprint.:extension',
     url: '/system/:attachment/shoes/:id_partition/:basename_:style_:fingerprint.:extension'
 
-  validates_presence_of :source_url
+  validates :source_url, uniqueness: true, presence: true
 
   # callbacks
-  # after_create :download_image
+  after_create :download_image
 
   # others
   def download_image
