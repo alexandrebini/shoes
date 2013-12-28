@@ -12,6 +12,7 @@ module Crawler
       @threads_number = 20
 
       page = Nokogiri::HTML(open_url send(self.crawler_options[:store]).start_url)
+      page.encoding = 'utf-8'
       get_pages(page)
       finalize!
       self
@@ -43,6 +44,7 @@ module Crawler
     end
 
     def get_shoes(page, options={})
+      page.encoding = 'utf-8'
       links = send(self.crawler_options[:shoes_urls], page, options).compact.uniq
       @semaphore.synchronize do
         links -= @shoes_urls
@@ -60,6 +62,7 @@ module Crawler
     def crawl_shoe(url)
       log "\ncrawling shoe #{ @count += 1 }/#{ @shoes_urls.size } from #{ url }"
       page = Nokogiri::HTML(open_url url)
+      page.encoding = 'utf-8'
       send(self.crawler_options[:parse_shoe], page: page, url: url)
     rescue Exception => e
       fail_log "\n#{ url }\t#{ e.to_s }\n#{ e.backtrace.join("\n") }"

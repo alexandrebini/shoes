@@ -1,0 +1,16 @@
+- name: 'Melissa'
+  url: 'http://lojamelissa.com.br'
+  start_url: 'http://lojamelissa.com.br'
+  verification_matcher: 'UA-1507369-1'
+  logo: 'http://lojamelissa.com.br/skin/frontend/default/melissa/images/logo.png'
+
+- name: 'Corello'
+  url: 'http://shop.corello.com.br'
+  start_url: 'http://shop.corello.com.br'
+  verification_matcher: 'UA-26309255-1'
+  logo: 'http://shop.corello.com.br/locales/global/img/logo.png'
+
+- name: 'Schutz'
+  url: 'http://loja.schutz.com.br'
+  start_url: 'http://loja.schutz.com.br'
+  verification_matcher: '955886807'

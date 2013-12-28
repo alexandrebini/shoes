@@ -3,6 +3,7 @@
 :queues:
   - corello
   - melissa
+  - schutz
   - [default, 2]
 development:
   :concurrency: 20

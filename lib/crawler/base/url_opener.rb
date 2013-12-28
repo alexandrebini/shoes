@@ -29,7 +29,6 @@ module Crawler
           end
         end
 
-
         # if does not work, try with proxy
         error_logger "\nlocalhost marked as denied. Trying with proxy...", options[:name], uri
         @denied_host = true
