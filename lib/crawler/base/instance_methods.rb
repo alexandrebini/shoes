@@ -18,7 +18,7 @@ module Crawler
     end
 
     def get_pages(page)
-      @pages = send(self.crawler_options[:pages_urls], page).compact.uniq
+      @pages = send(self.crawler_options[:pages_urls], page).flatten.compact.uniq
 
       begin
         @pages.shuffle.each_slice(slice_size @pages).map do |pages_slice|
