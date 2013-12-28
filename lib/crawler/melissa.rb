@@ -36,7 +36,8 @@ module Crawler
     end
 
     def create_shoe(options)
-      Shoe.create(
+      shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
+      shoe.update_attributes(
         store: store,
         category_name: parse_category_name(options),
         source_url: options[:url],
@@ -46,7 +47,8 @@ module Crawler
         photos_urls: parse_photos(options),
         grid: parse_grid(options[:page]),
         color_set: parse_colors(options),
-        brand_name_url: parse_brand(options[:page])
+        brand_name_url: parse_brand(options[:page]),
+        crawled_at: Time.now
       )
     end
 
