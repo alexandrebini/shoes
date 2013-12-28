@@ -8,6 +8,13 @@ class Photo < ActiveRecord::Base
 
   validates :source_url, uniqueness: true, presence: true
 
+  # scopes
+  scope :random, -> { order('RAND()') }
+  scope :downloading, -> { where(status: 'downloading') }
+  scope :downloaded, -> { where(status: 'downloaded') }
+  scope :pending, -> { where(status: 'pending') }
+  scope :recent, -> { order('wallpapers.created_at DESC') }
+
   # callbacks
   after_create :download_image
 
@@ -15,7 +22,7 @@ class Photo < ActiveRecord::Base
   def download_image
     self.status = 'downloading'
     self.save(validate: false)
-    worker.perform_async(id) if source_url
+    worker.perform_async(id) if source_url.present?
   end
 
   def downloading?

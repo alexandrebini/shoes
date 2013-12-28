@@ -60,11 +60,11 @@ module Crawler
 
     def parse_photos(page)
       url = page.css('#Zoom1').first.attr(:href)
-      thumbs = page.css('ul.thumbs li img').map{ |r| r.attr(:src) }.compact.uniq
       Array.new.tap do |photos|
         photos << url
-        1.upto(thumbs.size - 1).each do |thumb|
-          photos << url.gsub('Ampliada', "Ampliada#{ thumb }")
+        page.css('ul.thumbs li img').each do |img|
+          next if img.attr(:src).blank?
+          photos << img.attr(:src).gsub('Detalhes', 'Ampliada')
         end
       end
     end

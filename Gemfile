@@ -13,7 +13,6 @@ gem 'friendly_id', '5.0.2'
 gem 'nokogiri', '1.5.6'
 gem 'hidemyass', '0.2.0'
 gem 'sidekiq', '2.17.1'
-gem 'sidekiq-middleware', '0.1.4'
 gem 'settingslogic', '2.0.9'
 
 gem 'haml'
