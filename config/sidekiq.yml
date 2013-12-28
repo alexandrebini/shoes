@@ -1,6 +1,7 @@
 ---
 :pidfile: tmp/pids/sidekiq.pid
 :queues:
+  - corello
   - melissa
   - [default, 2]
 development:

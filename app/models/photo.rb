@@ -9,7 +9,7 @@ class Photo < ActiveRecord::Base
   validates_presence_of :source_url
 
   # callbacks
-  after_create :download_image
+  # after_create :download_image
 
   # others
   def download_image
