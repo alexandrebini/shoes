@@ -40,4 +40,12 @@ class Shoe < ActiveRecord::Base
     end
     self.colors.replace new_colors
   end
+
+  def category_name=name
+    self.category = Category.where(name: name.downcase).lock(true).first_or_create
+  end
+
+  def brand_set=brand
+    self.brand = Brand.where(brand).lock(true).first_or_create
+  end
 end

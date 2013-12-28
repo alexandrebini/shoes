@@ -34,14 +34,14 @@ module Crawler
     def crawl_page(url)
       log "\ncrawling a list of shoes #{ @pages_count += 1 }/#{ @pages.size } from #{ url }"
       begin
-        get_shoes Nokogiri::HTML(open_url url)
+        get_shoes Nokogiri::HTML(open_url url), referer: url
       rescue Exception => e
         log "\nerror on crawling #{ url }. Trying again..."
       end
     end
 
-    def get_shoes(page)
-      links = send(self.crawler_options[:shoes_urls], page).compact.uniq
+    def get_shoes(page, options={})
+      links = send(self.crawler_options[:shoes_urls], page, options).compact.uniq
       links -= Shoe.where('source_url in (?)', links).map(&:source_url)
       return if links.size == 0
 

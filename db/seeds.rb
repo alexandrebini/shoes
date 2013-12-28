@@ -1,3 +1,5 @@
+# Stores create
+
 melissa = Store.new(
   name: 'Melissa',
   url: 'http://lojamelissa.com.br',

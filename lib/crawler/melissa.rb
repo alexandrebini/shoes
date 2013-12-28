@@ -8,8 +8,8 @@ module Crawler
       @store ||= Store.where(name: 'Melissa').first
     end
 
-    def categories
-      @categories ||= { }
+    def shoes_categories
+      @shoes_categories ||= {}
     end
 
     def pages_urls(page)
@@ -18,23 +18,53 @@ module Crawler
       Array.new.tap do |pages|
         pages << store.start_url
         cats.each do |cat|
-          category = create_category(cat.attr(:title).downcase)
-          href = cat.attr(:href)
-          set_categories({url: href, category: category})
-          pages << href
+          shoes_categories[cat.attr(:href)] = {
+            name: cat.attr(:title),
+            shoes: []
+          }
+
+          pages << cat.attr(:href)
         end
       end
     end
 
-    def set_categories(options)
-      type = options.url.match(/arquetipo\=(.*)/).to_i
-      categories[type] = category
-    end
-
-    def shoes_urls(page)
+    def shoes_urls(page, options={})
       page.css('ul.products-grid li.item .product-name a').map do |a|
+        shoes_categories[options[:referer]][:shoes].push a.attr(:href)
         a.attr(:href)
       end
+    end
+
+    def create_shoe(options)
+      Shoe.create(
+        store: store,
+        category_name: parse_category_name(options),
+        source_url: options[:url],
+        name: parse_name(options),
+        description: parse_description(options[:page]),
+        price: parse_price(options[:page]),
+        photos_urls: parse_photos(options),
+        grid: parse_grid(options[:page]),
+        color_set: parse_colors(options),
+        brand_set: parse_brand(options[:page])
+      )
+    end
+
+    def parse_category_name(options)
+      shoes_categories.map do |category|
+        category.last[:name] if category.last[:shoes].include?(options[:url])
+      end.compact.first
+    end
+
+    def parse_brand(page)
+      link_brand = page.css('.sector_two_and_three .footer_treatment div a').last
+      image_src = page.css('div.logo a img').first.attr(:src)
+
+      {
+        name: link_brand.text,
+        url: link_brand.attr(:href)
+        logo: image_src
+      }
     end
 
     def parse_shoe(options)
@@ -53,21 +83,6 @@ module Crawler
 
     def parse_name(options)
       options[:product_view].css('img').first.attr(:title)
-    end
-
-    def parse_category_name(page)
-      category_name = page.css('.attribute-filter.estilo .item-filtered').text
-        .gsub('Excluir Este Item', '')
-      p '====================='
-      p '====================='
-      p '====================='
-      p '====================='
-
-      p page
-      p '====================='
-      p '====================='
-      p '====================='
-      categories[category_name.downcase]
     end
 
     def parse_description(page)
@@ -103,26 +118,6 @@ module Crawler
     end
 
     private
-    def create_shoe(options)
-      Shoe.create(
-        store: store,
-        category: parse_category_name(options[:page]),
-        source_url: options[:url],
-        name: parse_name(options),
-        description: parse_description(options[:page]),
-        price: parse_price(options[:page]),
-        photos_urls: parse_photos(options),
-        grid: parse_grid(options[:page]),
-        color_set: parse_colors(options)
-      )
-    end
-
-    def create_category(name)
-      Category.where(
-        name: name
-      ).first_or_create
-    end
-
     def product_view(options)
       uri = URI('http://lojamelissa.com.br/ajaxrequests/ProductView/productBlocks')
       res = Net::HTTP.post_form(uri, productId: options[:product_id], parentId: options[:parent_id])
