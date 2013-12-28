@@ -17,6 +17,7 @@ module Crawler
 
       Array.new.tap do |pages|
         pages << store.start_url
+
         cats.each do |cat|
           shoes_categories[cat.attr(:href)] = {
             name: cat.attr(:title),
@@ -90,13 +91,13 @@ module Crawler
     end
 
     def parse_photos(options)
-      [options[:product_view].css('img').first.attr(:src)]
+      [options[:product_view].css('img').first.attr(:src).gsub(/\/450x330/, '')]
     end
 
     def parse_colors(options)
       title = options[:product_view].css('img').first.attr(:title)
-      colors = title.match(/\(.*\)$/).to_a.first
-      colors = title.match(/\-(.*)$/).to_a.first unless colors
+      colors = title.match(/\(.*\)/).to_a.first
+      colors = title.match(/\-(.*)/).to_a.first unless colors
       return unless colors
       colors.split('/').map do |color|
         color.gsub(/\(|\)/, '').strip
