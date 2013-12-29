@@ -14,6 +14,7 @@ module Crawler
 
     def pages_urls(page)
       categories_urls(page).map do |category_url|
+        p category_colors(Nokogiri::HTML(open category_url))
         category_colors(Nokogiri::HTML(open category_url))
       end
     end
@@ -102,7 +103,7 @@ module Crawler
     end
 
     def category_colors(page)
-      colors = page.css('ul#menu_59 li.filtroTamanhos a img')
+      colors = page.css('ul.containerN1 li.containerN2 ul li.filtroTamanhos a img')
       categories[category_name(page: page)] = []
 
       colors.map do |color|
@@ -113,6 +114,7 @@ module Crawler
           referer: url,
           shoes: []
         }
+        p url
         category_pages Nokogiri::HTML(open url)
       end
     end
