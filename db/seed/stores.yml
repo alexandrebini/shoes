@@ -14,3 +14,9 @@
   url: 'http://loja.schutz.com.br'
   start_url: 'http://loja.schutz.com.br'
   verification_matcher: '955886807'
+
+- name: 'CarmenSteffens'
+  url: 'http://www.carmensteffens.com.br'
+  start_url: 'http://www.carmensteffens.com.br'
+  verification_matcher: 'UA-25208798-1'
+  logo: 'http://www.carmensteffens.com.br/produto/AnabelaFucsiaCarmenSteffens/estilo/images/003/header-logo.jpg'

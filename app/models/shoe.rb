@@ -32,6 +32,7 @@ class Shoe < ActiveRecord::Base
     new_numerations = numerations.compact.uniq.map do |numeration|
       self.numerations.where(number: numeration).first_or_initialize
     end
+    p new_numerations
     self.numerations.replace new_numerations
   end
 
@@ -39,6 +40,7 @@ class Shoe < ActiveRecord::Base
     new_colors = colors.compact.uniq.map do |color|
       Color.where(name: color).lock(true).first_or_initialize
     end
+    p new_colors
     self.colors.replace new_colors
   end
 

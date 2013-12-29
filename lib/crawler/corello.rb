@@ -28,7 +28,6 @@ module Crawler
         source_url: options[:url],
         name: parse_name(options[:page]),
         description: parse_description(options[:page]),
-        category_name: parse_category_name(options[:page]),
         price: parse_price(options[:page]),
         category_name: parse_category_name(options[:page]),
         photos_urls: parse_photos(options[:page]),
