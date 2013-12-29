@@ -3,6 +3,7 @@ class CreateCategories < ActiveRecord::Migration
     create_table :categories, options: 'engine=MyISAM DEFAULT CHARSET=utf8' do |t|
       t.string :name
       t.string :slug
+      t.text :matchers
       t.timestamps
     end
     add_index :categories, :name, unique: true

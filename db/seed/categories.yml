@@ -1,14 +1,24 @@
-- name: Ankles
 - name: Anabelas
+- name: Ankles
 - name: Botas
+  matchers:
+    - botum
 - name: Creepers
 - name: Espadrilles
-- name: Essentials
-- name: Flats
-- name: Mocassins
 - name: Peep Toes
+  matchers:
+    - peep toe
+    - peep-toe
+    - peep to
+    - peep tos
+    - peep-tos
 - name: Sandálias
-- name: Sapatilhas
+  matchers:
+    - sandálium
 - name: Sapatos
+  matchers:
+    - salto alto
+    - salto baixo
+    - salto medio
 - name: Scarpins
 - name: Splipper

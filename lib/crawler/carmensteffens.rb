@@ -90,7 +90,7 @@ module Crawler
     private
     def category_name(options)
       selector = options[:selector] || '#menu h3 a'
-      options[:page].css(selector).text.gsub(/\s/, '').downcase
+      options[:page].css(selector).text.gsub(/\s/, '').mb_chars.downcase
     end
 
     def categories_urls(page)

@@ -47,14 +47,16 @@ module Crawler
     end
 
     def parse_price(page)
-      page.css('#lblPrecoPor').text.scan(/\d+/).join.to_i
+      page.css('script').text.match(/Pvalues\s\:\s\[.*\]/).to_s.scan(/\d+/).join.to_i
     end
 
     def parse_category_name(page)
       reject = %(home todos)
-      page.css('#breadcrumbs li a').map do |a|
-        a.text.strip unless reject.include?(a.text.strip.downcase)
+      name = page.css('#breadcrumbs li a').map do |a|
+        name = a.text.strip.mb_chars.downcase
+        name unless reject.include?(name)
       end.join(' ')
+      Category.against(name) || name
     end
 
     def parse_photos(page)
@@ -81,7 +83,7 @@ module Crawler
     private
     def categories_urls(page)
       page.css('#nav li a').map do |a|
-        if Category.all_names.include?(a.text.strip.downcase)
+        if Category.against(a.text.strip.mb_chars.downcase)
           a.attr(:href)
         end
       end.compact.uniq

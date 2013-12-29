@@ -14,6 +14,12 @@ class Shoe < ActiveRecord::Base
   validates :name, presence: true
   validates :source_url, presence: true
 
+  scope :available, -> { joins(:numerations).uniq }
+
+  def available?
+    numerations.present?
+  end
+
   def price=value
     unless prices.last && prices.last.value == value
       self.prices.build(value: value)
@@ -32,25 +38,23 @@ class Shoe < ActiveRecord::Base
     new_numerations = numerations.compact.uniq.map do |numeration|
       self.numerations.where(number: numeration).first_or_initialize
     end
-    p new_numerations
     self.numerations.replace new_numerations
   end
 
   def color_set=colors
     new_colors = colors.compact.uniq.map do |color|
-      Color.where(name: color).lock(true).first_or_initialize
+      Color.where(name: color.mb_chars.titleize).lock(true).first_or_initialize
     end
-    p new_colors
     self.colors.replace new_colors
   end
 
   def category_name=name
-    self.category = Category.where(name: name.titleize.pluralize).lock(true).first_or_create
+    self.category = Category.where(name: name.mb_chars.titleize.pluralize).lock(true).first_or_create
   end
 
   def brand_name_url=options
     self.brand = Brand.where(
-      name: options[:name].downcase,
+      name: options[:name].mb_chars.downcase,
       url: options[:url]).lock(true).first_or_create
   end
 end

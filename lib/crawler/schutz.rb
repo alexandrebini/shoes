@@ -40,7 +40,7 @@ module Crawler
     end
 
     def parse_name(page)
-      page.css('h1.titProduto').text.strip.titleize
+      page.css('h1.titProduto').text.strip.mb_chars.titleize
     end
 
     def parse_description(page)
@@ -49,17 +49,12 @@ module Crawler
     end
 
     def parse_price(page)
-      page.css('#spanPrecoPor').text.scan(/\d+/).join.to_i
+      page.css('script').text.match(/Pvalues\s\:\s\[.*\]/).to_s.scan(/\d+/).join.to_i
     end
 
     def parse_category_name(page)
-      # name = page.css('h1.titProduto').text.strip.downcase.force_encoding('iso-8859-1').encode('utf-8')
-      name = page.css('meta[name="itemName"]').first.attr(:content).downcase
-      Category.all_names.each do |category_name|
-        puts "#{ name } matchs #{ category_name }? : #{ name.match(category_name).present? }"
-        return category_name if name.match(category_name)
-      end
-      name.split(' ').first
+      name = page.css('h1.titProduto').text.strip.mb_chars.downcase
+      Category.against(name) || name.split(' ').first
     end
 
     def parse_photos(page)
@@ -86,7 +81,7 @@ module Crawler
     private
     def categories_urls(page)
       page.css('.mnu1 ul.submenu li a').map do |a|
-        if Category.all_names.include?(a.text.strip.downcase)
+        if Category.against(a.text.strip.mb_chars.downcase)
           a.attr(:href)
         end
       end.compact.uniq

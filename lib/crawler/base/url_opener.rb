@@ -21,13 +21,7 @@ module Crawler
           body = open_url_without_proxy(uri, options)
         end
 
-        if body.present?
-          if options[:image]
-            return body
-          else
-            return body.force_encoding('utf-8')
-          end
-        end
+        return body
 
         # if does not work, try with proxy
         error_logger "\nlocalhost marked as denied. Trying with proxy...", options[:name], uri
@@ -131,13 +125,13 @@ module Crawler
         @proxy_list = []
 
         # source: http://www.hidemyass.com/
-        begin
-          HideMyAss.proxies.each do |proxy|
-            @proxy_list << URI.parse("http://#{ proxy[:host] }:#{ proxy[:port] }")
-          end
-        rescue
-          error_logger "\nunable to fetch HideMyAss"
-        end
+        # begin
+        #   HideMyAss.proxies.each do |proxy|
+        #     @proxy_list << URI.parse("http://#{ proxy[:host] }:#{ proxy[:port] }")
+        #   end
+        # rescue
+        #   error_logger "\nunable to fetch HideMyAss"
+        # end
 
         # source: http://www.checkedproxylists.com/
         CSV.open("#{ Rails.root }/config/proxylist.csv", col_sep: ';').each do |row|
