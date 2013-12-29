@@ -1,11 +1,12 @@
 module Crawler
-  class Corello
+  class Schutz
     extend Crawler::ActMacro
 
     acts_as_crawler
 
     def store
-      @store ||= Store.where(name: 'Corello').first
+      # this site is almost the same of Corello.
+      @store ||= Store.where(name: 'Schutz').first
     end
 
     def pages_urls(page)
@@ -15,7 +16,7 @@ module Crawler
     end
 
     def shoes_urls(page, options={})
-      page.css('a[rel="product"]').map do |a|
+      page.css('.prodName a').map do |a|
         a.attr(:href)
       end
     end
@@ -39,30 +40,33 @@ module Crawler
     end
 
     def parse_name(page)
-      page.css('h1.name').text.strip
+      page.css('h1.titProduto').text.strip.titleize
     end
 
     def parse_description(page)
-      divs = page.css('#description').children[2..-1]
-      return divs.map(&:text).join("\n").strip if divs.present?
+      description = page.css('p.textDescricao').first
+      return description.text.strip if description
     end
 
     def parse_price(page)
-      page.css('#lblPrecoPor').text.scan(/\d+/).join.to_i
+      page.css('#spanPrecoPor').text.scan(/\d+/).join.to_i
     end
 
     def parse_category_name(page)
-      reject = %(home todos)
-      page.css('#breadcrumbs li a').map do |a|
-        a.text.strip unless reject.include?(a.text.strip.downcase)
-      end.join(' ')
+      # name = page.css('h1.titProduto').text.strip.downcase.force_encoding('iso-8859-1').encode('utf-8')
+      name = page.css('meta[name="itemName"]').first.attr(:content).downcase
+      Category.all_names.each do |category_name|
+        puts "#{ name } matchs #{ category_name }? : #{ name.match(category_name).present? }"
+        return category_name if name.match(category_name)
+      end
+      name.split(' ').first
     end
 
     def parse_photos(page)
       url = page.css('#Zoom1').first.attr(:href)
       Array.new.tap do |photos|
         photos << url
-        page.css('ul.thumbs li img').each do |img|
+        page.css('ul.lstThumbs li img').each do |img|
           next if img.attr(:src).blank?
           photos << img.attr(:src).gsub('Detalhes', 'Ampliada')
         end
@@ -70,18 +74,18 @@ module Crawler
     end
 
     def parse_colors(options)
-      options[:product_view].css('li a').first.attr(:title).split('/').map(&:strip)
+      options[:product_view].css('img.thumb').first.attr(:alt).split('/').map(&:strip)
     end
 
     def parse_grid(options)
-      options[:product_view].css('ul li.select a').map do |a|
+      options[:product_view].css('.thumb_off a').map do |a|
         a.text.to_i if a.text.present?
       end
     end
 
     private
     def categories_urls(page)
-      page.css('#nav li a').map do |a|
+      page.css('.mnu1 ul.submenu li a').map do |a|
         if Category.all_names.include?(a.text.strip.downcase)
           a.attr(:href)
         end
@@ -89,17 +93,17 @@ module Crawler
     end
 
     def category_pages(page)
-      total_pages = page.css('li.numbers a').last.text.to_i rescue 1
+      total_pages = page.css('.barra_paginacao a').map{ |r| r.text.to_i }.max rescue 1
       category_id = page.css('#CategoriaCodigo').first.attr(:value)
 
       Array.new.tap do |pages|
         1.upto(total_pages).each do |page|
-          pages << "http://shop.corello.com.br/categoria/1/#{ category_id }/0/MaisRecente/Decrescente/60/#{ page }//0/0/.aspx"
+          pages << "#{ store.url }/cat/#{ category_id }/0/MaisRecente/Decrescente/20/2////.aspx"
         end
       end
     end
 
-    def product_view(options)
+   def product_view(options)
       product_id = options[:page].css('meta[name="itemId"]').first.attr(:content)
 
       # We need 2 call to do it.
@@ -114,7 +118,7 @@ module Crawler
     end
 
     def api_call(method, body, shoe_url)
-      api_url = "#{ store.url }/ajaxpro/IKCLojaMaster.detalhes,Corello.ashx"
+      api_url = "#{ store.url }/ajaxpro/IKCLojaMaster.detalhes,Schutz.ashx"
       api_uri = URI.parse(api_url)
       shoe_uri = URI.parse(shoe_url)
 

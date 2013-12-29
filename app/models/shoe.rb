@@ -43,7 +43,7 @@ class Shoe < ActiveRecord::Base
   end
 
   def category_name=name
-    self.category = Category.where(name: name.downcase).lock(true).first_or_create
+    self.category = Category.where(name: name.titleize.pluralize).lock(true).first_or_create
   end
 
   def brand_name_url=options
