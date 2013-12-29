@@ -3,6 +3,7 @@
 - name: Botas
   matchers:
     - botum
+    - boots
 - name: Creepers
 - name: Espadrilles
 - name: Peep Toes
@@ -20,5 +21,6 @@
     - salto alto
     - salto baixo
     - salto medio
+    - low
 - name: Scarpins
 - name: Splipper

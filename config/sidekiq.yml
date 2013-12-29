@@ -1,7 +1,9 @@
 ---
 :pidfile: tmp/pids/sidekiq.pid
 :queues:
+  - carmensteffens
   - corello
+  - louloux
   - melissa
   - schutz
   - [default, 2]

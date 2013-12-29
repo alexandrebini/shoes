@@ -9,7 +9,8 @@ module Crawler
       @shoes_urls = []
       @semaphore = Mutex.new
       @count = 0
-      @threads_number = 20
+      @threads_number ||= 20
+      @sleep_time ||= 0
 
       page = Nokogiri::HTML open_url(send(self.crawler_options[:store]).start_url), nil, 'utf-8'
       get_pages(page)
@@ -77,6 +78,7 @@ module Crawler
         name: self.store.slug
       }
       options.merge!(default_options)
+      sleep @sleep_time
       Crawler::UrlOpener.instance.open_url(url, options)
     end
 

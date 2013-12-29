@@ -2,6 +2,11 @@ module Crawler
   class UrlOpener
     include Singleton
 
+    def initialize
+      @semaphore = Mutex.new
+      @cookies = {}
+    end
+
     def open_url(url, options={})
       uri = URI.parse(url)
       options = { max_attempts: 10, proxy: false }.merge(options)
@@ -67,11 +72,13 @@ module Crawler
     end
 
     def response_is_valid?(http, uri, options={})
-      attempts = 0
-      request = Net::HTTP::Get.new(uri.request_uri)
-      request.initialize_http_header({ "User-Agent" => user_agent })
-      response = http.request(request)
-      http.finish
+      response = if @cookies[uri.host]
+        do_request(http, uri)
+      else
+        @semaphore.synchronize do
+          do_request(http, uri)
+        end
+      end
 
       case
       when [301, 302].include?(response.code.to_i) && response['location'] && response['location'] != uri.to_s
@@ -81,6 +88,26 @@ module Crawler
       else
         return nil
       end
+    end
+
+    def do_request(http, uri)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      @cookies[uri.host] ||= []
+
+      request.initialize_http_header({
+        'User-Agent' => user_agent,
+        'Cookie' => @cookies[uri.host].join(';')
+      })
+
+      puts "#headers"
+      request.each_header do |header_name, header_value|
+        puts "#{header_name} : #{header_value}"
+      end
+
+      response = http.request(request)
+      @cookies[uri.host] << response['Set-Cookie']
+      http.finish
+      return response
     end
 
     def body_is_valid?(response, uri, options={})
@@ -123,15 +150,6 @@ module Crawler
         error_logger "\nGetting a new proxy list..."
         @denied_proxies = []
         @proxy_list = []
-
-        # source: http://www.hidemyass.com/
-        # begin
-        #   HideMyAss.proxies.each do |proxy|
-        #     @proxy_list << URI.parse("http://#{ proxy[:host] }:#{ proxy[:port] }")
-        #   end
-        # rescue
-        #   error_logger "\nunable to fetch HideMyAss"
-        # end
 
         # source: http://www.checkedproxylists.com/
         CSV.open("#{ Rails.root }/config/proxylist.csv", col_sep: ';').each do |row|
