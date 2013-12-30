@@ -92,11 +92,11 @@ module Crawler
 
     def do_request(http, uri)
       request = Net::HTTP::Get.new(uri.request_uri)
-      @cookies[uri.host] ||= []
+      @cookies[uri.host] ||= {}
 
       request.initialize_http_header({
         'User-Agent' => user_agent,
-        'Cookie' => @cookies[uri.host].join(';')
+        'Cookie' => @cookies[uri.host].map{ |key, value| "#{ key }=#{ value }" }.join(';')
       })
 
       puts "#headers"
@@ -105,7 +105,12 @@ module Crawler
       end
 
       response = http.request(request)
-      @cookies[uri.host] << response['Set-Cookie']
+      if response['Set-Cookie'].present?
+        response['Set-Cookie'].split(';').map do |cookie|
+          key, value = cookie.split('=')
+          @cookies[uri.host][key] = value
+        end
+      end
       http.finish
       return response
     end
