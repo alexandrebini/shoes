@@ -25,29 +25,4 @@ namespace :crawler do
       shoe.download_image
     end
   end
-
-  desc 'import Carmensteffens'
-  task carmensteffens: :environment do
-    Crawler::Carmensteffens.start!
-  end
-
-  desc 'import Corello'
-  task corello: :environment do
-    Crawler::Corello.start!
-  end
-
-  desc 'import Louloux'
-  task louloux: :environment do
-    Crawler::Louloux.start!
-  end
-
-  desc 'import Melissa'
-  task melissa: :environment do
-    Crawler::Melissa.start!
-  end
-
-  desc 'import Schutz'
-  task schutz: :environment do
-    Crawler::Schutz.start!
-  end
 end

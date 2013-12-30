@@ -32,16 +32,16 @@ module Crawler
     def shoes_urls(page, options={})
       page.css('ul.products-grid li.item .product-name a').map do |a|
         shoes_categories[options[:referer]][:shoes].push a.attr(:href)
-        "#{ a.attr(:href) }##{}"
+        a.attr(:href)
       end
     end
 
     def create_shoe(options)
-      shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
+      shoe = Shoe.where(source_url: parse_source_url(options)).lock(true).first_or_initialize
       shoe.update_attributes(
         store: store,
         category_name: parse_category_name(options),
-        source_url: source_url_concat_color(options),
+        source_url: parse_source_url(options),
         name: parse_name(options),
         description: parse_description(options[:page]),
         price: parse_price(options[:page]),
@@ -114,7 +114,7 @@ module Crawler
       end
     end
 
-    def source_url_concat_color(options)
+    def parse_source_url(options)
       "#{ options[:url] }/##{ parse_colors(options).fisrt }"
     end
 
