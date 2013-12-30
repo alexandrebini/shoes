@@ -48,11 +48,11 @@ module Crawler
     end
 
     def parse_name(page)
-      page.css('h1').text.strip
+      page.css('h1').text.strip.mb_chars.titleize
     end
 
     def parse_description(page)
-      page.css('.description.summary').text.strip
+      page.css('.description.summary').text.strip.humanize
     end
 
     def parse_price(page)
