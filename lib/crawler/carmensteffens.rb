@@ -34,7 +34,6 @@ module Crawler
       shoe.update_attributes({
         store: store,
         source_url: options[:url],
-        available: parse_grid(options[:page]).blank?,
         name: parse_name(options[:page]),
         description: parse_description(options[:page]),
         price: parse_price(options[:page]),
@@ -93,8 +92,7 @@ module Crawler
     end
 
     def categories_urls(page)
-      # remover eq
-      page.css('.cat-menu .holder ul li:eq(2) ul#subMenu:first li a:eq(1)').map do |a|
+      page.css('.cat-menu .holder ul li:eq(2) ul#subMenu:first li a').map do |a|
         if Category.against(a.text.strip.force_encoding('iso-8859-1').encode('utf-8').mb_chars.downcase)
           a.attr(:href)
         end
