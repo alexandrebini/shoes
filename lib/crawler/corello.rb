@@ -52,7 +52,9 @@ module Crawler
 
     def parse_category_name(page)
       reject = %(home todos)
-      name = page.css('#breadcrumbs li a').map do |a|
+      links = page.css('#breadcrumbs li a')
+      links = page.css('#breadcrumbs li strong') if links.size == 1
+      name = links.map do |a|
         name = a.text.strip.mb_chars.downcase
         name unless reject.include?(name)
       end.join(' ')
