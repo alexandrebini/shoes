@@ -106,8 +106,10 @@ module Crawler
 
       response = http.request(request)
       if response['Set-Cookie'].present?
-        response['Set-Cookie'].split(';').map do |cookie|
-          key, value = cookie.split('=')
+        ignore_keys = %w(expires path)
+        response['Set-Cookie'].split(';').each do |cookie|
+          key, value = cookie.split('=').map(&:strip)
+          next if ignore_keys.include?(key)
           @cookies[uri.host][key] = value
         end
       end

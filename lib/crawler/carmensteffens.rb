@@ -4,6 +4,12 @@ module Crawler
 
     acts_as_crawler
 
+    def initialize
+      super
+      @threads_number = 10
+      @sleep_time = 5
+    end
+
     def store
       @store ||= Store.where(name: 'CarmenSteffens').first
     end

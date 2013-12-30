@@ -5,6 +5,7 @@ module Crawler
     acts_as_crawler
 
     def initialize
+      super
       @threads_number = 2
       @sleep_time = 5
     end
