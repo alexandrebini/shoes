@@ -16,7 +16,7 @@ class Photo < ActiveRecord::Base
   scope :recent, -> { order('wallpapers.created_at DESC') }
 
   # callbacks
-  # after_create :download_image
+  after_create :download_image
 
   # others
   def download_image
