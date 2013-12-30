@@ -14,7 +14,6 @@ module Crawler
 
     def pages_urls(page)
       categories_urls(page).map do |category_url|
-        p category_colors(Nokogiri::HTML(open category_url))
         category_colors(Nokogiri::HTML(open category_url))
       end
     end
@@ -36,8 +35,8 @@ module Crawler
         store: store,
         source_url: options[:url],
         available: parse_grid(options[:page]).blank?,
-        name: parse_name(options[:page]).force_encoding('iso-8859-1').encode('utf-8'),
-        description: parse_description(options[:page]).force_encoding('iso-8859-1').encode('utf-8'),
+        name: parse_name(options[:page]),
+        description: parse_description(options[:page]),
         price: parse_price(options[:page]),
         category_name: parse_category_name(options[:page]),
         photos_urls: parse_photos(options[:page]),
@@ -90,13 +89,13 @@ module Crawler
     private
     def category_name(options)
       selector = options[:selector] || '#menu h3 a'
-      options[:page].css(selector).text.gsub(/\s/, '').mb_chars.downcase
+      options[:page].css(selector).text.gsub(/\s/, '').mb_chars.downcase.to_s
     end
 
     def categories_urls(page)
-      crawl_categories = %w(anabelas botas chinelos peep\ toes rasteiras sandÁlias sapatilhas scarpins slippers sneakers tamancos tênis\ casual)
-      page.css('.cat-menu .holder ul li ul#subMenu:first li a').map do |a|
-        if crawl_categories.include?(a.text.force_encoding('iso-8859-1').encode('utf-8').strip.downcase)
+      # remover eq
+      page.css('.cat-menu .holder ul li:eq(2) ul#subMenu:first li a:eq(1)').map do |a|
+        if Category.against(a.text.strip.force_encoding('iso-8859-1').encode('utf-8').mb_chars.downcase)
           a.attr(:href)
         end
       end.compact.uniq
@@ -104,17 +103,23 @@ module Crawler
 
     def category_colors(page)
       colors = page.css('ul.containerN1 li.containerN2 ul li.filtroTamanhos a img')
-      categories[category_name(page: page)] = []
+      category_name = category_name(page: page)
+      categories[category_name] = []
+      block_color_list = {
+        'botas' => ['Branco'],
+        'peeptoes' => ['Off White']
+      }
 
       colors.map do |color|
+        next if block_color_list.has_key?(category_name) && block_color_list[category_name].include?(color.attr('alt'))
         category_id = page.css('span.paginacao:not(.seta) a').first.attr('href').match(/\/departamento\/(.*\d+)\//)[1].to_i
         url = "http://www.carmensteffens.com.br/departamento/#{ category_id }/cor/#{ color.attr('src').match(/\d+/).to_a.join }"
-        categories[category_name(page: page)] << {
+        categories[category_name] << {
           color_name: color.attr('alt'),
           referer: url,
           shoes: []
         }
-        p url
+
         category_pages Nokogiri::HTML(open url)
       end
     end
