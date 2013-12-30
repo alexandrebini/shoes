@@ -20,7 +20,8 @@ module Crawler
 
     def pages_urls(page)
       categories_urls(page).map do |category_url|
-        category_colors(Nokogiri::HTML(open category_url))
+        p category_url
+        category_colors(Nokogiri::HTML(open_url(category_url), nil, 'utf-8'))
       end
     end
 
@@ -52,11 +53,11 @@ module Crawler
     end
 
     def parse_name(page)
-      page.css('.basic-info h2').text.force_encoding('iso-8859-1').encode('utf-8').mb_chars
+      page.css('.basic-info h2').text.strip.mb_chars
     end
 
     def parse_description(page)
-      page.css('span.description').text.force_encoding('iso-8859-1').encode('utf-8').mb_chars
+      page.css('span.description').text.strip.mb_chars
     end
 
     def parse_price(page)
@@ -94,13 +95,13 @@ module Crawler
     private
     def category_name(options)
       selector = options[:selector] || '#menu h3 a'
-      options[:page].css(selector).text.gsub(/\s/, '')
-        .force_encoding('iso-8859-1').encode('utf-8').mb_chars.downcase.to_s
+      options[:page].css(selector).text
+        .force_encoding('iso-8859-1').encode('utf-8').gsub(/\s/, '').mb_chars.downcase.to_s
     end
 
     def categories_urls(page)
       page.css('.cat-menu .holder ul li:eq(2) ul#subMenu:first li a').map do |a|
-        if Category.against(a.text.strip.force_encoding('iso-8859-1').encode('utf-8').mb_chars.downcase)
+        if Category.against(a.text.force_encoding('iso-8859-1').encode('utf-8').strip.mb_chars.downcase)
           a.attr(:href)
         end
       end.compact.uniq
@@ -125,7 +126,7 @@ module Crawler
           shoes: []
         }
 
-        category_pages Nokogiri::HTML(open url)
+        category_pages Nokogiri::HTML(open_url(url), nil, 'utf-8')
       end
     end
 
