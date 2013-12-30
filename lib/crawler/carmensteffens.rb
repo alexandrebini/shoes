@@ -6,7 +6,7 @@ module Crawler
 
     def initialize
       super
-      @sleep_time = 2
+      @sleep_time = 1
       @threads_number = 1
     end
 

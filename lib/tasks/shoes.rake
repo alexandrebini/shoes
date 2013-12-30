@@ -3,7 +3,7 @@ namespace :shoes do
   task status: :environment do
     include ActionView::Helpers::NumberHelper
     stores = Store.all.sort_by{ |r| r.shoes.downloaded.count }.reverse
-    stores.each do |source|
+    stores.each do |store|
       downloaded = "downloaded: #{ number_with_delimiter store.shoes.downloaded.count }"
       downloading = "downloading: #{ number_with_delimiter store.shoes.downloading.count }"
       pending = "pending: #{ number_with_delimiter store.shoes.pending.count }"

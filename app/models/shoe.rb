@@ -15,6 +15,10 @@ class Shoe < ActiveRecord::Base
   validates :source_url, presence: true
 
   scope :available, -> { joins(:numerations).uniq }
+  scope :random, -> { order('RAND()') }
+  scope :downloading, -> { joins(:photos).where(photos: { status: 'downloading' }).uniq }
+  scope :downloaded, -> { joins(:photos).where(photos: { status: 'downloaded' }).uniq }
+  scope :pending, -> { joins(:photos).where(photos: { status: 'pending' }).uniq }
 
   def available?
     numerations.present?
