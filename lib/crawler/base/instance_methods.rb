@@ -1,16 +1,20 @@
 module Crawler
   module InstanceMethods
-    def start!
+
+    def initialize
       Thread.abort_on_exception = true
 
+      @semaphore = Mutex.new
+      @threads_number ||= 20
+      @sleep_time ||= 0
+    end
+
+    def start!
       @pages = []
       @pages_count = 0
       @pages_threads = []
       @shoes_urls = []
-      @semaphore = Mutex.new
       @count = 0
-      @threads_number ||= 20
-      @sleep_time ||= 0
 
       page = Nokogiri::HTML open_url(send(self.crawler_options[:store]).start_url), nil, 'utf-8'
       get_pages(page)
