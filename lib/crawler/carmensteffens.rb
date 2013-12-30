@@ -6,7 +6,8 @@ module Crawler
 
     def initialize
       super
-      @sleep_time = 5
+      @sleep_time = 2
+      @threads_number = 1
     end
 
     def store
@@ -19,7 +20,6 @@ module Crawler
 
     def pages_urls(page)
       categories_urls(page).map do |category_url|
-        p category_url
         category_colors(Nokogiri::HTML(open_url(category_url), nil, 'utf-8'))
       end
     end
@@ -52,11 +52,11 @@ module Crawler
     end
 
     def parse_name(page)
-      page.css('.basic-info h2').text.strip.mb_chars
+      page.css('.basic-info h2').text.force_encoding('iso-8859-1').encode('utf-8').strip.mb_chars
     end
 
     def parse_description(page)
-      page.css('span.description').text.strip.mb_chars
+      page.css('span.description').text.force_encoding('iso-8859-1').encode('utf-8').strip.mb_chars
     end
 
     def parse_price(page)
