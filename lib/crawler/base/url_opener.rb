@@ -99,11 +99,6 @@ module Crawler
         'Cookie' => @cookies[uri.host].map{ |key, value| "#{ key }=#{ value }" }.join(';')
       })
 
-      puts "#headers"
-      request.each_header do |header_name, header_value|
-        puts "#{header_name} : #{header_value}"
-      end
-
       response = http.request(request)
       if response['Set-Cookie'].present?
         ignore_keys = %w(expires path)

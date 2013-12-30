@@ -20,7 +20,7 @@ module Crawler
       get_pages(page)
       finalize!
       self
-      puts "Done! #{ @count }/#{ @shoes_urls.size }"
+      puts "#{ send(self.crawler_options[:store]).name } Done! #{ @count }/#{ @shoes_urls.size }"
     end
 
     def get_pages(page)
