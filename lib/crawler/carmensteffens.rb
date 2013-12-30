@@ -46,11 +46,11 @@ module Crawler
     end
 
     def parse_name(page)
-      page.css('.basic-info h2').text
+      page.css('.basic-info h2').text.force_encoding('iso-8859-1').encode('utf-8').mb_chars
     end
 
     def parse_description(page)
-      page.css('span.description').text
+      page.css('span.description').text.force_encoding('iso-8859-1').encode('utf-8').mb_chars
     end
 
     def parse_price(page)
