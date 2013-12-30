@@ -52,7 +52,7 @@ module Crawler
     end
 
     def parse_name(page)
-      page.css('.basic-info h2').text.force_encoding('iso-8859-1').encode('utf-8').strip.mb_chars
+      page.css('.basic-info h2').first.text.force_encoding('iso-8859-1').encode('utf-8').strip.mb_chars
     end
 
     def parse_description(page)
