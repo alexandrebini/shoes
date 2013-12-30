@@ -88,7 +88,8 @@ module Crawler
     private
     def category_name(options)
       selector = options[:selector] || '#menu h3 a'
-      options[:page].css(selector).text.gsub(/\s/, '').mb_chars.downcase.to_s
+      options[:page].css(selector).text.gsub(/\s/, '')
+        .force_encoding('iso-8859-1').encode('utf-8').mb_chars.downcase.to_s
     end
 
     def categories_urls(page)
