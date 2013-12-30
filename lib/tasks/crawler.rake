@@ -1,15 +1,22 @@
-require "#{ Rails.root }/lib/crawler/crawler"
-
 namespace :crawler do
   desc 'import all shoes'
   task start: :environment do
-    [
-      Thread.new{ Crawler::Carmensteffens.start! },
-      Thread.new{ Crawler::Corello.start! },
-      Thread.new{ Crawler::Louloux.start! },
-      Thread.new{ Crawler::Melissa.start! },
-      Thread.new{ Crawler::Schutz.start! }
-    ].each(&:join)
+    klasses = [
+      Crawler::Carmensteffens,
+      Crawler::Corello,
+      Crawler::Louloux,
+      Crawler::Melissa,
+      Crawler::Schutz
+    ]
+    pids = klasses.map do |klass|
+      Process.fork do
+        puts "Starting: #{ klass }"
+        klass.start!
+      end
+    end
+    pids.each do |pid|
+      Process.wait(pid)
+    end
   end
 
   desc 'start downloads'
