@@ -91,6 +91,7 @@ module Crawler
     end
 
     def parse_photos(options)
+      p [options[:product_view].css('img').first.attr(:src).gsub(/\/450x330/, '')]
       [options[:product_view].css('img').first.attr(:src).gsub(/\/450x330/, '')]
     end
 
@@ -115,7 +116,8 @@ module Crawler
     end
 
     def parse_source_url(options)
-      "#{ options[:url] }/##{ parse_colors(options).fisrt }"
+      color = parse_colors(options).join(' ')
+      "#{ options[:url] }/##{ Color.new.normalize_friendly_id(color) }"
     end
 
     private

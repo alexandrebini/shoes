@@ -1,0 +1,6 @@
+.shoes
+  - @shoes.each do |shoe|
+    .shoe
+      .l-middle
+        / %span= number_to_currency shoe.price
+        = image_tag shoe.photo.url(:thumb), size: shoe.photo.image_size(:thumb)

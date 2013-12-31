@@ -11,9 +11,10 @@
 // about supported directives.
 //
 //= require jquery
-//= require lib/underscore
-//= require lib/backbone
-//= require lib/marionette
+//= require underscore
+//= require backbone
+//= require marionette
+
 //= require_tree ./backbone/config/marionette
 //= require backbone/app
 //= require_tree ./backbone/entities

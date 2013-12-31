@@ -2,9 +2,12 @@ class Photo < ActiveRecord::Base
   belongs_to :shoe
   has_one :store, through: :shoe
 
+  delegate :url, :path, :image_size, to: :data
   has_attached_file :data,
     path: ':rails_root/public/system/shoes/:id_partition/:basename_:style_:fingerprint.:extension',
-    url: '/system/:attachment/shoes/:id_partition/:basename_:style_:fingerprint.:extension'
+    url: '/system/shoes/:id_partition/:basename_:style_:fingerprint.:extension',
+    styles: { thumb: '200x180' },
+    convert_options: { thumb: '-fuzz 2% -trim +repage' }
 
   validates :source_url, uniqueness: true, presence: true
 
