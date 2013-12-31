@@ -6,26 +6,34 @@
 
 // .module
 .shoes
-  margin: $header-height auto
+  width: 100%
+  @extend %grid-box
+  margin-top: $header-height
+  padding: rem(10px)
+
   .shoe
-    float: left
-    margin-bottom: $shoes-gutter / 2
+    @extend %grid-box
     text-align: center
     .l-middle
       background: white
-    img
-      max-height: 100%
-      max-width: 100%
   .shoe.thumb
-    height: $shoes-height + $shoes-gutter
-    width: $shoes-width + $shoes-gutter
+    @extend %grid-box--lg--1of5
+    @extend %grid-box--md--1of4
+    @extend %grid-box--sm--1of3
+    @extend %grid-box--xs--1of2
+    height: $shoes-height + $grid-gutter
   .shoe.long
-    height: ($shoes-height + $shoes-gutter) * 2 + $shoes-gutter/2
-    width: $shoes-width + $shoes-gutter
+    @extend %grid-box--lg--1of5
+    @extend %grid-box--md--1of4
+    @extend %grid-box--sm--1of3
+    @extend %grid-box--xs--1of2
+    height: $shoes-height * 2 + $grid-gutter
   .shoe.wide
-    height: $shoes-height + $shoes-gutter
-    width: ($shoes-width + $shoes-gutter) * 2 + $shoes-gutter/2
-
+    @extend %grid-box--lg--2of5
+    @extend %grid-box--md--2of4
+    @extend %grid-box--sm--2of3
+    @extend %grid-box--xs--2of2
+    height: $shoes-height + $grid-gutter
 
 
 // -------------------------------------

@@ -3,18 +3,18 @@
     - klass = 'shoe'
     - case index
     - when 0 then klass << ' long'
-    - when 1 then klass << ' long'
+    - when 1 then klass << ' thumb'
     - when 2 then klass << ' thumb'
     - when 3 then klass << ' wide'
     - when 4 then klass << ' thumb'
-    - when 5 then klass << ' long'
+    - when 5 then klass << ' thumb'
     - when 6 then klass << ' thumb'
     - when 7 then klass << ' thumb'
     - when 8 then klass << ' thumb'
     - when 9 then klass << ' thumb'
     - when 10 then klass << ' thumb'
-    - when 11 then klass << ' long'
-    - when 12 then klass << ' wide'
+    - when 11 then klass << ' thumb'
+    - when 12 then klass << ' long'
     - when 13 then klass << ' thumb'
     - else
       - klass << ' thumb'
@@ -30,7 +30,6 @@
   :javascript
     $('.shoes').masonry({
       itemSelector: '.shoe',
-      isFitWidth: true,
-      gutter: 5,
+      / isFitWidth: true,
       transitionDuration: 0
     })
