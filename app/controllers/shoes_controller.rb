@@ -1,5 +1,5 @@
 class ShoesController < ApplicationController
   def index
-    @shoes = Shoe.limit(300)
+    @shoes = Shoe.all
   end
 end

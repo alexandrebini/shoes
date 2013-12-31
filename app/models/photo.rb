@@ -6,8 +6,15 @@ class Photo < ActiveRecord::Base
   has_attached_file :data,
     path: ':rails_root/public/system/shoes/:id_partition/:basename_:style_:fingerprint.:extension',
     url: '/system/shoes/:id_partition/:basename_:style_:fingerprint.:extension',
-    styles: { thumb: '200x180' },
-    convert_options: { thumb: '-fuzz 2% -trim +repage' }
+    styles: {
+      original: { geometry: '' },
+      thumb: '200x180',
+      long: '200x360',
+      wide: '400x180'
+    },
+    convert_options: {
+      original: '-fuzz 2% -trim +repage'
+    }
 
   validates :source_url, uniqueness: true, presence: true
 

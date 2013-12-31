@@ -1,6 +1,36 @@
 .shoes
-  - @shoes.each do |shoe|
-    .shoe
+  - @shoes.limit(50).each_with_index do |shoe, index|
+    - klass = 'shoe'
+    - case index
+    - when 0 then klass << ' long'
+    - when 1 then klass << ' long'
+    - when 2 then klass << ' thumb'
+    - when 3 then klass << ' wide'
+    - when 4 then klass << ' thumb'
+    - when 5 then klass << ' long'
+    - when 6 then klass << ' thumb'
+    - when 7 then klass << ' thumb'
+    - when 8 then klass << ' thumb'
+    - when 9 then klass << ' thumb'
+    - when 10 then klass << ' thumb'
+    - when 11 then klass << ' long'
+    - when 12 then klass << ' wide'
+    - when 13 then klass << ' thumb'
+    - else
+      - klass << ' thumb'
+
+    %div{ class: klass }
       .l-middle
         / %span= number_to_currency shoe.price
+        / %p foooozin no bar
         = image_tag shoe.photo.url(:thumb), size: shoe.photo.image_size(:thumb)
+
+
+- content_for :javascript do
+  :javascript
+    $('.shoes').masonry({
+      itemSelector: '.shoe',
+      isFitWidth: true,
+      gutter: 5,
+      transitionDuration: 0
+    })

@@ -14,6 +14,7 @@
 //= require underscore
 //= require backbone
 //= require marionette
+//= require masonry.pkgd.min
 
 //= require_tree ./backbone/config/marionette
 //= require backbone/app
