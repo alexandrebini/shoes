@@ -25,3 +25,10 @@
   url: http://www.louloux.com.br
   start_url: http://www.louloux.com.br/ver-todos-s32/?pagina=1&order=lancamento
   verification_matcher: <base href="//www.louloux.com.br/">
+
+- name: Miezko
+  url: http://shop.miezko.com.br
+  start_url: http://shop.miezko.com.br/colecao-completa-s5/
+  verification_matcher: EZ Commerce
+
+
