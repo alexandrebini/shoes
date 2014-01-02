@@ -1,0 +1,7 @@
+- content_for :javascript do
+  :javascript
+    $(document).ready(function() {
+      Shoes.start({
+        environment: '#{ Rails.env }'
+      })
+    })

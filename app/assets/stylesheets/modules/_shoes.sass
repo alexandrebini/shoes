@@ -11,59 +11,73 @@
   margin-top: $header-height
   padding: rem(10px)
 
-  .shoe
-    @extend %grid-box
-    text-align: center
-    .l-middle
-      background: white
-      img
-        width: auto
-        height: auto
-        max-width: 95%
-        max-height: 95%
-  .shoe.thumb
-    @extend %grid-box--slg--1of9
-    @extend %grid-box--xlg--1of8
-    @extend %grid-box--lg--1of7
-    @extend %grid-box--xmd--1of6
-    @extend %grid-box--md--1of5
-    @extend %grid-box--xsm--1of4
-    @extend %grid-box--sm--1of3
-    @extend %grid-box--xs--1of2
-    height: $shoes-height + $grid-gutter
-  .shoe.long
-    @extend %grid-box--slg--1of9
-    @extend %grid-box--xlg--1of8
-    @extend %grid-box--lg--1of7
-    @extend %grid-box--xmd--1of6
-    @extend %grid-box--md--1of5
-    @extend %grid-box--xsm--1of4
-    @extend %grid-box--sm--1of3
-    @extend %grid-box--xs--1of2
-    height: ($shoes-height + $grid-gutter) * 2
-  .shoe.wide
-    @extend %grid-box--slg--2of9
-    @extend %grid-box--xlg--2of8
-    @extend %grid-box--lg--2of7
-    @extend %grid-box--xmd--2of6
-    @extend %grid-box--md--2of5
-    @extend %grid-box--xsm--2of4
-    @extend %grid-box--sm--2of3
-    @extend %grid-box--xs--2of2
-    height: $shoes-height + $grid-gutter
-
-
 // -------------------------------------
 //   Modifiers
 // -------------------------------------
 
 // .module--modifier
+.shoes--box
+  @extend %grid-box
+  @extend %grid-box--xlg--2of8
+  @extend %grid-box--lg--2of6
+  @extend %grid-box--md--2of4
+  @extend %grid-box--sm--2of2
+  @extend %grid-box--xs--1of1
+  padding: 0
+  height: ($shoes-height + $grid-gutter) * 3
+
+.shoes--thumb
+  @extend %shoes--shoe
+  @extend %grid-box--xlg--1of2
+  @extend %grid-box--lg--1of2
+  @extend %grid-box--md--1of2
+  @extend %grid-box--sm--1of2
+  @extend %grid-box--xs--1of1
+  height: $shoes-height + $grid-gutter
+
+.shoes--long
+  @extend %shoes--shoe
+  @extend %grid-box--xlg--1of2
+  @extend %grid-box--lg--1of2
+  @extend %grid-box--md--1of2
+  @extend %grid-box--sm--1of2
+  @extend %grid-box--xs--1of1
+  height: ($shoes-height + $grid-gutter) * 2
+
+.shoes--wide
+  @extend %shoes--shoe
+  @extend %grid-box--xlg--2of2
+  @extend %grid-box--lg--2of2
+  @extend %grid-box--md--2of2
+  @extend %grid-box--sm--2of2
+  @extend %grid-box--xs--2of1
+  height: $shoes-height + $grid-gutter
 
 // -------------------------------------
 //   States
 // -------------------------------------
 
 // .is-module-state
+.shoes--long.is-right
+  @extend %l-pullRight
+
+.shoes--box.is-last--1of4
+  @extend %grid-box--xlg--1of1
+  .shoes--thumb
+    @extend %grid-box--xlg--1of8
+  .shoes--long
+    @extend %grid-box--xlg--1of8
+  .shoes--wide
+    @extend %grid-box--xlg--2of8
+
+.shoes--box.is-last--2of4
+  @extend %grid-box--xlg--4of8
+  .shoes--thumb
+    @extend %grid-box--xlg--1of4
+  .shoes--long
+    @extend %grid-box--xlg--1of4
+  .shoes--wide
+    @extend %grid-box--xlg--2of4
 
 // -------------------------------------
 //   Context
@@ -78,4 +92,14 @@
 // ----- Submodule ----- //
 
 // .module-submodule
+%shoes--shoe
+  @extend %grid-box
+  text-align: center
 
+  .l-middle
+    background: white
+    img
+      width: auto
+      height: auto
+      max-width: 95%
+      max-height: 95%

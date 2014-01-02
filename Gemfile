@@ -21,6 +21,7 @@ gem 'compass-rails', '1.1.3'
 gem 'uglifier', '2.4.0'
 gem 'coffee-rails', '4.0.1'
 gem 'haml_coffee_assets', '1.16.0'
+gem 'js-routes', '0.9.6'
 
 group :development do
   gem 'puma', '2.7.1'

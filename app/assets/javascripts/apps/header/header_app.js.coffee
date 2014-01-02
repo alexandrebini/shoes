@@ -1,4 +1,4 @@
-@ShoeApp.module 'HeaderApp', (HeaderApp, App, Backbone, Marionette, $, _) ->
+@Shoes.module 'HeaderApp', (HeaderApp, App, Backbone, Marionette, $, _) ->
   @startWithParent = false
 
   API =

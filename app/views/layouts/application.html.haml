@@ -9,10 +9,8 @@
     = csrf_meta_tags
 
   %body
-    / %header
-    / %h1 My Logo
-
-    = yield
+    %header
+    %article
 
     = javascript_include_tag :application
     = yield :javascript
