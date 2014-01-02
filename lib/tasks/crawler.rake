@@ -6,6 +6,7 @@ namespace :crawler do
       Crawler::Corello,
       Crawler::Louloux,
       Crawler::Melissa,
+      Crawler::Miezko,
       Crawler::Schutz
     ]
     pids = klasses.map do |klass|

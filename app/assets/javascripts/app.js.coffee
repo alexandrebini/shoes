@@ -9,9 +9,11 @@
 
   App.addRegions
     headerRegion: 'header'
+    mainRegion: 'article'
 
   App.addInitializer ->
     App.module('HeaderApp').start()
+    App.module('ShoesApp').start()
 
   App.vent.on 'set:title', (title) ->
     App.setTitle "Shoes - #{ title }"
