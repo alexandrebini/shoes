@@ -11,8 +11,8 @@
 //   Variables
 // -------------------------------------
 
-$grid-columns: 5 !default
-$grid-defaults: "xs" 480px, "sm" 768px, "md" 922px, "lg" 1170px !default
+$grid-columns: 12 !default
+$grid-defaults: "xs" 480px, "sm" 336px, "xsm" 768px, "md" 845px, "xmd" 922px, "lg" 1200px, "xlg" 1440px, "slg" 1600px !default
 $grid-gutter: 4px !default
 // $grid-silent: false !default
 $grid-silent: true
@@ -109,6 +109,22 @@ $grid-selector: if($grid-silent, unquote("%"), unquote("."))
     #{$grid-selector}grid-box--#{$namespace}5of6
       width: 83.333%
 
+  // ----- Seven Parts ----- //
+
+  @if $grid-columns >= 7
+    #{$grid-selector}grid-box--#{$namespace}1of7
+      width: 14.285%
+    #{$grid-selector}grid-box--#{$namespace}2of7
+      width: 28.571%
+    #{$grid-selector}grid-box--#{$namespace}3of7
+      width: 42.857%
+    #{$grid-selector}grid-box--#{$namespace}4of7
+      width: 57.142%
+    #{$grid-selector}grid-box--#{$namespace}5of7
+      width: 71.428%
+    #{$grid-selector}grid-box--#{$namespace}6of7
+      width: 85.714%
+
   // ----- Eight Parts ----- //
 
   @if $grid-columns >= 8
@@ -126,6 +142,26 @@ $grid-selector: if($grid-silent, unquote("%"), unquote("."))
       @extend #{$grid-selector}grid-box--#{$namespace}3of4
     #{$grid-selector}grid-box--#{$namespace}7of8
       width: 87.5%
+
+  // ----- Nine Parts ----- //
+
+  @if $grid-columns >= 9
+    #{$grid-selector}grid-box--#{$namespace}1of9
+      width: 11.111%
+    #{$grid-selector}grid-box--#{$namespace}2of9
+      width: 22.222%
+    #{$grid-selector}grid-box--#{$namespace}3of9
+      width: 33.333%
+    #{$grid-selector}grid-box--#{$namespace}4of9
+      width: 44.444%
+    #{$grid-selector}grid-box--#{$namespace}5of9
+      width: 55.555%
+    #{$grid-selector}grid-box--#{$namespace}6of9
+      width: 66.666%
+    #{$grid-selector}grid-box--#{$namespace}7of9
+      width: 77.777%
+    #{$grid-selector}grid-box--#{$namespace}8of9
+      width: 88.888%
 
   // ----- Ten Parts ----- //
 

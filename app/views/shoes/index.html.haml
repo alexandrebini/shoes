@@ -21,15 +21,4 @@
 
     %div{ class: klass }
       .l-middle
-        / %span= number_to_currency shoe.price
-        / %p foooozin no bar
         = image_tag shoe.photo.url(:thumb), size: shoe.photo.image_size(:thumb)
-
-
--# content_for :javascript do
-  :javascript
-    $('.shoes').masonry({
-      itemSelector: '.shoe',
-      / isFitWidth: true,
-      transitionDuration: 0
-    })

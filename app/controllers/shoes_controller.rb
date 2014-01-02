@@ -1,5 +1,5 @@
 class ShoesController < ApplicationController
   def index
-    @shoes = Shoe.all
+    @shoes = Shoe.ready.random
   end
 end

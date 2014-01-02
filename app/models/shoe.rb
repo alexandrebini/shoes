@@ -19,6 +19,7 @@ class Shoe < ActiveRecord::Base
   scope :downloading, -> { joins(:photos).where(photos: { status: 'downloading' }).uniq }
   scope :downloaded, -> { joins(:photos).where(photos: { status: 'downloaded' }).uniq }
   scope :pending, -> { joins(:photos).where(photos: { status: 'pending' }).uniq }
+  scope :ready, -> { downloaded.available }
 
   def available?
     numerations.present?
