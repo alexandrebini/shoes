@@ -1,1 +1,2 @@
-sss
+.l-middle
+  %img{ src: @[@style].url, width: @[@style].width, height: @[@style].height, alt: @name }

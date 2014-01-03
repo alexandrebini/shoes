@@ -1,4 +1,0 @@
-.shoes
-  - @shoes.limit(50).each_slice(5) do |shoes|
-    - type = cycle('long_top_left', 'long_bottom_right', 'wide_top', 'long_bottom_left', 'long_top_right', 'wide_middle', 'long_top_left_bottom_right', 'long_bottom_left_top_right', 'wide_bottom')
-    = render partial: "shoe_box_#{ type }", locals: { shoes: shoes}
