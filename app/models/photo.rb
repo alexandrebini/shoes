@@ -2,7 +2,7 @@ class Photo < ActiveRecord::Base
   belongs_to :shoe
   has_one :store, through: :shoe
 
-  delegate :url, :path, :image_size, to: :data
+  delegate :url, :path, :image_size, :height, :width, to: :data
   has_attached_file :data,
     path: ':rails_root/public/system/shoes/:id_partition/:basename_:style_:fingerprint.:extension',
     url: '/system/shoes/:id_partition/:basename_:style_:fingerprint.:extension',

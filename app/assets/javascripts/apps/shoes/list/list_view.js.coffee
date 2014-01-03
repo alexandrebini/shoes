@@ -7,6 +7,18 @@
 
   class List.Shoe extends Marionette.ItemView
     template: 'shoes/list/templates/shoe'
+    className: ->
+      className = "shoes--#{ @model.get('style') }"
+      if @model.get('orientation')
+        className += " is-#{ @model.get('orientation') }"
+      className
+
+  class List.ShoesGroup extends Marionette.CollectionView
+    itemView: List.Shoe
+    className: 'shoes--box'
+
+    initialize: ->
+      @collection = @model
 
   class List.Shoes extends Marionette.CollectionView
-    itemView: List.Shoe
+    itemView: List.ShoesGroup
