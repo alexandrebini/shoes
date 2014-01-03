@@ -35,6 +35,10 @@ class Shoe < ActiveRecord::Base
     prices.last.value/100 if prices.last
   end
 
+  def numbers
+    numerations.map(&:number)
+  end
+
   def photos_urls=urls
     urls.compact.uniq.each do |url|
       unless photos.where(source_url: url).lock(true).exists?
@@ -45,6 +49,12 @@ class Shoe < ActiveRecord::Base
 
   def photo
     photos.first
+  end
+
+  def photos_urls
+    photos.map do |photo|
+      { thumb: photo.url(:thumb), big: photo.url(:big) }
+    end
   end
 
   def grid=numerations

@@ -4,4 +4,9 @@ class ShoesController < ApplicationController
     @shoes = Shoe.ready.random.limit(100).all
     respond_with @shoes
   end
+
+  def show
+    @shoe = Shoe.where(slug: params[:slug]).first
+    respond_with @shoe
+  end
 end

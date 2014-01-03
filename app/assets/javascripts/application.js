@@ -11,6 +11,7 @@
 //= require_tree ./lib
 //= require ./app
 
+//= require_tree ./controllers
 //= require_tree ./components
 //= require_tree ./entities
 //= require_tree ./apps

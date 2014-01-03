@@ -1,0 +1,18 @@
+%section
+  #photos
+    .main_photo
+    .social
+      .facebook
+      .pinterest
+      .twitter
+      .google_plus
+  .thumbs
+
+  .title
+  .price
+  .description
+  .number
+  .brand_name
+
+  .visit_link
+  .love_link

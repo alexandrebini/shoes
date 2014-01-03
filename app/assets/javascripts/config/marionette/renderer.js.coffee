@@ -7,6 +7,7 @@ do (Marionette) ->
     return unless template
     path = @getTemplate(template)
     throw "Template #{ template } not found!" unless path
+    console.log data
     path(data)
 
   getTemplate: (template) ->
