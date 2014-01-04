@@ -30,6 +30,9 @@
     tagName: 'ul'
     className: 'thumbs'
 
+    initialize: ->
+      window.foo = @collection.models
+
   class Show.MainPhoto extends Marionette.ItemView
     template: 'shoes/show/templates/main_photo'
 
@@ -37,6 +40,7 @@
       @$el.hide().fadeIn()
 
     onClose: ->
+      @model.setCurrent(false)
       @$el.fadeOut()
 
   class Show.Title extends Marionette.ItemView

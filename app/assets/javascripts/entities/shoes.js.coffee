@@ -1,6 +1,16 @@
 @Shoes.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
+  class Entities.Image extends Backbone.Model
+    defaults:
+      current: false
+
+    setCurrent: (status) ->
+      @set current: status
+
+    isCurrent: ->
+      @get('current')
+
   class Entities.ImagesCollection extends Backbone.Collection
-    model: Backbone.Model.extend()
+    model: Entities.Image
 
   class Entities.GridCollection extends Backbone.Collection
     model: Backbone.Model.extend()
