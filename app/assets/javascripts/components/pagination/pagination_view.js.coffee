@@ -7,12 +7,14 @@
 
   class View.Pagination extends Marionette.CompositeView
     template: 'pagination/templates/pagination'
-    ui:
-      pagination: '.pagination'
+    itemViewContainer: '.shoes'
 
     initialize: ->
       @model = @collection.state
-      @model.on 'change', @render, @
+      console.log @renderModel
+      # @model.on 'change', @renderModel, @
+      @model.on 'change', @foo, @
 
-    appendHtml: (collectionView, itemView, index) ->
-      @ui.pagination.before(itemView.el)
+    foo: ->
+      console.log @renderModel()
+

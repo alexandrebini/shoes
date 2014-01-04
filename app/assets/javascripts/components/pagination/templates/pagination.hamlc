@@ -1,9 +1,19 @@
 - switch
-  - when @isLoading
-    .pagination.is-loading
-  - when @page == @totalPages
-    .pagination.is-hidden
+  - when @isLoading && @direction == 'up'
+    .pagination.is-up.is-loading
+  - when @page == 0
+    .pagination.is-up.is-hidden
   - else
-    .pagination
+    .pagination.is-up
       %a{ rel: 'prev' } anterior
-      %a{ rel: 'next' } próxima
+
+.shoes
+
+- switch
+  - when @isLoading && @direction == 'down'
+    .pagination.is-down.is-loading
+  - when @page == @totalPages
+    .pagination.is-down.is-hidden
+  - else
+    .pagination.is-down
+      %a{ rel: 'prev' } Próxima

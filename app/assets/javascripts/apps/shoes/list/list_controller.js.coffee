@@ -3,6 +3,7 @@
     initialize: (page) ->
       @shoes = App.request('shoes:entities', page)
       App.vent.on 'scroll:bottom', @getNextPage, @
+      App.vent.on 'scroll:top', @getPreviousPage, @
 
       window.a = @shoes
       @layout = @getLayoutView()
@@ -24,5 +25,11 @@
       new List.Layout
 
     getNextPage: ->
+      console.log 'getnextPage', @shoes.nextPage()
       if nextPage = @shoes.getNextPage()
         App.vent.trigger 'page:change', nextPage
+
+    getPreviousPage: ->
+      console.log 'getPreviousPage', @shoes.previousPage()
+      if previousPage = @shoes.getPreviousPage()
+        App.vent.trigger 'page:change', previousPage

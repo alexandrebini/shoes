@@ -3,7 +3,9 @@
   class List.Layout extends Marionette.Layout
     template: 'shoes/list/templates/list_layout'
     regions:
+      upPaginationRegion: '.pagination.is-up'
       shoesRegion: 'article.shoes'
+      downPaginationRegion: '.pagination.is-up'
 
   class List.Shoe extends Marionette.ItemView
     template: 'shoes/list/templates/shoe'
