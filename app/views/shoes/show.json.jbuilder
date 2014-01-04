@@ -2,11 +2,21 @@ json.name @shoe.name
 json.description @shoe.description
 json.price @shoe.price
 json.source_url @shoe.source_url
-json.numerations @shoe.numbers
-json.images @shoe.images
+json.brand_name @shoe.brand_name
+json.brand_logo @shoe.brand_logo
+json.brand_url @shoe.brand_url
 
-if @shoe.brand
-  json.brand_name @shoe.brand.name
-  json.brand_logo @shoe.brand.logo.path
-  json.brand_url @shoe.brand.url
+json.numerations do
+  json.array! @shoe.numerations do |grid|
+    json.number grid.number
+  end
+end
+
+json.images do
+  json.array! @shoe.photos do |photo|
+    json.thumb_url  photo.url(:thumb)
+    json.big_url photo.url(:big)
+    json.alt @shoe.name
+    json.main @shoe.is_main_photo?(photo)
+  end
 end

@@ -39,12 +39,6 @@ class Shoe < ActiveRecord::Base
     end
   end
 
-  def numbers
-    numerations.map do |rec|
-      { number: rec.number }
-    end
-  end
-
   def photos_urls=urls
     urls.compact.uniq.each do |url|
       unless photos.where(source_url: url).lock(true).exists?
@@ -57,10 +51,16 @@ class Shoe < ActiveRecord::Base
     photos.first
   end
 
-  def images
-    photos.map do |photo|
-      { thumb_url: photo.url(:thumb), big_url: photo.url(:big), alt: self.name, main: is_main_photo?(photo) }
-    end
+  def brand_name
+    brand.name
+  end
+
+  def brand_logo
+    brand.logo.url
+  end
+
+  def brand_url
+    brand.url
   end
 
   def is_main_photo?(photo)
@@ -84,11 +84,5 @@ class Shoe < ActiveRecord::Base
   def category_name=name
     name = Category.against(name) || name.to_s
     self.category = Category.where(name: name.mb_chars.titleize.pluralize).lock(true).first_or_create
-  end
-
-  def brand_name_url=options
-    self.brand = Brand.where(
-      name: options[:name].mb_chars.downcase,
-      url: options[:url]).lock(true).first_or_create
   end
 end

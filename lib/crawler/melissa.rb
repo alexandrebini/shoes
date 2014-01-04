@@ -8,6 +8,10 @@ module Crawler
       @store ||= Store.where(name: 'Melissa').first
     end
 
+    def brand
+      @brand ||= Brand.where(name: 'Melissa').first
+    end
+
     def shoes_categories
       @shoes_categories ||= {}
     end
@@ -40,6 +44,7 @@ module Crawler
       shoe = Shoe.where(source_url: parse_source_url(options)).lock(true).first_or_initialize
       shoe.update_attributes(
         store: store,
+        brand: brand,
         category_name: parse_category_name(options),
         source_url: parse_source_url(options),
         name: parse_name(options),
@@ -48,7 +53,6 @@ module Crawler
         photos_urls: parse_photos(options),
         grid: parse_grid(options[:page]),
         color_set: parse_colors(options),
-        brand_name_url: parse_brand(options[:page]),
         crawled_at: Time.now
       )
     end
@@ -57,11 +61,6 @@ module Crawler
       shoes_categories.map do |category|
         category.last[:name] if category.last[:shoes].include?(options[:url])
       end.compact.first
-    end
-
-    def parse_brand(page)
-      link_brand = page.css('.sector_two_and_three .footer_treatment div a').last
-      { name: link_brand.text.match(/Melissa/).to_a.first, url: link_brand.attr(:href) }
     end
 
     def parse_shoe(options)
@@ -91,7 +90,6 @@ module Crawler
     end
 
     def parse_photos(options)
-      p [options[:product_view].css('img').first.attr(:src).gsub(/\/450x330/, '')]
       [options[:product_view].css('img').first.attr(:src).gsub(/\/450x330/, '')]
     end
 

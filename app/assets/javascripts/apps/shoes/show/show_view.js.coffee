@@ -36,6 +36,9 @@
     onShow: ->
       @$el.hide().fadeIn()
 
+    onClose: ->
+      @$el.fadeOut()
+
   class Show.Title extends Marionette.ItemView
     template: 'shoes/show/templates/title'
 

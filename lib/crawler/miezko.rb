@@ -14,6 +14,10 @@ module Crawler
       @store ||= Store.where(name: 'Miezko').first
     end
 
+    def brand
+      @brand ||= Brand.where(name: 'Melissa').first
+    end
+
     def pages_urls(page)
       page.css('.page-number a').map do |a|
         a.attr(:href)
@@ -28,9 +32,10 @@ module Crawler
 
     def parse_shoe(options)
       shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
-      p '-----------------'
-      p shoe.update_attributes(
+
+      shoe.update_attributes(
         store: store,
+        brand: brand,
         category_name: parse_category_name(options[:page]),
         source_url: options[:url],
         name: parse_name(options[:page]),
@@ -40,8 +45,6 @@ module Crawler
         grid: parse_grid(options[:page]),
         crawled_at: Time.now
       )
-      p shoe.errors
-
     end
 
     def parse_category_name(page)
