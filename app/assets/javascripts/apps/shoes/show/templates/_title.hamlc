@@ -1,3 +1,1 @@
-%h1
-  SDFS
-  = @sdfsdf
+%h1= @name

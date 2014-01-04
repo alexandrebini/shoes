@@ -1,9 +1,4 @@
 @Shoes.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
-
-  class Entities.GameCollection extends Backbone.Collection
-    url: (options) -> Routes.games_path(options)
-    model: Entities.Game
-
   class Entities.Shoe extends Backbone.Model
     urlRoot: -> Routes.shoes_path()
     idAttribute: 'slug'

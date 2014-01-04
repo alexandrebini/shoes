@@ -23,3 +23,20 @@
     getTitleView: (shoe) ->
       new Show.Title
         model: shoe
+
+   priceRegion: (shoe) ->
+      console.log '--------------'
+      priceView = @getPriceView(shoe)
+      @layout.getPriceView.show priceView
+
+    getPriceView: (shoe) ->
+      new Show.Price
+        model: shoe
+
+    descriptionRegion: (shoe) ->
+      descriptionView = @getDescriptionView(shoe)
+      @layout.descriptionRegion.show descriptionView
+
+    getDescriptionView: (shoe) ->
+      new Show.Description
+        model: shoe

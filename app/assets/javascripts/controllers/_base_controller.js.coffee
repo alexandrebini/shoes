@@ -2,9 +2,6 @@
 
   class Controllers.Base extends Marionette.Controller
     show: (view, options = {}) ->
-      _.defaults options,
-        loading: false
-        region: App.mainRegion
       @_setMainView view
       @_manageView view, options
 
@@ -14,7 +11,7 @@
       @listenTo view, 'close', @close
 
     _manageView: (view, options) ->
-      if options.loading
-        App.execute 'show:loading', view, options
-      else
-        options.region.show view
+      options.region.show view
+      App.execute 'when:fetched', options.entities, =>
+        @show view,
+          region: options.region

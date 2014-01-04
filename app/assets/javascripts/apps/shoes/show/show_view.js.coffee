@@ -15,8 +15,11 @@
       visitLinkRegion: '.visit_link'
       loveRegion: '.love_link'
 
-    onShow: ->
-      console.log @el
-
   class Show.Title extends Marionette.ItemView
     template: 'shoes/show/templates/title'
+
+  class Show.Price extends Marionette.ItemView
+    template: 'shoes/show/templates/price'
+
+  class Show.Description extends Marionette.ItemView
+    template: 'shoes/show/templates/description'
