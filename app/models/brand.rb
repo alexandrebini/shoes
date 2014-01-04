@@ -11,12 +11,6 @@ class Brand < ActiveRecord::Base
   validates_presence_of :name
 
   def logo_path=path
-    io = open(path)
-
-
-    self.logo = io
-    self.original_filename = File.basename io
-
-    # self.logo = File.open path if File.exists?(path)
+    self.logo = File.open path if File.exists?(path)
   end
 end
