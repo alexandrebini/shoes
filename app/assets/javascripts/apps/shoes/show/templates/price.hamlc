@@ -1,0 +1,2 @@
+.small R$
+%h2= @price

@@ -1,5 +1,6 @@
 class Shoe < ActiveRecord::Base
   extend FriendlyId
+  include ActionView::Helpers::NumberHelper
 
   belongs_to :brand
   belongs_to :store
@@ -32,11 +33,16 @@ class Shoe < ActiveRecord::Base
   end
 
   def price
-    prices.last.value/100 if prices.last
+    if prices.last
+      price = prices.last.value / 100
+      number_to_currency price , unit: ''
+    end
   end
 
   def numbers
-    numerations.map(&:number)
+    numerations.map do |rec|
+      { number: rec.number }
+    end
   end
 
   def photos_urls=urls
@@ -51,10 +57,14 @@ class Shoe < ActiveRecord::Base
     photos.first
   end
 
-  def photos_urls
+  def images
     photos.map do |photo|
-      { thumb: photo.url(:thumb), big: photo.url(:big) }
+      { thumb_url: photo.url(:thumb), big_url: photo.url(:big), alt: self.name, main: is_main_photo?(photo) }
     end
+  end
+
+  def is_main_photo?(photo)
+    photos.first == photo
   end
 
   def grid=numerations

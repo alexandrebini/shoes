@@ -1,18 +1,19 @@
 %section
   #photos
-    .main_photo
+    .main
+
     .social
       .facebook
       .pinterest
       .twitter
       .google_plus
-  .thumbs
+    .thumbs_container
 
   .title
   .price
   .description
-  .number
-  .brand_name
 
-  .visit_link
-  .love_link
+  .number
+  .brand
+
+  .button

@@ -3,7 +3,7 @@ json.description @shoe.description
 json.price @shoe.price
 json.source_url @shoe.source_url
 json.numerations @shoe.numbers
-json.photos @shoe.photos_urls
+json.images @shoe.images
 
 if @shoe.brand
   json.brand_name @shoe.brand.name

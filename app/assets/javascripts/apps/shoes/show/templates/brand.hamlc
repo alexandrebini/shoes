@@ -1,0 +1,3 @@
+- if @brand_logo
+  %a{ href: @brand_url, target: '_blank' }
+    %img{ src: @brand_logo, width: 154, height: 48, alt: @brand_name }

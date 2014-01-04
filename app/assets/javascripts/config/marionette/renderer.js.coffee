@@ -1,10 +1,8 @@
 do (Marionette) ->
   _.extend Marionette.Renderer,
-
   lookups: ['apps', 'components']
 
   render: (template, data) ->
-    console.log template, data
     return unless template
     path = @getTemplate(template)
     throw "Template #{ template } not found!" unless path

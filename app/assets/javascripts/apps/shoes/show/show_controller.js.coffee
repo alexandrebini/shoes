@@ -1,20 +1,43 @@
 @Shoes.module 'ShoesApp.Show', (Show, App, Backbone, Marionette, $, _) ->
-
-  class Show.Controller extends App.Controllers.Base
+  class Show.Controller extends Marionette.Controller
     initialize: (slug) ->
       shoe = App.request('shoe:entity', slug)
+      @layout = @getLayoutView()
 
-      @layout = @getLayoutView(shoe)
+      App.execute 'when:fetched', shoe, =>
+        App.shoeRegion.show @layout
 
       @listenTo @layout, 'show', =>
-        @titleRegion shoe
+        @thumbRegion(shoe)
+        @titleRegion(shoe)
+        @priceRegion(shoe)
+        @descriptionRegion(shoe)
+        @brandRegion(shoe)
+        @numberRegion(shoe)
+        @buttonRegion(shoe)
 
-      @show @layout,
-        region: App.shoeRegion
-        entities: shoe
+      Show.on 'set:mainPhoto', (photo) =>
+        console.log '-=----'
+        @mainPhotoRegion photo
 
-    getLayoutView: (shoe) ->
-      new Show.Layout(model: shoe)
+    getLayoutView: ->
+      new Show.Layout
+
+    thumbRegion: (shoe) ->
+      thumbView = @getThumbView(shoe)
+      @layout.thumbRegion.show thumbView
+
+    getThumbView: (shoe) ->
+      new Show.Images
+        collection: shoe.images
+
+    mainPhotoRegion: (photo) ->
+      mainPhotoView = @getMainPhotoView(photo)
+      @layout.mainPhotoRegion.show mainPhotoView
+
+    getMainPhotoView: (photo) ->
+      new Show.MainPhoto
+        model: photo
 
     titleRegion: (shoe) ->
       titleView = @getTitleView(shoe)
@@ -24,10 +47,9 @@
       new Show.Title
         model: shoe
 
-   priceRegion: (shoe) ->
-      console.log '--------------'
+    priceRegion: (shoe) ->
       priceView = @getPriceView(shoe)
-      @layout.getPriceView.show priceView
+      @layout.priceRegion.show priceView
 
     getPriceView: (shoe) ->
       new Show.Price
@@ -39,4 +61,28 @@
 
     getDescriptionView: (shoe) ->
       new Show.Description
+        model: shoe
+
+    brandRegion: (shoe) ->
+      brandView = @getBrandView(shoe)
+      @layout.brandRegion.show brandView
+
+    getBrandView: (shoe) ->
+      new Show.Brand
+        model: shoe
+
+    numberRegion: (shoe) ->
+      numberView = @getNumberView(shoe)
+      @layout.numberRegion.show numberView
+
+    getNumberView: (shoe) ->
+      new Show.Grid
+        collection: shoe.numerations
+
+    buttonRegion: (shoe) ->
+      buttonView = @getButtonView(shoe)
+      @layout.buttonRegion.show buttonView
+
+    getButtonView: (shoe) ->
+      new Show.Button
         model: shoe

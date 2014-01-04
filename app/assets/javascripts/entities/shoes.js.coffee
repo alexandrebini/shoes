@@ -1,10 +1,27 @@
 @Shoes.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
+  class Entities.ImagesCollection extends Backbone.Collection
+    model: Backbone.Model.extend()
+
+  class Entities.GridCollection extends Backbone.Collection
+    model: Backbone.Model.extend()
+
   class Entities.Shoe extends Backbone.Model
     urlRoot: -> Routes.shoes_path()
     idAttribute: 'slug'
     defaults:
       style: 'thumb'
       orientation: ''
+
+    parse: (response) ->
+      if response.numerations
+        @numerations = new Entities.GridCollection(response.numerations)
+        delete response.numerations
+
+      if response.images
+        @images = new Entities.ImagesCollection(response.images)
+        delete response.images
+
+      response
 
   class Entities.ShoesGroup extends Backbone.Collection
     model: Entities.Shoe
