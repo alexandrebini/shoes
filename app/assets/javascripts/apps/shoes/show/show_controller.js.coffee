@@ -17,7 +17,6 @@
         @buttonRegion(shoe)
 
       Show.on 'set:mainPhoto', (photo) =>
-        console.log '-=----'
         @mainPhotoRegion photo
 
     getLayoutView: ->
@@ -25,7 +24,12 @@
 
     thumbRegion: (shoe) ->
       thumbView = @getThumbView(shoe)
+
+      @listenTo thumbView, 'itemview:change:mainPhoto', (child, args) =>
+        @mainPhotoRegion args.model
+
       @layout.thumbRegion.show thumbView
+
 
     getThumbView: (shoe) ->
       new Show.Images

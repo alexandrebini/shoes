@@ -23,7 +23,7 @@
       Show.trigger 'set:mainPhoto', @model if @model.get('main')
 
     triggers:
-      'click li.thumb img' : 'set:mainPhoto'
+      'click' : { event: 'change:mainPhoto', preventDefault: true }
 
   class Show.Images extends Marionette.CollectionView
     itemView: Show.Thumb
@@ -32,6 +32,9 @@
 
   class Show.MainPhoto extends Marionette.ItemView
     template: 'shoes/show/templates/main_photo'
+
+    onShow: ->
+      @$el.hide().fadeIn()
 
   class Show.Title extends Marionette.ItemView
     template: 'shoes/show/templates/title'
