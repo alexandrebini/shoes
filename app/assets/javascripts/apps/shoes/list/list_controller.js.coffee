@@ -1,11 +1,14 @@
 @Shoes.module 'ShoesApp.List', (List, App, Backbone, Marionette, $, _) ->
   class List.Controller extends Marionette.Controller
-    initialize: ->
-      shoes = App.request('shoes:entities')
+    initialize: (page) ->
+      @shoes = App.request('shoes:entities', page)
+      App.vent.on 'scroll:bottom', @getNextPage, @
+
+      window.a = @shoes
       @layout = @getLayoutView()
 
       @listenTo @layout, 'show', =>
-        @shoesRegion(shoes)
+        @shoesRegion(@shoes)
 
       App.mainRegion.show @layout
 
@@ -19,3 +22,7 @@
 
     getLayoutView: ->
       new List.Layout
+
+    getNextPage: ->
+      nextPage = @shoes.getNextPage()
+      App.vent.trigger 'page:change', nextPage

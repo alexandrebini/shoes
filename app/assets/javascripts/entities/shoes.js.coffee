@@ -10,9 +10,9 @@
   class Entities.ShoesGroup extends Backbone.Collection
     model: Entities.Shoe
 
-  class Entities.ShoesCollection extends Backbone.PageableCollection
+  class Entities.ShoesCollection extends App.Components.Pagination.Entities.Page
     model: Entities.ShoesGroup
-    url: -> Routes.shoes_path()
+    url: => Routes.shoes_path()
 
     types:
       long_bottom_left: [
@@ -28,10 +28,10 @@
         { style: 'long' }, {}, {}, {}, {}
       ]
       long_top_left_bottom_right: [
-        { style: 'long' }, {}, { style: 'long', orientation: 'right' }, {},
+        { style: 'long' }, {}, { style: 'long', orientation: 'right' }, {}
       ]
       long_top_right: [
-        { style: 'long', orientation: 'right' }, {}, {}, {}, {},
+        { style: 'long', orientation: 'right' }, {}, {}, {}, {}
       ]
       wide_bottom: [
         {}, {}, {}, {}, { style: 'wide' }
@@ -43,25 +43,19 @@
         { style: 'wide' }, {}, {}, {}, {}
       ]
 
-    state:
-      currentType: 'long_bottom_left'
-      firstPage: 1
-      currentPage: 1
-      pageSize: ->
-        _.reduce(ShoesCollection.prototype.types, (memo, type) ->
-          memo + _.keys(type).length
-        , 0) * 2
+    currentType: 'long_bottom_left'
 
-    parseRecords: (resp, options) ->
-      shoes = super(resp, options)
+    parse: (response) ->
+      response = super(response)
       shoesGroups = []
 
       i = 0
-      while i < shoes.length
-        type = @types[@state.currentType]
-        slice = shoes.slice(i, i + type.length)
-        shoesGroups.push(slice)
-        @applyType(slice, type)
+      while i < response.length
+        type = @types[@currentType]
+        slice = response.slice(i, i + type.length)
+        if slice.length > 0
+          shoesGroups.push(slice)
+          @applyType(slice, type)
         i = i + type.length
         @nextType()
 
@@ -74,17 +68,27 @@
 
     nextType: ->
       keys = _.keys(@types)
-      currentIndex = keys.indexOf(@state.currentType)
+      currentIndex = keys.indexOf(@currentType)
       if currentIndex == keys.length - 1
-        @state.currentType = keys[0]
+        @currentType = keys[0]
       else
-        @state.currentType = keys[currentIndex + 1]
+        @currentType = keys[currentIndex + 1]
+
+  class Entities.ShoesPagination extends App.Components.Pagination.Entities.Pagination
+    model: Entities.ShoesCollection
+    url: Routes.shoes_path
+
+    state:
+      pageSize: ->
+        _.reduce(Entities.ShoesCollection.prototype.types, (memo, type) ->
+          memo + _.keys(type).length
+        , 0) * 2
 
   API =
-    getShoes: ->
-      shoes = new Entities.ShoesCollection
+    getShoes: (page) ->
+      shoes = new Entities.ShoesPagination({ page: page })
       shoes.fetch()
       shoes
 
-  App.reqres.setHandler 'shoes:entities', ->
-    API.getShoes()
+  App.reqres.setHandler 'shoes:entities', (page) ->
+    API.getShoes(page)

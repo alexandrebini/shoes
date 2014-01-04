@@ -44,7 +44,7 @@ class Shoe < ActiveRecord::Base
   end
 
   def photo
-    photos.first
+    @photo ||= photos.first
   end
 
   def grid=numerations

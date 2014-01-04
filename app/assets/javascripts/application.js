@@ -3,7 +3,6 @@
 //= require underscore
 //= require backbone
 //= require backbone.marionette
-//= require backbone-pageable
 //= require hamlcoffee
 //= require js-routes
 
@@ -13,4 +12,5 @@
 
 //= require_tree ./components
 //= require_tree ./entities
+//= require_tree ./modules
 //= require_tree ./apps

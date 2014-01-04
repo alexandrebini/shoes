@@ -2,33 +2,10 @@ do (Backbone) ->
 
   _.extend Backbone.Marionette.Application::,
 
-    navigate: (route, options = {}) ->
-      # add a trailing slash
-      if route?
-        route = "#{ route }/" if route.slice(-1) isnt '/'
-      else
-        route = '/'
-
-      @storeRoute()
-
-      # remove double slashes
-      route = route.replace(/\/\//g, '/')
-      Backbone.history.navigate route, options
-      @trackPageView(route) unless options.trackPageView is false
-
     startHistory: ->
       Backbone.history.start({ pushState: true })
-      @trackPageView()
-
       $('a[data-internal = true]').on 'click', (ev) ->
         ev.preventDefault()
-
-    trackPageView: (route) ->
-      unless navigator.userAgent.match(/Googlebot|facebookexternalhit/)
-        if route?
-          # window.ga 'send', 'pageview', route
-        else
-          # window.ga 'send', 'pageview'
 
     scrollTop: ->
       $('body,html').animate({ scrollTop: 0 }, 250)
