@@ -6,6 +6,7 @@
       totalPages: null
       isLoading: false
       direction: 'down'
+      fetched: []
 
     initialize: ->
       @on 'change:page', @setDirection
@@ -65,8 +66,11 @@
         index
 
     fetch: (options) ->
-      @state.set
-        isLoading: true
+      return if _.contains(@state.get('fetched'), @state.get('page'))
+
+      @state.set({ isLoading: true })
+      @state.get('fetched').push(@state.get('page'))
+
       super
         url: @url({ page: @state.get('page') })
         update: true

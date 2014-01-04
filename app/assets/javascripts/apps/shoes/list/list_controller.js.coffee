@@ -9,7 +9,9 @@
       @layout = @getLayoutView()
 
       @listenTo @layout, 'show', =>
+        @topPaginationRegion(@shoes)
         @shoesRegion(@shoes)
+        @bottomPaginationRegion(@shoes)
 
       App.mainRegion.show @layout
 
@@ -17,9 +19,22 @@
       shoesView = @getShoesView(shoes)
       @layout.shoesRegion.show shoesView
 
+    topPaginationRegion: (shoes) ->
+      paginationView = @getPaginationView(shoes, 'top')
+      @layout.topPaginationRegion.show paginationView
+
+    bottomPaginationRegion: (shoes) ->
+      paginationView = @getPaginationView(shoes, 'bottom')
+      @layout.bottomPaginationRegion.show paginationView
+
     getShoesView: (shoes) ->
       new List.Shoes
         collection: shoes
+
+    getPaginationView: (shoes, position) ->
+      new App.Components.Pagination.View.Pagination
+        model: shoes.state
+        position: position
 
     getLayoutView: ->
       new List.Layout
@@ -30,6 +45,5 @@
         App.vent.trigger 'page:change', nextPage
 
     getPreviousPage: ->
-      console.log 'getPreviousPage', @shoes.previousPage()
       if previousPage = @shoes.getPreviousPage()
         App.vent.trigger 'page:change', previousPage
