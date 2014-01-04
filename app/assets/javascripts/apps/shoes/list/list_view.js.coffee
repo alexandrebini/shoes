@@ -20,5 +20,8 @@
     initialize: ->
       @collection = @model
 
-  class List.Shoes extends Marionette.CollectionView
+  class List.ShoesPage extends App.Components.Pagination.View.Page
     itemView: List.ShoesGroup
+
+  class List.Shoes extends Marionette.CollectionView
+    itemView: List.ShoesPage

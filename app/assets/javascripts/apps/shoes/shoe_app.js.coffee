@@ -4,11 +4,12 @@
   class ShoesApp.Router extends Marionette.AppRouter
     appRoutes:
       '' : 'list'
+      'pg-:page' : 'list'
       ':brand/:category/:slug/' : 'show'
 
   API =
-    list: ->
-      new ShoesApp.List.Controller()
+    list: (page) ->
+      new ShoesApp.List.Controller(page)
 
     show: (brand, category, slug) ->
       new ShoesApp.Show.Controller(slug)
