@@ -4,7 +4,7 @@
   class ShoesApp.Router extends Marionette.AppRouter
     appRoutes:
       '' : 'list'
-      'pg-:page' : 'list'
+      'pg-:page/' : 'list'
 
   API =
     list: (page) ->

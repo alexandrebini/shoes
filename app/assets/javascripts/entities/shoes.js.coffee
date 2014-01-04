@@ -64,7 +64,7 @@
     applyType: (shoes, type) ->
       for attrs, index in type
         for key, value of attrs
-          shoes[index][key] = value
+          shoes[index][key] = value if shoes[index]
 
     nextType: ->
       keys = _.keys(@types)
@@ -78,15 +78,17 @@
     model: Entities.ShoesCollection
     url: Routes.shoes_path
 
-    state:
-      pageSize: ->
-        _.reduce(Entities.ShoesCollection.prototype.types, (memo, type) ->
-          memo + _.keys(type).length
-        , 0) * 2
+    # state:
+    #   pageSize: ->
+    #     _.reduce(Entities.ShoesCollection.prototype.types, (memo, type) ->
+    #       memo + _.keys(type).length
+    #     , 0) * 2
 
   API =
     getShoes: (page) ->
-      shoes = new Entities.ShoesPagination({ page: page })
+      shoes = new Entities.ShoesPagination()
+      shoes.state.set
+        page: page
       shoes.fetch()
       shoes
 
