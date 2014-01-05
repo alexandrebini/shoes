@@ -1,2 +1,1 @@
-- console.log(@, @big_url)
 %img{ src: @big_url, alt: @alt }

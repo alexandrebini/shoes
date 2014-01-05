@@ -4,14 +4,29 @@
 //
 // *************************************
 
-article.shoe
+article.show
+  @extend %grid-box
   margin-top: 100px
+
 
 // -------------------------------------
 //   Modifiers
 // -------------------------------------
 
 // .module--modifier
+.photos--box
+  @extend %box--shoe
+  @extend %grid-box
+  @extend %grid-box--9of12
+
+.description--box
+  @extend %box--shoe
+  @extend %grid-box
+  @extend %grid-box--3of12
+
+li.thumb--box
+  @extend %box--thumbs
+  @extend %grid-box--2of9
 
 // -------------------------------------
 //   States
@@ -30,6 +45,18 @@ article.shoe
 // -------------------------------------
 
 // ----- Submodule ----- //
+%box--thumbs
+  +inline-block
+
+%box--shoe
+  @extend %grid-box
+  text-align: center
+
+  .l-photos
+    background: white
+    img
+      max-width: 100%
+      max-height: 100%
 
 // .module-submodule
 

@@ -3,7 +3,7 @@
     parse: (response) -> @set response.toJSON()
 
   class Entities.PhotosCollection extends Backbone.Collection
-    initialize: (models) ->
+    initialize: ->
       @mainPhoto = new Entities.Photo()
 
     setMainCurrent: (model) ->

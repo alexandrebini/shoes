@@ -5,19 +5,19 @@
     id: 'shoe'
 
     regions:
-      mainPhotoRegion: '.main'
-      thumbRegion: '.thumbs_container'
-      titleRegion: '.title'
-      priceRegion: '.price'
-      descriptionRegion: '.description'
-      numberRegion: '.number'
-      brandRegion: '.brand'
-      buttonRegion: '.button'
+      mainPhotoRegion: 'section.photos--box .main'
+      thumbRegion: 'section.photos--box .thumbs_container'
+      titleRegion: 'section.description--box .title'
+      priceRegion: 'section.description--box .price'
+      descriptionRegion: 'section.description--box .description'
+      numberRegion: 'section.description--box .number'
+      brandRegion: 'section.description--box .brand'
+      buttonRegion: 'section.description--box .button'
 
   class Show.Thumb extends Marionette.ItemView
     template: 'shoes/show/templates/thumb'
     tagName: 'li'
-    className: 'thumb'
+    className: 'thumb--box'
 
     triggers:
       'click' : { event: 'change:mainPhoto', preventDefault: true }

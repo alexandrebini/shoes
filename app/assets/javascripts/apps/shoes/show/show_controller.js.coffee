@@ -32,8 +32,7 @@
       thumbView = @getThumbView(shoe)
 
       @listenTo thumbView, 'itemview:change:mainPhoto', (child, args) =>
-        console.log args.model
-        shoe.photos.setMainCurrent(args.model) #unless args.model.isCurrent()
+        shoe.photos.setMainCurrent(args.model)
 
       @layout.thumbRegion.show thumbView
 
