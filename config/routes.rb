@@ -21,6 +21,6 @@ Shoes::Application.routes.draw do
 
   constraints FormatTest.new(:json) do
     get '/shoes' => 'shoes#index', as: :shoes
-    get '*slug/index.json' => 'shoes#show', as: :shoe
+    get '*slug' => 'shoes#show', as: :shoe
   end
 end

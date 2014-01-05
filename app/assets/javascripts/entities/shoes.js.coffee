@@ -26,9 +26,9 @@
         @numerations = new Entities.GridCollection(response.numerations)
         delete response.numerations
 
-      if response.images
-        @photos = new Entities.PhotosCollection(response.images)
-        delete response.images
+      if response.photos
+        @photos = new Entities.PhotosCollection(response.photos)
+        delete response.photos
 
       response
 

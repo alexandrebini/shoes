@@ -51,22 +51,6 @@ class Shoe < ActiveRecord::Base
     @photo ||= photos.first
   end
 
-  def brand_name
-    brand.name
-  end
-
-  def brand_logo
-    brand.logo.url
-  end
-
-  def brand_url
-    brand.url
-  end
-
-  def is_main_photo?(photo)
-    photos.first == photo
-  end
-
   def grid=numerations
     new_numerations = numerations.compact.uniq.map do |numeration|
       self.numerations.where(number: numeration).first_or_initialize
