@@ -2,10 +2,7 @@
   class List.Controller extends Marionette.Controller
     initialize: (page) ->
       @shoes = App.request('shoes:entities', page)
-      App.vent.on 'scroll:bottom', @getNextPage, @
-      App.vent.on 'scroll:top', @getPreviousPage, @
 
-      window.a = @shoes
       @layout = @getLayoutView()
 
       @listenTo @layout, 'show', =>
@@ -14,10 +11,12 @@
         @bottomPaginationRegion(@shoes)
 
       App.mainRegion.show @layout
+      App.vent.on 'scroll:bottom', @getNextPage, @
+      App.vent.on 'scroll:top', @getPreviousPage, @
 
     shoesRegion: (shoes) ->
-      shoesView = @getShoesView(shoes)
-      @layout.shoesRegion.show shoesView
+      @getShoesView(shoes)
+      @layout.shoesRegion.show @shoesView
 
     topPaginationRegion: (shoes) ->
       paginationView = @getTopPaginationView(shoes)
@@ -28,8 +27,11 @@
       @layout.bottomPaginationRegion.show paginationView
 
     getShoesView: (shoes) ->
-      new List.Shoes
+      @shoesView = new List.Shoes
         collection: shoes
+
+      App.vent.trigger 'scroll:matcher:watch', @shoes
+      App.vent.on 'scroll:matcher:matches', @shoes, @
 
     getTopPaginationView: (shoes) ->
       new App.Components.Pagination.View.TopPagination
@@ -49,3 +51,7 @@
     getPreviousPage: ->
       if previousPage = @shoes.getPreviousPage()
         App.vent.trigger 'page:change', previousPage
+
+    changePage: (options) ->
+      console.log 'change page'
+      # visiblePage = @shoesView.visiblePage(scrollTop)

@@ -1,6 +1,6 @@
-@Shoes.module 'WindowWatcher', (WindowWatcher, App, Backbone, Marionette, $, _) ->
+@Shoes.module 'ScrollWatcher', (ScrollWatcher, App, Backbone, Marionette, $, _) ->
 
-  class WindowWatcher.Watcher
+  class ScrollWatcher.Watcher
     window: $(window)
     document: $(document)
     gap: 100
@@ -17,6 +17,8 @@
           App.vent.trigger 'scroll:bottom' if @nearBottom()
         when @scrollTop < @lastScrollTop
           App.vent.trigger 'scroll:top' if @nearTop()
+        else
+          App.vent.trigger 'scroll', @scrollTop
       @lastScrollTop = @scrollTop
 
     nearBottom: ->
@@ -25,5 +27,5 @@
     nearTop: ->
       @scrollTop < @gap
 
-  WindowWatcher.on 'start', ->
-    new WindowWatcher.Watcher()
+  ScrollWatcher.on 'start', ->
+    new ScrollWatcher.Watcher()
