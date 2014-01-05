@@ -1,6 +1,5 @@
 class Shoe < ActiveRecord::Base
   extend FriendlyId
-  include ActionView::Helpers::NumberHelper
 
   belongs_to :brand
   belongs_to :store
@@ -34,8 +33,8 @@ class Shoe < ActiveRecord::Base
 
   def price
     if prices.last
-      price = prices.last.value / 100
-      number_to_currency price , unit: ''
+      price = prices.last.value
+      { int: price / 100, cents: price % 100 }
     end
   end
 
