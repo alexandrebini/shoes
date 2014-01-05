@@ -10,13 +10,18 @@
       @view.trigger('scroll:matches') if @nearScroll(scrollTop)
 
     nearScroll: (scrollTop) ->
-      child = @view.$el.children().first()
-      scrollTop = Math.round(scrollTop)
-      top = Math.round(child.offset().top)
+      firstChild = @view.$el.children().first()
+      lastChild = @view.$el.children().last()
 
-      console.log "page: #{ @view.model.page }    #{ scrollTop }  #{ top }   #{ top > scrollTop - @gap && top < scrollTop + @gap }"
+      console.log 'firstchild', firstChild.length > 0, 'lastChild', lastChild.length > 0
 
-      if top > scrollTop - @gap && top < scrollTop + @gap
+      top = firstChild.offset().top
+      bottom = lastChild.offset().top + lastChild.height()
+
+      # console.log 'scrolltop', scrollTop, 'top', top, 'bottom', bottom
+      # console.log "page: #{ @view.model.page }    #{ scrollTop }  #{ top }   #{ top > scrollTop - @gap && top < scrollTop + @gap }"
+
+      if scrollTop > top && scrollTop < bottom
         true
       else
         false
