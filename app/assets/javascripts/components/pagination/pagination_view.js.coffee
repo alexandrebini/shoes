@@ -10,29 +10,14 @@
     initialize: ->
       @collection = @model
 
-  class View.Pagination extends Marionette.ItemView
-    template: 'pagination/templates/pagination'
+  class View.TopPagination extends Marionette.ItemView
+    template: 'pagination/templates/top_pagination'
+    templateHelpers: App.UrlHelper.Helper.getInstance()
+    modelEvents:
+      'change:isLoading change:page change:direction': 'render'
 
-    constructor: (options) ->
-      @position = options.position
-      @model = options.model
-      super()
-
-    serializeData: ->
-      { position: @position, isLoading: @model.get('isLoading') }
-
-    className: ->
-      console.log 'classname'
-      className = ['pagination']
-      switch @position
-        when 'top'
-          if @model.get('isLoading') && @model.get('direction') == 'up'
-            className.push 'is-loading'
-          else if @model.get('page') == 0
-            className.push 'is-hidden'
-        when 'bottom'
-          if @model.get('isLoading') && @model.get('direction') == 'down'
-            className.push 'is-loading'
-          else if @model.get('page') == @model.get('totalPages')
-            className.push 'is-hidden'
-      className.join(' ')
+  class View.BottomPagination extends Marionette.ItemView
+    template: 'pagination/templates/bottom_pagination'
+    templateHelpers: App.UrlHelper.Helper.getInstance()
+    modelEvents:
+      'change:isLoading change:page change:direction': 'render'

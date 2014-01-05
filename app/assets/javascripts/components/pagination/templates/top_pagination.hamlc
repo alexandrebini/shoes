@@ -1,0 +1,8 @@
+- switch
+  - when @isLoading && @direction == 'up'
+    .pagination.is-loading
+  - when @page == 1
+    .pagination.is-hidden
+  - else
+    .pagination
+      %a{ rel: 'prev', href: @previousPagePath() } anterior

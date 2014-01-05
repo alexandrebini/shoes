@@ -24,6 +24,12 @@
       else if @get('page') < @previous('page')
         @set 'direction', 'up'
 
+    setPage: (page) ->
+      if _.isString(page) || _.isNumber(page)
+        @set page: parseInt(page)
+      else
+        @set page: 1
+
   class Entities.Page extends Backbone.Collection
     parse: (response) ->
       @page = response.page
@@ -44,7 +50,7 @@
       _.min [@state.get('page') + 1, @state.get('totalPages')]
 
     previousPage: ->
-      _.max [@state.get('page') - 1, 0]
+      _.max [@state.get('page') - 1, 1]
 
     getNextPage: ->
       @getPage @nextPage()
@@ -60,14 +66,12 @@
 
     getPage: (index) ->
       if @pageAvailable(index)
-        @state.set
-          page: index
+        @state.setPage(index)
         @fetch()
         index
 
     fetch: (options) ->
       return if _.contains(@state.get('fetched'), @state.get('page'))
-
       @state.set({ isLoading: true })
       @state.get('fetched').push(@state.get('page'))
 

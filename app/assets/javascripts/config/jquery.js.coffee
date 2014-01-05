@@ -1,7 +1,5 @@
 do ($) ->
-  console.log 'vemmmmm'
   $.fn.insertAt = (index, element) ->
-    console.log 'insertat'
     lastIndex
     if (index <= 0)
       return this.prepend(element)
