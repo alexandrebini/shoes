@@ -24,5 +24,5 @@
       new List.Layout
 
     getNextPage: ->
-      nextPage = @shoes.getNextPage()
-      App.vent.trigger 'page:change', nextPage
+      if nextPage = @shoes.getNextPage()
+        App.vent.trigger 'page:change', nextPage

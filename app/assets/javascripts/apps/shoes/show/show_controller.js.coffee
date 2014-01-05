@@ -15,9 +15,15 @@
         @brandRegion(shoe)
         @numberRegion(shoe)
         @buttonRegion(shoe)
+        @mainPhotoRegion(shoe)
 
-      Show.on 'set:mainPhoto', (photo) =>
-        @mainPhotoRegion photo
+    mainPhotoRegion: (shoe) ->
+      mainPhotoView = @getMainPhotoView(shoe.photos.setMainCurrent())
+      @layout.mainPhotoRegion.show mainPhotoView
+
+    getMainPhotoView: (photo) ->
+      new Show.MainPhoto
+        model: photo
 
     getLayoutView: ->
       new Show.Layout
@@ -26,23 +32,14 @@
       thumbView = @getThumbView(shoe)
 
       @listenTo thumbView, 'itemview:change:mainPhoto', (child, args) =>
-        @mainPhotoRegion args.model unless args.model.isCurrent()
+        console.log args.model
+        shoe.photos.setMainCurrent(args.model) #unless args.model.isCurrent()
 
       @layout.thumbRegion.show thumbView
 
-
     getThumbView: (shoe) ->
-      new Show.Images
-        collection: shoe.images
-
-    mainPhotoRegion: (photo) ->
-      photo.setCurrent(true)
-      mainPhotoView = @getMainPhotoView(photo)
-      @layout.mainPhotoRegion.show mainPhotoView
-
-    getMainPhotoView: (photo) ->
-      new Show.MainPhoto
-        model: photo
+      new Show.Thumbs
+        collection: shoe.photos
 
     titleRegion: (shoe) ->
       titleView = @getTitleView(shoe)

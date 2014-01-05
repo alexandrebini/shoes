@@ -1,16 +1,15 @@
 @Shoes.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
-  class Entities.Image extends Backbone.Model
-    defaults:
-      current: false
+  class Entities.Photo extends Backbone.Model
+    parse: (response) -> @set response.toJSON()
 
-    setCurrent: (status) ->
-      @set current: status
+  class Entities.PhotosCollection extends Backbone.Collection
+    initialize: (models) ->
+      @mainPhoto = new Entities.Photo()
 
-    isCurrent: ->
-      @get('current')
-
-  class Entities.ImagesCollection extends Backbone.Collection
-    model: Entities.Image
+    setMainCurrent: (model) ->
+      @mainPhoto.parse model || _.first(_.map(@models, (model) ->
+        model if model.get('main')
+      ))
 
   class Entities.GridCollection extends Backbone.Collection
     model: Backbone.Model.extend()
@@ -28,7 +27,7 @@
         delete response.numerations
 
       if response.images
-        @images = new Entities.ImagesCollection(response.images)
+        @photos = new Entities.PhotosCollection(response.images)
         delete response.images
 
       response

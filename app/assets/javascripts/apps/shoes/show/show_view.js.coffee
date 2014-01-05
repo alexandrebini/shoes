@@ -19,29 +19,26 @@
     tagName: 'li'
     className: 'thumb'
 
-    initialize: ->
-      Show.trigger 'set:mainPhoto', @model if @model.get('main')
-
     triggers:
       'click' : { event: 'change:mainPhoto', preventDefault: true }
 
-  class Show.Images extends Marionette.CollectionView
+  class Show.Thumbs extends Marionette.CollectionView
     itemView: Show.Thumb
     tagName: 'ul'
     className: 'thumbs'
 
-    initialize: ->
-      window.foo = @collection.models
-
   class Show.MainPhoto extends Marionette.ItemView
     template: 'shoes/show/templates/main_photo'
 
-    onShow: ->
-      @$el.hide().fadeIn()
+    modelEvents:
+      'change' : 'changeMainPhoto'
 
-    onClose: ->
-      @model.setCurrent(false)
-      @$el.fadeOut()
+    changeMainPhoto: ->
+      console.log '------------'
+      @render @model
+
+    # onRender: ->
+    #   @$el.hide().fadeIn()
 
   class Show.Title extends Marionette.ItemView
     template: 'shoes/show/templates/title'

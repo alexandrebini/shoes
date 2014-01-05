@@ -1,0 +1,9 @@
+- switch
+  - when @isLoading
+    .pagination.is-loading
+  - when @page == @totalPages
+    .pagination.is-hidden
+  - else
+    .pagination
+      %a{ rel: 'prev' } anterior
+      %a{ rel: 'next' } próxima
