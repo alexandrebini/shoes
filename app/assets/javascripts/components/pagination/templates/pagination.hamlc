@@ -1,5 +1,0 @@
-- unless @isLoading
-  - if @position == 'top'
-    %a{ rel: 'prev' } anterior
-  - else
-    %a{ rel: 'next' } próxima

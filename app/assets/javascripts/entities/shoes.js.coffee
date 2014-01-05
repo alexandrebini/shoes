@@ -111,7 +111,8 @@
 
   API =
     getShoes: (page) ->
-      shoes = new Entities.ShoesPagination({ page: page })
+      shoes = new Entities.ShoesPagination()
+      shoes.state.setPage(page)
       shoes.fetch()
       shoes
 

@@ -9,8 +9,7 @@
 //= require_tree ./config
 //= require_tree ./lib
 //= require ./app
-
+//= require_tree ./modules
 //= require_tree ./components
 //= require_tree ./entities
-//= require_tree ./modules
 //= require_tree ./apps

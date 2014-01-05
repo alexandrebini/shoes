@@ -1,0 +1,8 @@
+- switch
+  - when @isLoading && @direction == 'down'
+    .pagination.is-loading
+  - when @page == @totalPages
+    .pagination.is-hidden
+  - else
+    .pagination
+      %a{ rel: 'next', href: @nextPagePath() } próxima
