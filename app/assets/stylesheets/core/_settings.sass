@@ -16,14 +16,18 @@
 // -------------------------------------
 
 // ----- Base Colors ----- //
-$base-background: #786694
-$base-color: #222
+$base-color-primary: #59295d
+$base-text-color-primary: #fff
+$base-color-second: #7a4e7e
+$base-text-color-second: $base-color-primary
+$base-color-third: #9d849d
+$base-color-fourth: #3f203f
 $base-link-color: #fff
 
 // ----- Base Borders & Box Shadows ----- //
-$base-border: 1px solid $base-color
+$base-border: 1px solid $base-color-primary
 $base-borderRadius: 3px
-$base-boxShadow: 0 1px 2px rgba($base-color, 0.25)
+$base-boxShadow: 0 1px 2px $base-color-primary
 
 // ----- Base Content ----- //
 $base-fontFamily: 'Signika', sans-serif
@@ -39,10 +43,13 @@ $c-header-fontFamily: $base-fontFamily
 // ----- Layout ----- //
 $l-maxWidth: 980px
 
+// ----- Padding ----- //
+$default-padding: 10px
+
 // ----- Header ----- //
-$header-background: #3e1f3e
+$header-background: $base-color-primary
 $header-height: 70px
-$header-shadow: #000
+$header-shadow: $base-color-primary
 
 // ----- Shoes ----- //
 $shoes-height: 190px
@@ -50,8 +57,7 @@ $shoes-width: 210px
 $shoes-gutter: 10px
 
 // ----- Shoe ----- //
-$shoe-main-photo-width:  880px
-$shoe-main-photo-height:  600px
+$shoe-title-height:  60px
 
 // ----- Pagination ----- //
 $pagination-height: 100px

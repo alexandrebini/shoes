@@ -1,2 +1,10 @@
-.small R$
-%h2= @price
+- @int = @price.split('.')[0]
+- @sub = @price.split('.')[1]
+
+%h2
+  %sup R$
+
+  = @int
+  %sub
+    ,
+    = @sub

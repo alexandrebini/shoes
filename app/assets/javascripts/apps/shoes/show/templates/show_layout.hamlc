@@ -10,9 +10,10 @@
     .thumbs_container
 
 %section.description--box
-  .title
-  .price
-  .description
-  .number
-  .brand
-  .button
+  .l-description
+    .title
+    .price
+    .description
+    .number
+    .brand
+    .button

@@ -2,7 +2,6 @@
 
   class Show.Layout extends Marionette.Layout
     template: 'shoes/show/templates/show_layout'
-    id: 'shoe'
 
     regions:
       mainPhotoRegion: 'section.photos--box .main'
