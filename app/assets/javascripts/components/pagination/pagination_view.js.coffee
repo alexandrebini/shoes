@@ -8,6 +8,7 @@
     className: 'page'
     initialize: ->
       @collection = @model
+      @scrollMatcher = new App.ScrollMatcher.Matcher(@)
 
   class View.TopPagination extends Marionette.ItemView
     template: 'pagination/templates/top_pagination'

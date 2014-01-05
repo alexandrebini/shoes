@@ -13,10 +13,10 @@
     checkScroll: ->
       @scrollTop = @window.scrollTop()
       switch
-        when @scrollTop > @lastScrollTop
-          App.vent.trigger 'scroll:bottom' if @nearBottom()
-        when @scrollTop < @lastScrollTop
-          App.vent.trigger 'scroll:top' if @nearTop()
+        when @scrollTop > @lastScrollTop && @nearBottom()
+          App.vent.trigger 'scroll:bottom'
+        when @scrollTop < @lastScrollTop && @nearTop()
+          App.vent.trigger 'scroll:top'
         else
           App.vent.trigger 'scroll', @scrollTop
       @lastScrollTop = @scrollTop
