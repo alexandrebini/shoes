@@ -5,6 +5,11 @@
       perPage: null
       totalPages: null
       isLoading: false
+      direction: 'down'
+      fetched: []
+
+    initialize: ->
+      @on 'change:page', @setDirection
 
     parse: (response) ->
       @set
@@ -12,6 +17,12 @@
         perPage: parseInt(response.perPage)
         totalPages: parseInt(response.totalPages)
         isLoading: false
+
+    setDirection: ->
+      if @get('page') > @previous('page')
+        @set 'direction', 'down'
+      else if @get('page') < @previous('page')
+        @set 'direction', 'up'
 
   class Entities.Page extends Backbone.Collection
     parse: (response) ->
@@ -41,18 +52,25 @@
     getPreviousPage: ->
       @getPage @previousPage()
 
-    getPage: (index) ->
+    pageAvailable: (index) ->
       if index == @state.get('page') || @state.get('isLoading')
-        return false
+        false
       else
+        true
+
+    getPage: (index) ->
+      if @pageAvailable(index)
         @state.set
           page: index
         @fetch()
         index
 
     fetch: (options) ->
-      @state.set
-        isLoading: true
+      return if _.contains(@state.get('fetched'), @state.get('page'))
+
+      @state.set({ isLoading: true })
+      @state.get('fetched').push(@state.get('page'))
+
       super
         url: @url({ page: @state.get('page') })
         update: true

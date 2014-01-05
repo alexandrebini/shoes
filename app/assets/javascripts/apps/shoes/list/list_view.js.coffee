@@ -3,7 +3,9 @@
   class List.Layout extends Marionette.Layout
     template: 'shoes/list/templates/list_layout'
     regions:
+      topPaginationRegion: '.top'
       shoesRegion: 'article.shoes'
+      bottomPaginationRegion: '.bottom'
 
   class List.Shoe extends Marionette.ItemView
     template: 'shoes/list/templates/shoe'
@@ -24,5 +26,5 @@
     itemView: List.ShoesGroup
     tagName: 'section'
 
-  class List.Shoes extends App.Components.Pagination.View.Pagination
+  class List.Shoes extends App.Components.Pagination.View.Pages
     itemView: List.ShoesPage
