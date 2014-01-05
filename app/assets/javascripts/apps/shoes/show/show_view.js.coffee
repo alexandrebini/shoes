@@ -34,11 +34,10 @@
       'change' : 'changeMainPhoto'
 
     changeMainPhoto: ->
-      console.log '------------'
       @render @model
 
-    # onRender: ->
-    #   @$el.hide().fadeIn()
+    onRender: ->
+      @$el.hide().fadeIn()
 
   class Show.Title extends Marionette.ItemView
     template: 'shoes/show/templates/title'
