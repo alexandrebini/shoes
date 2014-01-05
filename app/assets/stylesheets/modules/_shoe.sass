@@ -19,22 +19,26 @@ article.show
   @extend %grid-box--xlg--8of12
   @extend %grid-box--lg--8of12
   @extend %grid-box--md--8of12
-  @extend %grid-box--sm--8of12
+  @extend %grid-box--sm--7of12
   @extend %grid-box--xs--1of1
 
 .description--box
-  @extend %default--box
+  @extend %description--box
   @extend %grid-box
   @extend %grid-box--xlg--4of12
   @extend %grid-box--lg--4of12
   @extend %grid-box--md--4of12
-  @extend %grid-box--sm--4of12
+  @extend %grid-box--sm--5of12
   @extend %grid-box--xs--1of1
 
 li.thumb--box
   @extend %thumbs--box
   @extend %grid-box
   @extend %grid-box--1of8
+
+li.grid--box
+  @extend %grid-box
+  @extend %grid-box--2of12
 
 // -------------------------------------
 //   States
@@ -63,15 +67,21 @@ li.thumb--box
 
 %shoe--box
   @extend %default--box
+
   .l-photos
     @extend %l-img
     @extend %ir
 
+%description--box
+  @extend %default--box
   .l-description
     @extend %l-img
+
     .title
       background: $primary-color
       height: rem($shoe-title-height)
+      &:after
+        @extend %down-tip
       div
         height: 100%
         h1
@@ -80,7 +90,7 @@ li.thumb--box
             font-weight: normal
 
     .price
-      color: $base-text-color-second
+      color: $text-secondary-color
       padding: rem($default-padding * 4)
       letter-spacing: 1px
 
@@ -90,6 +100,7 @@ li.thumb--box
       padding: rem($default-padding * 4)
 
     .number
+      +clearfix
       background: $secondary-color
       ul
         margin: 0

@@ -40,6 +40,17 @@
     width: 0
     height: 150%
 
+// ----- Down Tip ----- //
+%down-tip
+  @extend %group:after
+  +inline-block
+  width: 0
+  height: 0
+  border-left: $default-padding * 2 solid transparent
+  border-right: $default-padding * 2 solid transparent
+  border-top: $default-padding * 2 solid $primary-color
+  position: relative
+  bottom: 4px
 // -------------------------------------
 //   Functions
 // -------------------------------------

@@ -53,6 +53,7 @@
   class Show.Number extends Marionette.ItemView
     template: 'shoes/show/templates/number'
     tagName: 'li'
+    className: 'grid--box'
 
   class Show.Grid extends Marionette.CollectionView
     itemView: Show.Number
