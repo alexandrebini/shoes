@@ -5,6 +5,7 @@
 // *************************************
 article.show
   @extend %grid-box
+  height: 100%
   margin-top: rem($header-height)
   padding: rem($default-padding)
 
@@ -38,8 +39,10 @@ li.thumb--box
 
 li.grid--box
   @extend %grid-box
-  @extend %grid-box--2of12
-
+  @extend %grid-box--1of12
+  @extend %color-scale
+  height: rem($shoe-list-grid-height)
+  line-height: rem($shoe-list-grid-height)
 // -------------------------------------
 //   States
 // -------------------------------------
@@ -89,15 +92,16 @@ li.grid--box
           sup
             font-weight: normal
 
+    .price, .description, .brand
+      padding: rem($default-padding * 3)
+
     .price
       color: $text-secondary-color
-      padding: rem($default-padding * 4)
       letter-spacing: 1px
 
     .description
       @extend %c-justify
       background: $secondary-color
-      padding: rem($default-padding * 4)
 
     .number
       +clearfix
@@ -106,7 +110,8 @@ li.grid--box
         margin: 0
 
     .button
-      background: $secondary-color
+      background: url(asset_path('tons_scales.png'))
+      background-repeat: y
 
 // .module-submodule
 %l-img
@@ -114,5 +119,5 @@ li.grid--box
   background: white
 
   img
-    max-width: 100%
-    max-height: 100%
+    max-width: 75%
+    max-height: 75%

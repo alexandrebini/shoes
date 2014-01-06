@@ -11,8 +11,46 @@
         model if model.get('main')
       ))
 
+  class Entities.Number extends Backbone.Model
+    defaults:
+      className: ''
+
+    parse: (klass) ->
+      @set className: klass
+
   class Entities.GridCollection extends Backbone.Collection
-    model: Backbone.Model.extend()
+    model: Entities.Number
+
+    attrs:
+      maximumPercent: 100
+      minimumPercent: 10
+      percent: 100
+      gap: 15
+      direction: 'down'
+
+    parse: ->
+      @setClassName()
+      @
+
+    setClassName: ->
+      for model in @models
+        model.parse("opacity-#{ @attrs['percent'] }") unless model.get('className')
+        @setPercentNew()
+
+    setPercentNew: ->
+        if @getDirection() == 'down'
+          @attrs['percent'] = @attrs['percent'] - @attrs['gap']
+        else
+          @attrs['percent'] = @attrs['percent'] + @attrs['gap']
+
+    getDirection: ->
+      if @attrs['percent'] - @attrs['gap'] < @attrs['minimumPercent']
+        @attrs['direction'] = 'up'
+
+      if @attrs['percent'] + @attrs['gap'] > @attrs['maximumPercent']
+        @attrs['direction'] = 'down'
+
+      @attrs['direction']
 
   class Entities.Shoe extends Backbone.Model
     urlRoot: -> Routes.shoes_path()

@@ -78,7 +78,7 @@
 
     getNumberView: (shoe) ->
       new Show.Grid
-        collection: shoe.numerations
+        collection: shoe.numerations.parse()
 
     buttonRegion: (shoe) ->
       buttonView = @getButtonView(shoe)

@@ -53,7 +53,8 @@
   class Show.Number extends Marionette.ItemView
     template: 'shoes/show/templates/number'
     tagName: 'li'
-    className: 'grid--box'
+    className: ->
+      "grid--box #{ @model.get('className') }"
 
   class Show.Grid extends Marionette.CollectionView
     itemView: Show.Number
