@@ -4,10 +4,6 @@ module Crawler
 
     acts_as_crawler
 
-    def store
-      @store ||= Store.where(name: 'Melissa').first
-    end
-
     def brand
       @brand ||= Brand.where(name: 'Melissa').first
     end
@@ -20,7 +16,7 @@ module Crawler
       cats = page.css('.attribute-filter.estilo ol li a')
 
       Array.new.tap do |pages|
-        pages << store.start_url
+        pages << brand.start_url
 
         cats.each do |cat|
           shoes_categories[cat.attr(:href)] = {
@@ -43,7 +39,6 @@ module Crawler
     def create_shoe(options)
       shoe = Shoe.where(source_url: parse_source_url(options)).lock(true).first_or_initialize
       shoe.update_attributes(
-        store: store,
         brand: brand,
         category_name: parse_category_name(options),
         source_url: parse_source_url(options),

@@ -10,7 +10,7 @@ module Crawler
 
       @filename = File.basename URI.parse(@photo.source_url).path
       @file = StringIO.new(Crawler::UrlOpener.instance.open_url @photo.source_url,
-        proxy: false, min_size: 5.kilobytes, image: true, name: @photo.store.slug)
+        proxy: false, min_size: 5.kilobytes, image: true, name: @photo.brand.slug)
 
       @photo.data = @file
       @photo.data_file_name = @filename
@@ -36,7 +36,7 @@ module Crawler
 
     def download_logger(msg)
       logger = if @photo.present?
-        Logger.new("#{ Rails.root }/log/#{ @photo.store.slug }.downloads.log")
+        Logger.new("#{ Rails.root }/log/#{ @photo.brand.slug }.downloads.log")
       else
         Logger.new("#{ Rails.root }/log/download_error.log")
       end

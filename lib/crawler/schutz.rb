@@ -4,12 +4,8 @@ module Crawler
 
     acts_as_crawler
 
-    def store
-      # this site is almost the same of Corello.
-      @store ||= Store.where(name: 'Schutz').first
-    end
-
     def brand
+      # this site is almost the same of Corello.
       @brand ||= Brand.where(name: 'Schutz').first
     end
 
@@ -29,7 +25,6 @@ module Crawler
       options[:product_view] = product_view(options)
       shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
       shoe.update_attributes({
-        store: store,
         brand: brand,
         source_url: options[:url],
         name: parse_name(options[:page]),
@@ -98,7 +93,7 @@ module Crawler
 
       Array.new.tap do |pages|
         1.upto(total_pages).each do |page|
-          pages << "#{ store.url }/cat/#{ category_id }/0/MaisRecente/Decrescente/20/2////.aspx"
+          pages << "#{ brand.url }/cat/#{ category_id }/0/MaisRecente/Decrescente/20/2////.aspx"
         end
       end
     end
@@ -118,7 +113,7 @@ module Crawler
     end
 
     def api_call(method, body, shoe_url)
-      api_url = "#{ store.url }/ajaxpro/IKCLojaMaster.detalhes,Schutz.ashx"
+      api_url = "#{ brand.url }/ajaxpro/IKCLojaMaster.detalhes,Schutz.ashx"
       api_uri = URI.parse(api_url)
       shoe_uri = URI.parse(shoe_url)
 
@@ -129,7 +124,7 @@ module Crawler
       request = Net::HTTP::Post.new(api_url)
       request.add_field 'Cookie', cookies
       request.add_field 'X-AjaxPro-Method', method
-      request.add_field 'Origin', store.url
+      request.add_field 'Origin', brand.url
       request.add_field 'Referer', shoe_url
       request.body = body
 

@@ -4,10 +4,6 @@ module Crawler
 
     acts_as_crawler
 
-    def store
-      @store ||= Store.where(name: 'Corello').first
-    end
-
     def brand
       @brand ||= Brand.where(name: 'Corello').first
     end
@@ -28,7 +24,6 @@ module Crawler
       options[:product_view] = product_view(options)
       shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
       shoe.update_attributes({
-        store: store,
         brand: brand,
         source_url: options[:url],
         name: parse_name(options[:page]),
@@ -122,7 +117,7 @@ module Crawler
     end
 
     def api_call(method, body, shoe_url)
-      api_url = "#{ store.url }/ajaxpro/IKCLojaMaster.detalhes,Corello.ashx"
+      api_url = "#{ brand.url }/ajaxpro/IKCLojaMaster.detalhes,Corello.ashx"
       api_uri = URI.parse(api_url)
       shoe_uri = URI.parse(shoe_url)
 
@@ -133,7 +128,7 @@ module Crawler
       request = Net::HTTP::Post.new(api_url)
       request.add_field 'Cookie', cookies
       request.add_field 'X-AjaxPro-Method', method
-      request.add_field 'Origin', store.url
+      request.add_field 'Origin', brand.url
       request.add_field 'Referer', shoe_url
       request.body = body
 

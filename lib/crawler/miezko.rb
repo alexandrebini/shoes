@@ -10,10 +10,6 @@ module Crawler
       @sleep_time = 5
     end
 
-    def store
-      @store ||= Store.where(name: 'Miezko').first
-    end
-
     def brand
       @brand ||= Brand.where(name: 'Melissa').first
     end
@@ -34,7 +30,6 @@ module Crawler
       shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
 
       shoe.update_attributes(
-        store: store,
         brand: brand,
         category_name: parse_category_name(options[:page]),
         source_url: options[:url],
@@ -66,7 +61,7 @@ module Crawler
 
     def parse_photos(page)
       page.css('ul.product-photos-list a').map do |a|
-        "#{ store.url }#{ a.attr(:href) }"
+        "#{ brand.url }#{ a.attr(:href) }"
       end
     end
 

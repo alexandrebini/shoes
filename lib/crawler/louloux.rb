@@ -10,10 +10,6 @@ module Crawler
       @sleep_time = 5
     end
 
-    def store
-      @store ||= Store.where(name: 'Louloux').first
-    end
-
     def brand
       @brand ||= Brand.where(name: 'Louloux').first
     end
@@ -22,9 +18,9 @@ module Crawler
       total_pages = page.css('.page-number span a').map{ |r| r.text.to_i }.max
 
       Array.new.tap do |pages|
-        pages << store.start_url
+        pages << brand.start_url
         2.upto(total_pages).each do |page|
-          pages << "#{ store.url }/ver-todos-s32/?pagina=#{ page }&order=lancamento"
+          pages << "#{ brand.url }/ver-todos-s32/?pagina=#{ page }&order=lancamento"
         end
       end
     end
@@ -38,7 +34,6 @@ module Crawler
     def parse_shoe(options)
       shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
       shoe.update_attributes({
-        store: store,
         brand: brand,
         source_url: options[:url],
         name: parse_name(options[:page]),
@@ -70,7 +65,7 @@ module Crawler
 
     def parse_photos(page)
       page.css('.product-photos ul li').map do |li|
-        "#{ store.url }#{ li.attr(:title) }"
+        "#{ brand.url }#{ li.attr(:title) }"
       end
     end
 
