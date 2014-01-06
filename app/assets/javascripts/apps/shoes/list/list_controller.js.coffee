@@ -10,9 +10,6 @@
         @shoesRegion(@shoes)
         @bottomPaginationRegion(@shoes)
 
-      @listenTo @shoes.state, 'change:page', =>
-        App.vent.trigger 'page:change', @shoes.state.get('page')
-
       App.mainRegion.show @layout
       App.vent.on 'scroll:bottom', @getNextPage, @
       App.vent.on 'scroll:top', @getPreviousPage, @
@@ -21,7 +18,7 @@
       shoesView = @getShoesView(shoes)
       @layout.shoesRegion.show shoesView
       @listenTo shoesView, 'itemview:scroll:matches', (child, args) =>
-        @getPage child.model.page
+        App.vent.trigger 'page:change', child.model.page
 
     topPaginationRegion: (shoes) ->
       paginationView = @getTopPaginationView(shoes)
@@ -51,6 +48,3 @@
 
     getPreviousPage: ->
       @shoes.getPreviousPage()
-
-    getPage: (newPage) ->
-      @shoes.getPage(newPage)

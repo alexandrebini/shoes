@@ -1,30 +1,23 @@
 @Shoes.module 'ScrollMatcher', (ScrollMatcher, App, Backbone, Marionette, $, _) ->
   class ScrollMatcher.Matcher
-    gap: 100
 
     constructor: (view) ->
       @view = view
       App.vent.on 'scroll', @onScroll, @
+      @view.on 'after:item:added', @onScroll, @
 
     onScroll: (scrollTop) ->
-      @view.trigger('scroll:matches') if @nearScroll(scrollTop)
+      scrollTop = $(window).scrollTop() unless _.isNumber(scrollTop)
+      scrollTop = 0 if scrollTop < 0
+      topGap = @view.$el.offset().top
 
-    nearScroll: (scrollTop) ->
-      firstChild = @view.$el.children().first()
-      lastChild = @view.$el.children().last()
+      children = @view.children.toArray()
+      children = _.sortBy children, (x) -> -x.model.page
 
-      console.log 'firstchild', firstChild.length > 0, 'lastChild', lastChild.length > 0
+      for view in children
+        firstChild = view.$el.children().first()
 
-      top = firstChild.offset().top
-      bottom = lastChild.offset().top + lastChild.height()
-
-      # console.log 'scrolltop', scrollTop, 'top', top, 'bottom', bottom
-      # console.log "page: #{ @view.model.page }    #{ scrollTop }  #{ top }   #{ top > scrollTop - @gap && top < scrollTop + @gap }"
-
-      if scrollTop > top && scrollTop < bottom
-        true
-      else
-        false
-
-    watch: (options) ->
-      console.log 'watch', options
+        top = firstChild.offset().top - topGap
+        if scrollTop >= top
+          view.trigger('scroll:matches')
+          return

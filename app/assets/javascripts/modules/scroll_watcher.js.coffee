@@ -3,15 +3,17 @@
   class ScrollWatcher.Watcher
     window: $(window)
     document: $(document)
-    gap: 100
     scrollTop: 0
     lastScrollTop: 0
+    topGap: 100
+    bottomGap: $(window).height()
 
     constructor: ->
-      @window.on 'scroll', => @checkScroll()
+      @window.on 'scroll mousewheel', => @checkScroll()
 
     checkScroll: ->
       @scrollTop = @window.scrollTop()
+
       switch
         when @scrollTop > @lastScrollTop
           App.vent.trigger 'scroll:bottom' if @nearBottom()
@@ -22,10 +24,10 @@
       @lastScrollTop = @scrollTop
 
     nearBottom: ->
-      @scrollTop > @document.height() - @window.height() - @gap
+      @scrollTop > @document.height() - @window.height() - @bottomGap
 
     nearTop: ->
-      @scrollTop < @gap
+      @scrollTop < @topGap
 
   ScrollWatcher.on 'start', ->
     new ScrollWatcher.Watcher()

@@ -1,6 +1,9 @@
 @Shoes.module 'Components.Pagination.View', (View, App, Backbone, Marionette, $, _) ->
 
   class View.Pages extends Marionette.CollectionView
+    initialize: ->
+      @scrollMatcher = new App.ScrollMatcher.Matcher(@)
+
     appendHtml: (collectionView, itemView, index) ->
       return collectionView.$el.insertAt(index, itemView.$el)
 
@@ -8,7 +11,6 @@
     className: 'page'
     initialize: ->
       @collection = @model
-      @scrollMatcher = new App.ScrollMatcher.Matcher(@)
 
   class View.TopPagination extends Marionette.ItemView
     template: 'pagination/templates/top_pagination'
