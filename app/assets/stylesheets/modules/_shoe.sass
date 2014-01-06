@@ -36,6 +36,9 @@ li.thumb--box
   @extend %thumbs--box
   @extend %grid-box
   @extend %grid-box--1of8
+  background: #fff
+  height: rem($shoe-thumb-height)
+  margin: rem($default-padding)
 
 li.grid--box
   @extend %grid-box
@@ -74,6 +77,10 @@ li.grid--box
   .l-photos
     @extend %l-img
     @extend %ir
+
+    .thumbs_container
+      background: $primary-color
+      height: rem($shoe-footer-height)
 
 %description--box
   @extend %default--box
