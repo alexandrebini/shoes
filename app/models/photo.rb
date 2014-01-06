@@ -10,7 +10,8 @@ class Photo < ActiveRecord::Base
       original: { geometry: '' },
       thumb: '200x180',
       long: '200x360',
-      wide: '400x180'
+      wide: '400x180',
+      big: '650x600'
     },
     convert_options: {
       original: '-fuzz 2% -trim +repage'

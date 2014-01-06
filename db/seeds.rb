@@ -1,8 +1,9 @@
 def seed(klass)
-  seed_file = File.open("#{ Rails.root }/db/seed/#{ klass.to_s.underscore.pluralize }.yml")
-  config = YAML::load_file(seed_file)
-  klass.create config
+  seed_file = ERB.new(File.read("#{ Rails.root }/db/seed/#{ klass.to_s.underscore.pluralize }.yml")).result
+  config = YAML.load(seed_file)
+  klass.create(config)
 end
 
 seed Category
 seed Store
+seed Brand

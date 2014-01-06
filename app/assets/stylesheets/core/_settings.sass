@@ -9,24 +9,28 @@
 //   @font-face
 // -------------------------------------
 
-// ...
+@import url(http://fonts.googleapis.com/css?family=Signika:300)
 
 // -------------------------------------
 //   Variables
 // -------------------------------------
 
 // ----- Base Colors ----- //
-$base-background: #786694
-$base-color: #222
-$base-link-color: #0053c9
+$primary-color: #59295d
+$text-primary-color: #fff
+$secondary-color: #7a4e7e
+$text-secondary-color: $primary-color
+$tertiary-color: #9e849e
+$quaternary-color: #422442
+$base-link-color: #fff
 
 // ----- Base Borders & Box Shadows ----- //
-$base-border: 1px solid $base-color
+$base-border: 1px solid $primary-color
 $base-borderRadius: 3px
-$base-boxShadow: 0 1px 2px rgba($base-color, 0.25)
+$base-boxShadow: 0 1px 2px $primary-color
 
 // ----- Base Content ----- //
-$base-fontFamily: sans-serif
+$base-fontFamily: 'Signika', sans-serif
 $base-fontSize: 16px
 $base-lineHeight: 1.5
 
@@ -34,20 +38,29 @@ $base-lineHeight: 1.5
 $base-whitespace: 1px
 
 // ----- Content ----- //
-$c-header-fontFamily: sans-serif
+$c-header-fontFamily: $base-fontFamily
 
 // ----- Layout ----- //
 $l-maxWidth: 980px
 
+// ----- Padding ----- //
+$default-padding: 10px
+
 // ----- Header ----- //
-$header-background: #3e1f3e
+$header-background: $primary-color
 $header-height: 70px
-$header-shadow: #000
+$header-shadow: $primary-color
 
 // ----- Shoes ----- //
 $shoes-height: 190px
 $shoes-width: 210px
 $shoes-gutter: 10px
+
+// ----- Shoe ----- //
+$shoe-title-height:  60px
+$shoe-list-grid-height: 40px
+$shoe-footer-height: 120px
+$shoe-thumb-height: 84px
 
 // ----- Pagination ----- //
 $pagination-height: 100px

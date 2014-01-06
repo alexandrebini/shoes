@@ -1,0 +1,19 @@
+%section.photos--box
+  .l-photos
+    .social
+      .facebook
+      .pinterest
+      .twitter
+      .google_plus
+
+    .main
+    .thumbs_container
+
+%section.description--box
+  .l-description
+    .title
+    .price
+    .description
+    .number
+    .brand
+    .button

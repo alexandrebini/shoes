@@ -206,14 +206,15 @@ small {
 
 sub,
 sup {
-    font-size: 75%;
+    font-size: 30%;
+    font-weight: normal;
     line-height: 0;
     position: relative;
     vertical-align: baseline;
 }
 
 sup {
-    top: -0.5em;
+    top: -1.5em;
 }
 
 sub {
@@ -403,4 +404,20 @@ textarea {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+/* ==========================================================================
+   List reset
+   ========================================================================== */
+/**
+  * Remove list style.
+  */
+ul {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  list-style-type: none;
 }

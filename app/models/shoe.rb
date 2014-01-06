@@ -32,7 +32,10 @@ class Shoe < ActiveRecord::Base
   end
 
   def price
-    prices.last.value/100 if prices.last
+    if prices.last
+      price = prices.last.value
+      { int: price / 100, cents: price % 100 }
+    end
   end
 
   def photos_urls=urls
@@ -64,11 +67,5 @@ class Shoe < ActiveRecord::Base
   def category_name=name
     name = Category.against(name) || name.to_s
     self.category = Category.where(name: name.mb_chars.titleize.pluralize).lock(true).first_or_create
-  end
-
-  def brand_name_url=options
-    self.brand = Brand.where(
-      name: options[:name].mb_chars.downcase,
-      url: options[:url]).lock(true).first_or_create
   end
 end

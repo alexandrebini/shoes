@@ -9,4 +9,8 @@ class Brand < ActiveRecord::Base
     url: '/system/:attachment/:id/:basename_:style.:extension'
 
   validates_presence_of :name
+
+  def logo_path=path
+    self.logo = File.open path if File.exists?(path)
+  end
 end

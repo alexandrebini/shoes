@@ -14,6 +14,10 @@ module Crawler
       @store ||= Store.where(name: 'CarmenSteffens').first
     end
 
+    def brand
+      @brand ||= Brand.where(name: 'CarmenSteffens').first
+    end
+
     def categories
       @categories ||= {}
     end
@@ -39,6 +43,7 @@ module Crawler
       shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
       shoe.update_attributes({
         store: store,
+        brand: brand,
         source_url: options[:url],
         name: parse_name(options[:page]),
         description: parse_description(options[:page]),

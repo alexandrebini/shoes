@@ -9,6 +9,10 @@ module Crawler
       @store ||= Store.where(name: 'Schutz').first
     end
 
+    def brand
+      @brand ||= Brand.where(name: 'Schutz').first
+    end
+
     def pages_urls(page)
       categories_urls(page).map do |category_url|
         category_pages Nokogiri::HTML(open_url category_url)
@@ -26,6 +30,7 @@ module Crawler
       shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
       shoe.update_attributes({
         store: store,
+        brand: brand,
         source_url: options[:url],
         name: parse_name(options[:page]),
         description: parse_description(options[:page]),

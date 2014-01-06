@@ -1,0 +1,5 @@
+%h2
+  %sup R$
+  = @price
+  %sub
+    , #{ @cents }

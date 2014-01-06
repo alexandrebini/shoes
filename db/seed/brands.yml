@@ -1,0 +1,23 @@
+- name: Melissa
+  url: http://www.melissa.com.br/
+  logo_path: <%= Rails.root %>/db/seed/files/brands/melissa.png
+
+- name: Corello
+  url: http://shop.corello.com.br/
+  logo_path: <%= Rails.root %>/db/seed/files/brands/corello.png
+
+- name: Schutz
+  url: http://www.schutz.com.br/
+  logo_path: <%= Rails.root %>/db/seed/files/brands/schutz.png
+
+- name: CarmenSteffens
+  url: http://www.carmensteffens.com.br/
+  logo_path: <%= Rails.root %>/db/seed/files/brands/carmensteffens.png
+
+- name: Louloux
+  url: http://www.louloux.com.br/
+  logo_path: <%= Rails.root %>/db/seed/files/brands/louloux.png
+
+- name: Miezko
+  url: http://www.miezko.com/
+  logo_path: <%= Rails.root %>/db/seed/files/brands/miezko.png

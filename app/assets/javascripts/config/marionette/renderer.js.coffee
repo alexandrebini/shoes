@@ -1,6 +1,5 @@
 do (Marionette) ->
   _.extend Marionette.Renderer,
-
   lookups: ['apps', 'components']
 
   render: (template, data) ->
