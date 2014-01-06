@@ -1,6 +1,8 @@
 @Shoes.module 'Components.Pagination.View', (View, App, Backbone, Marionette, $, _) ->
 
   class View.Pages extends Marionette.CollectionView
+    initialize: ->
+      @scrollMatcher = new App.ScrollMatcher.Matcher(@)
 
     appendHtml: (collectionView, itemView, index) ->
       return collectionView.$el.insertAt(index, itemView.$el)
