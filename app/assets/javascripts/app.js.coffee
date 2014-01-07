@@ -12,8 +12,9 @@
     mainRegion: 'article.list'
     shoeRegion: 'article.show'
 
-  App.addInitializer ->
+  App.addInitializer (options) ->
     App.module('HeaderApp').start()
+    App.module('BrandsApp').start(options.brandsSlugs)
     App.module('ShoesApp').start()
 
   App

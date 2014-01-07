@@ -21,7 +21,7 @@ Shoes::Application.routes.draw do
 
   class BrandConstraint
     def self.matches?(request)
-      Brand.where(slug: request.params[:brand]).exists?
+      Brand.where(slug: request.params[:slug]).exists?
     end
   end
 
@@ -45,7 +45,7 @@ Shoes::Application.routes.draw do
     constraints PageConstraint.new do
       get '/(pg-:page)' => 'shoes#index', as: :shoes
       constraints BrandConstraint do
-        get '/:brand/(pg-:page)' => 'brands#show', as: :brand
+        get '/:slug/(pg-:page)' => 'brands#show', as: :brand
       end
       constraints CategoryConstraint.new do
         get '/:category(/pg-:page)' => 'categories#show', as: :category

@@ -2,6 +2,7 @@
   :javascript
     $(document).ready(function() {
       Shoes.start({
-        environment: '#{ Rails.env }'
+        environment: '#{ Rails.env }',
+        brandsSlugs: #{ brands_slugs.to_json }
       })
     })

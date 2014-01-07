@@ -1,5 +1,5 @@
 module BrandsHelper
-  def brands_permalinks
-    Brand.all.map(&:permalink)
+  def brands_slugs
+    Brand.order(:slug).all.map(&:slug)
   end
 end

@@ -5,7 +5,7 @@
     appRoutes:
       '' : 'list'
       'pg-:page/' : 'list'
-      ':brand/:category/:slug/' : 'show'
+      ':category/:brand/:shoe/' : 'show'
 
   API =
     list: (page) ->
@@ -13,7 +13,6 @@
 
     show: (brand, category, slug) ->
       new ShoesApp.Show.Controller(slug)
-
 
   ShoesApp.on 'start', ->
     new ShoesApp.Router

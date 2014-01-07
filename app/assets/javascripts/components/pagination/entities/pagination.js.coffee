@@ -32,6 +32,7 @@
 
   class Entities.Page extends Backbone.Collection
     parse: (response) ->
+      console.log '# deu certo puta que pariu:  entities.page', response
       @page = response.page
       response.records
 
@@ -43,6 +44,7 @@
       return collection.page
 
     parse: (response) ->
+      console.log 'Pagination.parse', response
       @state.parse(response[0])
       return { records: response[1], page: @state.get('page') }
 
