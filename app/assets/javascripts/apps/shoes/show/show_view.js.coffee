@@ -4,19 +4,19 @@
     template: 'shoes/show/templates/show_layout'
 
     regions:
-      mainPhotoRegion: 'section.photos--box .main'
-      thumbRegion: 'section.photos--box .thumbs_container'
-      titleRegion: 'section.description--box .title'
-      priceRegion: 'section.description--box .price'
-      descriptionRegion: 'section.description--box .description'
-      numberRegion: 'section.description--box .number'
-      brandRegion: 'section.description--box .brand'
-      buttonRegion: 'section.description--box .button'
+      mainPhotoRegion: 'section.shoe-photos .main'
+      thumbRegion: 'section.shoe-photos .thumbs_container'
+      titleRegion: 'section.shoe-description .title'
+      priceRegion: 'section.shoe-description .price'
+      descriptionRegion: 'section.shoe-description .description'
+      numberRegion: 'section.shoe-description .grid'
+      brandRegion: 'section.shoe-description .brand'
+      buttonRegion: 'section.shoe-description .button'
 
   class Show.Thumb extends Marionette.ItemView
     template: 'shoes/show/templates/thumb'
     tagName: 'li'
-    className: 'thumb--box'
+    className: 'thumb'
 
     triggers:
       'click' : { event: 'change:mainPhoto', preventDefault: true }
@@ -33,9 +33,11 @@
       'change' : 'changeMainPhoto'
 
     changeMainPhoto: ->
-      @render @model
+      @$el.fadeOut =>
+        @render @model
 
     onRender: ->
+      window.foo = @
       @$el.hide().fadeIn()
 
   class Show.Title extends Marionette.ItemView
@@ -54,7 +56,7 @@
     template: 'shoes/show/templates/number'
     tagName: 'li'
     className: ->
-      "grid--box #{ @model.get('className') }"
+      "number #{ @model.get('className') }"
 
   class Show.Grid extends Marionette.CollectionView
     itemView: Show.Number

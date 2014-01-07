@@ -10,7 +10,7 @@
   App.addRegions
     headerRegion: 'header'
     mainRegion: 'article.list'
-    shoeRegion: 'article.show'
+    shoeRegion: 'article.shoe'
 
   App.addInitializer ->
     App.module('HeaderApp').start()

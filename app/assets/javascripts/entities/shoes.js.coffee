@@ -1,15 +1,14 @@
 @Shoes.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
-  class Entities.Photo extends Backbone.Model
-    parse: (response) -> @set response.toJSON()
-
   class Entities.PhotosCollection extends Backbone.Collection
-    initialize: ->
-      @mainPhoto = new Entities.Photo()
+    mainPhoto: new Backbone.Model
 
     setMainCurrent: (model) ->
-      @mainPhoto.parse model || _.first(_.map(@models, (model) ->
+      photo = model || _.first(_.map(@models, (model) ->
         model if model.get('main')
       ))
+
+      @mainPhoto.set photo.toJSON(), { parse: true }
+
 
   class Entities.Number extends Backbone.Model
     defaults:
@@ -35,9 +34,9 @@
     setClassName: ->
       for model in @models
         model.parse("opacity-#{ @attrs['percent'] }") unless model.get('className')
-        @setPercentNew()
+        @setNewPercent()
 
-    setPercentNew: ->
+    setNewPercent: ->
         if @getDirection() == 'down'
           @attrs['percent'] = @attrs['percent'] - @attrs['gap']
         else

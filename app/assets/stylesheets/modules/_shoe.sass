@@ -3,8 +3,7 @@
 //   Header
 //
 // *************************************
-article.show
-  @extend %grid-box
+.shoe
   height: 100%
   margin-top: rem($header-height)
   padding: rem($default-padding)
@@ -14,38 +13,7 @@ article.show
 // -------------------------------------
 
 // .module--modifier
-.photos--box
-  @extend %shoe--box
-  @extend %grid-box
-  @extend %grid-box--xlg--8of12
-  @extend %grid-box--lg--8of12
-  @extend %grid-box--md--8of12
-  @extend %grid-box--sm--7of12
-  @extend %grid-box--xs--1of1
 
-.description--box
-  @extend %description--box
-  @extend %grid-box
-  @extend %grid-box--xlg--4of12
-  @extend %grid-box--lg--4of12
-  @extend %grid-box--md--4of12
-  @extend %grid-box--sm--5of12
-  @extend %grid-box--xs--1of1
-
-li.thumb--box
-  @extend %thumbs--box
-  @extend %grid-box
-  @extend %grid-box--1of8
-  background: #fff
-  height: rem($shoe-thumb-height)
-  margin: rem($default-padding)
-
-li.grid--box
-  @extend %grid-box
-  @extend %grid-box--1of12
-  @extend %color-scale
-  height: rem($shoe-list-grid-height)
-  line-height: rem($shoe-list-grid-height)
 // -------------------------------------
 //   States
 // -------------------------------------
@@ -63,68 +31,98 @@ li.grid--box
 // -------------------------------------
 
 // ----- Submodule ----- //
-%default--box
+.shoe-photos
   @extend %grid-box
+  @extend %grid-box--xlg--8of12
+  @extend %grid-box--lg--8of12
+  @extend %grid-box--md--8of12
+  @extend %grid-box--sm--1of1
+  @extend %grid-box--xs--1of1
   text-align: center
+  .main
+    background: #fff
+    img
+      @extend %l-img
+      @extend %ir
+      max-width: 72%
+      max-height: 72%
 
+  .thumbs_container
+    @extend %grid-box
+    background: $primary-color
 
-%thumbs--box
-  +inline-block
-
-%shoe--box
-  @extend %default--box
-
-  .l-photos
-    @extend %l-img
-    @extend %ir
-
-    .thumbs_container
-      background: $primary-color
-      height: rem($shoe-footer-height)
-
-%description--box
-  @extend %default--box
-  .l-description
-    @extend %l-img
-
-    .title
-      background: $primary-color
-      height: rem($shoe-title-height)
-      &:after
-        @extend %down-tip
-      div
+    .thumb
+      @extend %grid-box--4of12
+      @extend %grid-box--xlg--1of8
+      @extend %grid-box--lg--1of8
+      @extend %grid-box--md--1of6
+      @extend %grid-box--sm--1of5
+      @extend %grid-box--xs--1of5
+      +inline-block
+      background: #fff
+      height: rem($shoe-thumb-height)
+      margin: rem($default-padding)
+      span.center
+        display: inline-block
         height: 100%
-        h1
-          line-height: $shoe-title-height
-          sup
-            font-weight: normal
+        vertical-align: middle
+      img
+        max-width: 100%
+        max-height: 90%
+        display: inline-block
+        vertical-align: middle
 
-    .price, .description, .brand
-      padding: rem($default-padding * 3)
+.shoe-description
+  @extend %grid-box
+  @extend %grid-box--xlg--4of12
+  @extend %grid-box--lg--4of12
+  @extend %grid-box--md--4of12
+  @extend %grid-box--sm--1of1
+  @extend %grid-box--xs--1of1
+  text-align: center
+  .l-description
+    +clearfix
+    background: #fff
+  .title
+    background: $primary-color
+    height: rem($shoe-title-height)
+    &:after
+      @extend %down-tip
+    div
+      height: 100%
+      h1
+        line-height: $shoe-title-height
+        sup
+          font-weight: normal
 
-    .price
-      color: $text-secondary-color
-      letter-spacing: 1px
+  .price, .description, .brand
+    padding: rem($default-padding * 3)
 
-    .description
-      @extend %c-justify
-      background: $secondary-color
+  .price
+    color: $text-secondary-color
+    letter-spacing: 1px
 
-    .number
-      +clearfix
-      background: $secondary-color
-      ul
-        margin: 0
+  .description
+    @extend %c-justify
+    background: $secondary-color
 
-    .button
-      background: url(asset_path('tons_scales.png'))
-      background-repeat: y
+  .grid
+    +clearfix
+    background: $secondary-color
+    ul
+      margin: 0
+      li.number
+        @extend %grid-box
+        @extend %grid-box--1of9
+        @extend %grid-box--xlg--2of12
+        @extend %grid-box--lg--2of12
+        @extend %grid-box--md--2of12
+        @extend %grid-box--sm--1of12
+        @extend %grid-box--xs--1of12
+        @extend %color-scale
+        height: rem($shoe-list-grid-height)
+        line-height: rem($shoe-list-grid-height)
 
-// .module-submodule
-%l-img
-  +clearfix
-  background: white
-
-  img
-    max-width: 75%
-    max-height: 75%
+  .button
+    background: url(asset_path('tons_scales.png'))
+    background-repeat: y
