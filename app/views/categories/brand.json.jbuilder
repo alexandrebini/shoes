@@ -1,1 +1,0 @@
-json.partial! 'shoes/shoes', shoes: @shoes

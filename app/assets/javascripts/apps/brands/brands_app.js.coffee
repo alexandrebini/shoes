@@ -5,7 +5,7 @@
     addBrandsRoutes: (slugs) ->
       _.each slugs, (slug) =>
         @route "#{ slug }/", => API.show(slug)
-        @route "#{ slug }/pg-:page", (page) => API.show(slug, page)
+        @route "#{ slug }/pg-:page/", (page) => API.show(slug, page)
 
   API =
     show: (slug, page) ->

@@ -141,12 +141,6 @@
     model: Entities.ShoesCollection
     url: Routes.shoes_path
 
-    state:
-      pageSize: ->
-        _.reduce(Entities.ShoesCollection.prototype.types, (memo, type) ->
-          memo + _.keys(type).length
-        , 0) * 2
-
   API =
     getShoes: (page) ->
       shoes = new Entities.ShoesPagination()

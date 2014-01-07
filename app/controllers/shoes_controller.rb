@@ -7,7 +7,7 @@ class ShoesController < ApplicationController
   end
 
   def show
-    @shoe = Shoe.where(slug: params[:shoe]).first
+    @shoe = Shoe.where(slug: params[:slug]).first
     respond_with @shoe
   end
 end

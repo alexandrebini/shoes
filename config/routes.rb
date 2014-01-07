@@ -13,18 +13,6 @@ Shoes::Application.routes.draw do
     end
   end
 
-  class CategoryConstraint
-    def self.matches?(request)
-      Category.where(slug: request.params[:category]).exists?
-    end
-  end
-
-  class BrandConstraint
-    def self.matches?(request)
-      Brand.where(slug: request.params[:slug]).exists?
-    end
-  end
-
   class PageConstraint
     def self.matches?(request)
       if request.params[:page]
@@ -42,18 +30,14 @@ Shoes::Application.routes.draw do
   end
 
   constraints FormatConstraint.new(:json) do
-    constraints PageConstraint.new do
-      get '/(pg-:page)' => 'shoes#index', as: :shoes
-      constraints BrandConstraint do
-        get '/:slug/(pg-:page)' => 'brands#show', as: :brand
-      end
-      constraints CategoryConstraint.new do
-        get '/:category(/pg-:page)' => 'categories#show', as: :category
-        constraints BrandConstraint.new do
-          get '/:category/:brand(/pg-:page)' => 'categories#brand', as: :category_brand
-          get '/:category/:brand/:shoe' => 'shoes#show', as: :shoe
-        end
-      end
-    end
+    get '/shoes/(pg-:page)' => 'shoes#index', as: :shoes, constraints: PageConstraint
+    get '/brands/:slug' => 'brands#show', as: :brand
+    get '/brands/:slug/shoes/(pg-:page)' => 'brands#shoes', as: :brand_shoes, constraints: PageConstraint
+
+    get '/categories/:slug' => 'categories#show', as: :category
+    get '/categories/:slug/shoes/(pg-:page)' => 'categories#shoes', as: :category_shoes
+    get '/categories/:slug/:brand/shoes/(pg-:page)' => 'categories#brand_shoes', as: :category_brand_shoes
+
+    get '/:category/:brand/:slug' => 'shoes#show', as: :shoe
   end
 end

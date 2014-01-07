@@ -1,4 +1,4 @@
-json.partial! 'brands/brand', brand: @brand
-json.shoes do
-  json.partial! 'shoes/shoes', shoes: @shoes
+json.cache! @brand do
+  json.slug brand_path(@brand.slug)
+  json.name @brand.name
 end
