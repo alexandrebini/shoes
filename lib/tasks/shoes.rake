@@ -2,7 +2,7 @@ namespace :shoes do
   desc 'status'
   task status: :environment do
     include ActionView::Helpers::NumberHelper
-    brand = Brand.all.sort_by{ |r| r.shoes.downloaded.count }.reverse
+    brands = Brand.all.sort_by{ |r| r.shoes.downloaded.count }.reverse
     brands.each do |brand|
       downloaded = "downloaded: #{ number_with_delimiter brand.shoes.downloaded.count }"
       downloading = "downloading: #{ number_with_delimiter brand.shoes.downloading.count }"

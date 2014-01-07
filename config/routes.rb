@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Shoes::Application.routes.draw do
-  class FormatTest
+  class FormatConstraint
     attr_accessor :mime_type
 
     def initialize(format)
@@ -13,14 +13,47 @@ Shoes::Application.routes.draw do
     end
   end
 
+  class CategoryConstraint
+    def self.matches?(request)
+      Category.where(slug: request.params[:category]).exists?
+    end
+  end
+
+  class BrandConstraint
+    def self.matches?(request)
+      Brand.where(slug: request.params[:brand]).exists?
+    end
+  end
+
+  class PageConstraint
+    def self.matches?(request)
+      if request.params[:page]
+        request.params[:page].match(/\d+/)
+      else
+        true
+      end
+    end
+  end
+
   mount Sidekiq::Web, at: '/sidekiq'
-  constraints FormatTest.new(:html) do
+  constraints FormatConstraint.new(:html) do
     root to: 'application#index'
     get '*path' => 'application#index'
   end
 
-  constraints FormatTest.new(:json) do
-    get '/shoes' => 'shoes#index', as: :shoes
-    get '*slug' => 'shoes#show', as: :shoe
+  constraints FormatConstraint.new(:json) do
+    constraints PageConstraint.new do
+      get '/(pg-:page)' => 'shoes#index', as: :shoes
+      constraints BrandConstraint do
+        get '/:brand/(pg-:page)' => 'brands#show', as: :brand
+      end
+      constraints CategoryConstraint.new do
+        get '/:category(/pg-:page)' => 'categories#show', as: :category
+        constraints BrandConstraint.new do
+          get '/:category/:brand(/pg-:page)' => 'categories#brand', as: :category_brand
+          get '/:category/:brand/:shoe' => 'shoes#show', as: :shoe
+        end
+      end
+    end
   end
 end

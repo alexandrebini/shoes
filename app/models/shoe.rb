@@ -9,6 +9,7 @@ class Shoe < ActiveRecord::Base
   has_and_belongs_to_many :colors
 
   friendly_id :name, use: :slugged
+  paginates_per 86
 
   validates :name, presence: true
   validates :source_url, presence: true
