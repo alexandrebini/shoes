@@ -1,6 +1,11 @@
 class BrandsController < ApplicationController
   respond_to :json
 
+  def index
+    @brands = Brand.all
+    respond_with @brands
+  end
+
   def show
     @brand = Brand.where(slug: params[:slug]).first
     respond_with @brand

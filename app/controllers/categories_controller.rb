@@ -1,6 +1,11 @@
 class CategoriesController < ApplicationController
   respond_to :json
 
+  def index
+    @categories = Category.all
+    respond_with @categories
+  end
+
   def show
     @category = Category.where(slug: params[:slug]).first
     respond_with @category

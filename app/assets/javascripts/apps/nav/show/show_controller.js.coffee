@@ -2,10 +2,31 @@
 
   class Show.Controller extends Marionette.Controller
     initialize: ->
-      @headerRegion()
+      @categories = App.request('category:entities')
+      @brands = App.request('brand:entities')
 
-    headerRegion: ->
-      App.navRegion.show @getNavView()
+      @layout = @getLayoutView()
+      @listenTo @layout, 'show', =>
+        @categoriesRegion()
+        @brandsRegion()
 
-    getNavView: ->
-      new Show.Nav()
+      App.navRegion.show @layout
+
+    categoriesRegion: ->
+      categoriesView = @getCategoriesView()
+      @layout.categoriesRegion.show categoriesView
+
+    brandsRegion: ->
+      brandsView = @getBrandsView()
+      @layout.brandsRegion.show brandsView
+
+    getLayoutView: ->
+      new Show.Layout
+
+    getCategoriesView: ->
+      new Show.Categories
+        collection: @categories
+
+    getBrandsView: ->
+      new Show.Brands
+        collection: @brands

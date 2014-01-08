@@ -5,11 +5,20 @@
     url: ->
       Routes.category_path @get('slug')
 
+  class Entities.CategoryCollection extends Backbone.Collection
+    model: Entities.Category
+    url: Routes.categories_path
+
   API =
     getCategory: (slug) ->
       brand = new Entities.Category(slug: slug)
       brand.fetch()
       brand
+
+    getCategories: ->
+      categories = new Entities.CategoryCollection()
+      categories.fetch()
+      categories
 
     getCategoryShoes: (slug, page) ->
       shoes = new Entities.ShoesPagination()
@@ -33,6 +42,9 @@
 
   App.reqres.setHandler 'category:entity', (slug) ->
     API.getCategory(slug)
+
+  App.reqres.setHandler 'category:entities', ->
+    API.getCategories()
 
   App.reqres.setHandler 'category:shoes:entities', (slug, page) ->
     API.getCategoryShoes(slug, page)
