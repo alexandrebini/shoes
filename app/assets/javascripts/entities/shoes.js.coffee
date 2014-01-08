@@ -127,7 +127,7 @@
     applyType: (shoes, type) ->
       for attrs, index in type
         for key, value of attrs
-          shoes[index][key] = value
+          shoes[index][key] = value if shoes[index]
 
     nextType: ->
       keys = _.keys(@types)

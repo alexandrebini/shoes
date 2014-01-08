@@ -1,18 +1,20 @@
 // *************************************
 //
-//   Header
+//   Nav
 //
 // *************************************
 
-header
-  +box-shadow(rgba($header-shadow, 0.40) 0px 5px 10px)
-  background: $header-background
-  height: rem($header-height)
+nav
+  @extend %grid-box
+  @extend %grid-box--xlg--2of12
+  @extend %grid-box--lg--2of12
+  @extend %grid-box--md--2of12
+  @extend %grid-box--sm--2of12
+  @extend %grid-box--xs--2of12
+  background: $nav-background
+  height: 100%
   position: fixed
-  text-align: center
-  top: 0
-  width: 100%
-  z-index: 2
+  top: $header-height
 
 // -------------------------------------
 //   Modifiers
@@ -39,4 +41,3 @@ header
 // ----- Submodule ----- //
 
 // .module-submodule
-

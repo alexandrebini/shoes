@@ -8,13 +8,16 @@
     @startHistory()
 
   App.addRegions
+    navRegion: 'nav'
     headerRegion: 'header'
     mainRegion: 'article.list'
     shoeRegion: 'article.show'
 
   App.addInitializer (options) ->
     App.module('HeaderApp').start()
-    App.module('BrandsApp').start(options.brandsSlugs)
+    App.module('NavApp').start()
+    App.module('CategoriesApp').start()
     App.module('ShoesApp').start()
+    App.module('BrandsApp').start(options.brandsSlugs)
 
   App

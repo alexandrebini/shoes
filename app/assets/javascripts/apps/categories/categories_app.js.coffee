@@ -3,18 +3,24 @@
 
   class CategoriesApp.Router extends Marionette.AppRouter
     appRoutes:
-      ':category/' : 'list'
-      ':category/pg-:page/' : 'list'
-      ':category/:brand/' : 'list'
-      ':category/:brand/pg-:page/' : 'list'
+      ':slug/' : 'show'
+      ':slug/pg-:page/' : 'show'
+      ':slug/:brand/' : 'brand'
+      ':slug/:brand/pg-:page/' : 'brand'
 
-  # API =
-  #   list: (page) ->
-  #     new ShoesApp.List.Controller(page)
+  API =
+    show: (slug, page) ->
+      console.log 'shoeeeww', slug, page
+      new CategoriesApp.Show.Controller
+        slug: slug
+        page: page
 
-  #   show: (brand, category, slug) ->
-  #     new ShoesApp.Show.Controller(slug)
+    brand: (slug, brand, page) ->
+      new CategoriesApp.Brand.Controller
+        slug: slug
+        brand: brand
+        page: page
 
-  # ShoesApp.on 'start', ->
-  #   new ShoesApp.Router
-  #     controller: API
+  CategoriesApp.on 'start', ->
+    new CategoriesApp.Router
+      controller: API
