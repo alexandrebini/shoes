@@ -33,7 +33,7 @@
 // ----- Submodule ----- //
 .shoe-photos
   @extend %grid-box
-  @extend %grid-box--xlg--8of12
+  @extend %grid-box--xlg--9of12
   @extend %grid-box--lg--8of12
   @extend %grid-box--md--8of12
   @extend %grid-box--sm--1of1
@@ -44,8 +44,8 @@
     img
       @extend %l-img
       @extend %ir
-      max-width: 72%
-      max-height: 72%
+      max-width: 100%
+      max-height: 100%
 
   .thumbs_container
     @extend %grid-box
@@ -74,7 +74,7 @@
 
 .shoe-description
   @extend %grid-box
-  @extend %grid-box--xlg--4of12
+  @extend %grid-box--xlg--3of12
   @extend %grid-box--lg--4of12
   @extend %grid-box--md--4of12
   @extend %grid-box--sm--1of1
@@ -95,7 +95,7 @@
         sup
           font-weight: normal
 
-  .price, .description, .brand
+  .price, .brand
     padding: rem($default-padding * 3)
 
   .price
@@ -105,10 +105,14 @@
   .description
     @extend %c-justify
     background: $secondary-color
+    max-height: rem($shoe-description-height)
+    padding: rem($default-padding * 2)
+    overflow: auto
 
   .grid
     +clearfix
     background: $secondary-color
+    padding-top: rem($default-padding)
     ul
       margin: 0
       li.number
@@ -125,4 +129,15 @@
 
   .button
     background: url(asset_path('tons_scales.png'))
-    background-repeat: y
+    padding: 12px 0
+    .visit_link
+      background-color: #236aa8
+      a
+        background-position: 0px 2px
+        background: url(asset_path('cart.png')) no-repeat
+        display: block
+        height: rem($btn-height)
+        line-height: rem($btn-height)
+        margin: 0 auto
+        text-align: right
+        width: rem($shoe-button-visit-link)
