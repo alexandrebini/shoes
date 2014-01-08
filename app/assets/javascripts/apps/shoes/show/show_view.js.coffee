@@ -21,8 +21,14 @@
     tagName: 'li'
     className: 'thumb'
 
-    triggers:
-      'click' : { event: 'change:mainPhoto', preventDefault: true }
+    events:
+      'click' : 'addThumbSelected'
+
+    addThumbSelected: ->
+      @trigger 'change:mainPhoto', @model
+      stateSelected = 'is-shoe-thumb-selected'
+      @$el.parent().children().removeClass(stateSelected)
+      @$el.addClass(stateSelected)
 
   class Show.Thumbs extends Marionette.CollectionView
     itemView: Show.Thumb

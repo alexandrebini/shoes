@@ -34,7 +34,7 @@ class Shoe < ActiveRecord::Base
   def price
     if prices.last
       price = prices.last.value
-      { int: price / 100, cents: price % 100 }
+      { int: price / 100, cents: '%02d' %(price % 100) }
     end
   end
 
