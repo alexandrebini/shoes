@@ -9,4 +9,4 @@
       mainPhoto = @layout.mainPhotoRegion.$el
       mainPhoto.height(mainPhoto.height())
       columnPhotoHeight = @layout.$el.first().children().first().height()
-      @layout.$el.first().children().last().height(columnPhotoHeight)
+      @layout.$el.first().children().last().css(maxHeight: columnPhotoHeight)

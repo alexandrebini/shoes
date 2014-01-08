@@ -3,12 +3,17 @@
     mainPhoto: new Backbone.Model
 
     setMainCurrent: (model) ->
-      photo = model || _.first(_.map(@models, (model) ->
+      @removeIsSelected()
+      thumb = model || _.first(_.map(@models, (model) ->
         model if model.get('main')
       ))
 
-      @mainPhoto.set photo.toJSON(), { parse: true }
+      thumb.set isSelected: true
+      @mainPhoto.set thumb.toJSON(), { parse: true }
 
+    removeIsSelected: ->
+      for model in @models
+        model.set isSelected: false
 
   class Entities.Number extends Backbone.Model
     defaults:

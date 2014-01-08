@@ -31,8 +31,8 @@
     thumbRegion: (shoe) ->
       thumbView = @getThumbView(shoe)
 
-      @listenTo thumbView, 'itemview:change:mainPhoto', (child, model) =>
-        shoe.photos.setMainCurrent(model)
+      @listenTo thumbView, 'itemview:change:mainPhoto', (child, args) =>
+        shoe.photos.setMainCurrent(args.model)
 
       @layout.thumbRegion.show thumbView
 
