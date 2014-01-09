@@ -1,6 +1,6 @@
 class Photo < ActiveRecord::Base
   belongs_to :shoe
-  has_one :store, through: :shoe
+  has_one :brand, through: :shoe
 
   delegate :url, :path, :image_size, :height, :width, to: :data
   has_attached_file :data,
@@ -46,6 +46,6 @@ class Photo < ActiveRecord::Base
 
   private
   def worker
-    Crawler.const_get("#{ store.slug.titleize }::Worker")
+    Crawler.const_get("#{ brand.slug.titleize }::Worker")
   end
 end

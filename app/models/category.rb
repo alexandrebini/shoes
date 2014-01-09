@@ -3,6 +3,8 @@ class Category < ActiveRecord::Base
 
   serialize :matchers
   has_many :shoes
+  has_many :categories, through: :shoes
+  has_many :brands, through: :shoes
 
   friendly_id :name, use: :slugged
 

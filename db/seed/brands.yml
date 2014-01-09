@@ -1,23 +1,35 @@
 - name: Melissa
-  url: http://www.melissa.com.br/
+  url: http://lojamelissa.com.br
+  start_url: http://lojamelissa.com.br
+  verification_matcher: UA-1507369-1
   logo_path: <%= Rails.root %>/db/seed/files/brands/melissa.png
 
 - name: Corello
-  url: http://shop.corello.com.br/
+  url: http://shop.corello.com.br
+  start_url: http://shop.corello.com.br
+  verification_matcher: UA-26309255-1
   logo_path: <%= Rails.root %>/db/seed/files/brands/corello.png
 
 - name: Schutz
-  url: http://www.schutz.com.br/
+  url: http://loja.schutz.com.br
+  start_url: http://loja.schutz.com.br
+  verification_matcher: 955886807
   logo_path: <%= Rails.root %>/db/seed/files/brands/schutz.png
 
 - name: CarmenSteffens
-  url: http://www.carmensteffens.com.br/
+  url: http://www.carmensteffens.com.br
+  start_url: http://www.carmensteffens.com.br
+  verification_matcher: UA-25208798-1
   logo_path: <%= Rails.root %>/db/seed/files/brands/carmensteffens.png
 
 - name: Louloux
-  url: http://www.louloux.com.br/
+  url: http://www.louloux.com.br
+  start_url: http://www.louloux.com.br/ver-todos-s32/?pagina=1&order=lancamento
+  verification_matcher: <base href="//www.louloux.com.br/">
   logo_path: <%= Rails.root %>/db/seed/files/brands/louloux.png
 
 - name: Miezko
-  url: http://www.miezko.com/
+  url: http://shop.miezko.com.br
+  start_url: http://shop.miezko.com.br/colecao-completa-s5/
+  verification_matcher: EZ Commerce
   logo_path: <%= Rails.root %>/db/seed/files/brands/miezko.png

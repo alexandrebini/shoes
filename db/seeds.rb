@@ -5,5 +5,4 @@ def seed(klass)
 end
 
 seed Category
-seed Store
 seed Brand

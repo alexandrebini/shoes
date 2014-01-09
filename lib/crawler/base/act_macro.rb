@@ -2,7 +2,7 @@ module Crawler
   module ActMacro
     # For use this lib you should implement the following methods:
     #
-    # store():                  the store model
+    # brand():                  the brand model
     # pages_urls(page):         this method receive a nokogiri page and return
     #                           a list of urls to be crawled. This is used for
     #                           listing pages.
@@ -13,7 +13,7 @@ module Crawler
     #                           image src url. This method must create a new shoe.
     def acts_as_crawler(options={})
       default_options = {
-        store: :store,
+        brand: :brand,
         pages_urls: :pages_urls,
         shoes_urls: :shoes_urls,
         parse_shoe: :parse_shoe

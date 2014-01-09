@@ -16,11 +16,11 @@ module Crawler
       @shoes_urls = []
       @count = 0
 
-      page = Nokogiri::HTML open_url(send(self.crawler_options[:store]).start_url), nil, 'utf-8'
+      page = Nokogiri::HTML open_url(send(self.crawler_options[:brand]).start_url), nil, 'utf-8'
       get_pages(page)
       finalize!
       self
-      puts "#{ send(self.crawler_options[:store]).name } Done! #{ @count }/#{ @shoes_urls.size }"
+      puts "#{ send(self.crawler_options[:brand]).name } Done! #{ @count }/#{ @shoes_urls.size }"
     end
 
     def get_pages(page)
@@ -77,9 +77,9 @@ module Crawler
     private
     def open_url(url, options={})
       default_options = {
-        verification_matcher: self.store.verification_matcher,
+        verification_matcher: self.brand.verification_matcher,
         proxy: false,
-        name: self.store.slug
+        name: self.brand.slug
       }
       options.merge!(default_options)
       sleep @sleep_time
@@ -91,13 +91,13 @@ module Crawler
     end
 
     def log(args)
-      @logger ||= Logger.new("#{ Rails.root }/log/#{ self.store.slug }.log")
+      @logger ||= Logger.new("#{ Rails.root }/log/#{ self.brand.slug }.log")
       @logger << args
       puts args
     end
 
     def fail_log(args)
-      @fail_logger ||= Logger.new("#{ Rails.root }/log/#{ self.store.slug }.fail.log")
+      @fail_logger ||= Logger.new("#{ Rails.root }/log/#{ self.brand.slug }.fail.log")
       @fail_logger << args
       @fail_logger << "\n"
     end

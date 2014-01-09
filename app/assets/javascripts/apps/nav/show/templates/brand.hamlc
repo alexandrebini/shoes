@@ -1,0 +1,4 @@
+- if @isCurrent
+  %h3= @name
+- else
+  %a{ href: @urlFor(@path || @slug) }= @name

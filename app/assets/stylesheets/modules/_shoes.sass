@@ -3,12 +3,17 @@
 //   Shoes
 //
 // *************************************
-
-// .module
-.shoes
-  width: 100%
+article.list
   @extend %grid-box
-  margin-top: $header-height
+  @extend %grid-box--xlg--10of12
+  @extend %grid-box--lg--10of12
+  @extend %grid-box--md--10of12
+  @extend %grid-box--sm--10of12
+  @extend %grid-box--xs--10of12
+  float: right
+
+.shoes
+  @extend %grid-box
   padding: rem($default-padding)
 
 // -------------------------------------
@@ -18,10 +23,10 @@
 // .module--modifier
 .shoes--box
   @extend %grid-box
-  @extend %grid-box--xlg--2of8
-  @extend %grid-box--lg--2of6
+  @extend %grid-box--xlg--2of6
+  @extend %grid-box--lg--2of4
   @extend %grid-box--md--2of4
-  @extend %grid-box--sm--2of2
+  @extend %grid-box--sm--1of1
   @extend %grid-box--xs--1of1
   padding: 0
 

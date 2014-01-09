@@ -10,10 +10,6 @@ module Crawler
       @threads_number = 1
     end
 
-    def store
-      @store ||= Store.where(name: 'CarmenSteffens').first
-    end
-
     def brand
       @brand ||= Brand.where(name: 'CarmenSteffens').first
     end
@@ -42,7 +38,6 @@ module Crawler
     def parse_shoe(options)
       shoe = Shoe.where(source_url: options[:url]).lock(true).first_or_initialize
       shoe.update_attributes({
-        store: store,
         brand: brand,
         source_url: options[:url],
         name: parse_name(options[:page]),

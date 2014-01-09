@@ -2,7 +2,6 @@ class Shoe < ActiveRecord::Base
   extend FriendlyId
 
   belongs_to :brand
-  belongs_to :store
   belongs_to :category
   has_many :photos, dependent: :destroy
   has_many :prices, dependent: :destroy
@@ -10,6 +9,7 @@ class Shoe < ActiveRecord::Base
   has_and_belongs_to_many :colors
 
   friendly_id :name, use: :slugged
+  paginates_per 86
 
   validates :name, presence: true
   validates :source_url, presence: true
