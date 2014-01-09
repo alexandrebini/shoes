@@ -13,6 +13,10 @@
         slug: slug
         page: page
 
+  App.vent.on 'visit:brand', (slug) ->
+    API.show(slug)
+    App.vent.trigger 'visit', slug
+
   BrandsApp.on 'start', (slugs) ->
     router = new BrandsApp.Router
       controller: API

@@ -10,7 +10,6 @@
 
   API =
     show: (slug, page) ->
-      console.log 'shoeeeww', slug, page
       new CategoriesApp.Show.Controller
         slug: slug
         page: page
@@ -20,6 +19,14 @@
         slug: slug
         brand: brand
         page: page
+
+  App.vent.on 'visit:category', (slug) ->
+    API.show(slug)
+    App.vent.trigger 'visit', slug
+
+  App.vent.on 'visit:category:brand', (slug, brand) ->
+    API.show(slug, brand)
+    App.vent.trigger 'visit', "#{ slug }/#{ brand }"
 
   CategoriesApp.on 'start', ->
     new CategoriesApp.Router

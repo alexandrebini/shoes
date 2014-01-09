@@ -1,14 +1,11 @@
 @Shoes.module 'Components.Pagination.Entities', (Entities, App, Backbone, Marionette, $, _) ->
   class Entities.State extends Backbone.Model
-    defaults:
-      page: 1
-      perPage: null
-      totalPages: null
-      isLoading: false
-      direction: 'down'
-      fetched: []
-
     initialize: ->
+      @set
+        page: 1
+        isLoading: false
+        direction: 'down'
+        fetched: []
       @on 'change:page', @setDirection
 
     parse: (response) ->

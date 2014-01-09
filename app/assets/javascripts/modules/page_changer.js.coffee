@@ -19,8 +19,14 @@
           # window.ga 'send', 'pageview'
 
   API =
+    navigate: (route) ->
+      PageChanger.Changer.getInstance().navigate(route)
+
     changePage: (page) ->
       PageChanger.Changer.getInstance().changePage(page)
 
   App.vent.on 'page:change', (page) ->
     API.changePage(page)
+
+  App.vent.on 'visit', (route) ->
+    API.navigate(route)
