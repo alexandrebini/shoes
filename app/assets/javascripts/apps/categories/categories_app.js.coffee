@@ -14,6 +14,7 @@
         slug: slug
         page: page
       App.vent.trigger 'set:current:category', slug
+      App.module('NavApp').start()
 
     brand: (slug, brand, page) ->
       new CategoriesApp.Brand.Controller
@@ -23,6 +24,7 @@
 
       App.vent.trigger 'set:current:category', slug
       App.vent.trigger 'set:current:brand', brand
+      App.module('NavApp').start()
 
   App.vent.on 'visit:category', (slug) ->
     API.show(slug)
