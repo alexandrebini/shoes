@@ -14,7 +14,7 @@ class CreateShoes < ActiveRecord::Migration
     add_index :shoes, :category_id
     add_index :shoes, [:category_id, :brand_id]
     add_index :shoes, :name
-    add_index :shoes, :slug, unique: true
+    add_index :shoes, :slug
     add_index :shoes, :source_url
   end
 end

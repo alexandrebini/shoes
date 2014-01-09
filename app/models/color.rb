@@ -7,4 +7,11 @@ class Color < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   validates_presence_of :name
+  after_create :add_to_palette
+
+  def add_to_palette
+    if palette_name = Palette.against(name)
+      Palette.where(name: palette_name).first.colors << self
+    end
+  end
 end

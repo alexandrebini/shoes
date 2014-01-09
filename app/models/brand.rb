@@ -1,5 +1,6 @@
 class Brand < ActiveRecord::Base
   extend FriendlyId
+  include Matcher
 
   has_many :shoes
 

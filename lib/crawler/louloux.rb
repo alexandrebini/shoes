@@ -52,7 +52,7 @@ module Crawler
     end
 
     def parse_description(page)
-      page.css('.description.summary').text.strip.humanize
+      page.css('.description.summary').text.strip.mb_chars.humanize
     end
 
     def parse_price(page)
@@ -60,7 +60,16 @@ module Crawler
     end
 
     def parse_category_name(page)
-      page.css('span.category').text.strip.mb_chars.downcase
+      categories = []
+      categories << page.css('span.category').text
+      categories << page.css('meta[name="description"]').first.attr(:content)
+      categories.each do |category|
+        name = category.strip.mb_chars.downcase
+        if name = Category.against(name)
+          return name
+        end
+      end
+      nil
     end
 
     def parse_photos(page)
