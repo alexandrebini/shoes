@@ -7,7 +7,10 @@
       @brands = @nav.get('brands')
 
       @layout = @getLayoutView()
+
+
       @listenTo @layout, 'show', =>
+        @navRegion()
         @categoriesRegion()
         @brandsRegion()
 
@@ -19,6 +22,9 @@
       App.vent.on 'set:current:category', (slug) =>
         App.execute 'when:fetched', @categories, =>
           @nav.setCurrentCategory(slug)
+
+    navRegion: ->
+      App.navRegion.$el.show()
 
     categoriesRegion: ->
       categoriesView = @getCategoriesView()

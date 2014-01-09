@@ -1,8 +1,4 @@
 .visit_link
   %a{ href: @source_url, alt: @name, target: '_blank' }
-    Quero comprar
-
-.or ou
-
-.love_it
-  Love it
+    %i.cart
+    Ir para loja

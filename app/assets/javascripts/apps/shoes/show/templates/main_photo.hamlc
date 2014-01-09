@@ -1,1 +1,2 @@
+%span.center
 %img{ src: @big_url, alt: @alt }

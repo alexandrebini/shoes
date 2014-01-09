@@ -11,13 +11,12 @@
     navRegion: 'nav'
     headerRegion: 'header'
     mainRegion: 'article.list'
-    shoeRegion: 'article.show'
+    shoeRegion: 'article.shoe'
 
   App.addInitializer (options) ->
     App.module('HeaderApp').start()
-    App.module('NavApp').start()
-    App.module('CategoriesApp').start()
     App.module('ShoesApp').start()
+    App.module('CategoriesApp').start()
     App.module('BrandsApp').start(options.brandsSlugs)
 
   App

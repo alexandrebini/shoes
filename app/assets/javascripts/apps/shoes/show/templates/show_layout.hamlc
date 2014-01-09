@@ -1,19 +1,18 @@
-%section.photos--box
-  .l-photos
-    .social
-      .facebook
-      .pinterest
-      .twitter
-      .google_plus
+%section.shoe-photos
+  .social
+    .facebook
+    .pinterest
+    .twitter
+    .google_plus
 
-    .main
-    .thumbs_container
+  .main
+  .thumbs_container
 
-%section.description--box
+%section.shoe-description
   .l-description
     .title
     .price
     .description
-    .number
+    .grid
     .brand
     .button

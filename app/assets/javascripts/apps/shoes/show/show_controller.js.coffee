@@ -1,7 +1,7 @@
 @Shoes.module 'ShoesApp.Show', (Show, App, Backbone, Marionette, $, _) ->
   class Show.Controller extends Marionette.Controller
-    initialize: (slug) ->
-      shoe = App.request('shoe:entity', slug)
+    initialize: (options) ->
+      shoe = App.request('shoe:entity', options.category, options.brand, options.slug)
       @layout = @getLayoutView()
 
       App.execute 'when:fetched', shoe, =>
