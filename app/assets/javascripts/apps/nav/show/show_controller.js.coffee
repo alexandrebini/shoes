@@ -12,25 +12,31 @@
         @brandsRegion()
 
       App.navRegion.show @layout
+      App.vent.on 'set:current:brand', (slug) =>
+        App.execute 'when:fetched', @brands, =>
+          @nav.setCurrentBrand(slug)
+
+      App.vent.on 'set:current:category', (slug) =>
+        App.execute 'when:fetched', @categories, =>
+          @nav.setCurrentCategory(slug)
 
     categoriesRegion: ->
       categoriesView = @getCategoriesView()
       @listenTo categoriesView, 'itemview:category:clicked', (child) =>
-        @nav.setCurrentCategory child.model
+        @nav.toggleCurrentCategory child.model
         @visit()
       @layout.categoriesRegion.show categoriesView
 
     brandsRegion: ->
       brandsView = @getBrandsView()
       @listenTo brandsView, 'itemview:brand:clicked', (child) =>
-        @nav.setCurrentBrand child.model
+        @nav.toggleCurrentBrand child.model
         @visit()
       @layout.brandsRegion.show brandsView
 
     visit: ->
       category = @nav.get('currentCategory')
       brand = @nav.get('currentBrand')
-      console.log 'visit', category, brand
       switch
         when category && brand
           App.vent.trigger 'visit:category:brand', category.get('slug'), brand.get('slug')
@@ -38,6 +44,8 @@
           App.vent.trigger 'visit:category', category.get('slug')
         when brand
           App.vent.trigger 'visit:brand', brand.get('slug')
+        else
+          App.vent.trigger 'visit:home'
 
     getLayoutView: ->
       new Show.Layout

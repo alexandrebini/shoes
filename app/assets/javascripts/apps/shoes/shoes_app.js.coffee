@@ -14,6 +14,10 @@
     show: (brand, category, slug) ->
       new ShoesApp.Show.Controller(slug)
 
+  App.vent.on 'visit:home', (slug) ->
+    API.list()
+    App.vent.trigger 'visit', '/'
+
   ShoesApp.on 'start', ->
     new ShoesApp.Router
       controller: API

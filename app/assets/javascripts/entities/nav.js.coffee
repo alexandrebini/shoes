@@ -13,13 +13,19 @@
         categories: App.request('category:entities')
         brands: App.request('brand:entities')
 
-    setCurrentCategory: (currentCategory) ->
+    setCurrentCategory: (slug) ->
+      @set currentCategory: @get('categories').findWhere(slug: slug)
+
+    toggleCurrentCategory: (currentCategory) ->
       if currentCategory == @get('currentCategory')
         @set currentCategory: null
       else
         @set currentCategory: currentCategory
 
-    setCurrentBrand: (currentBrand) ->
+    setCurrentBrand: (slug) ->
+      @set currentBrand: @get('brands').findWhere(slug: slug)
+
+    toggleCurrentBrand: (currentBrand) ->
       if currentBrand == @get('currentBrand')
         @set currentBrand: null
       else

@@ -12,6 +12,7 @@
       new BrandsApp.Show.Controller
         slug: slug
         page: page
+      App.vent.trigger 'set:current:brand', slug
 
   App.vent.on 'visit:brand', (slug) ->
     API.show(slug)
