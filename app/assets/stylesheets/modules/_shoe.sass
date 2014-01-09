@@ -19,7 +19,9 @@
 // -------------------------------------
 
 .is-shoe-thumb-selected
-  +opacity(0.4)
+  @extend %img-filter-selected
+  img
+    @extend %img-filter-none
 
 // -------------------------------------
 //   Context
@@ -40,11 +42,13 @@
   @extend %grid-box--sm--1of1
   @extend %grid-box--xs--1of1
   text-align: center
+
+  span.center
+    @extend %img-center
+
   .main
     background: #fff
     img
-      @extend %l-img
-      @extend %ir
       max-width: 100%
       max-height: 100%
 
@@ -53,21 +57,20 @@
     background: $primary-color
 
     .thumb
-      @extend %grid-box--4of12
-      @extend %grid-box--xlg--1of8
+      @extend %grid-box--5of12
+      @extend %grid-box--xlg--1of10
       @extend %grid-box--lg--1of8
-      @extend %grid-box--md--1of6
+      @extend %grid-box--md--2of10
       @extend %grid-box--sm--1of5
-      @extend %grid-box--xs--1of5
+      @extend %grid-box--xs--3of10
+      @extend %img-filter-unselected
       +inline-block
       background: #fff
       height: rem($shoe-thumb-height)
       margin: rem($default-padding)
-      span.center
-        display: inline-block
-        height: 100%
-        vertical-align: middle
+
       img
+        @extend %img-filter-unselected
         max-width: 100%
         max-height: 90%
         display: inline-block
@@ -81,9 +84,11 @@
   @extend %grid-box--sm--1of1
   @extend %grid-box--xs--1of1
   text-align: center
+
   .l-description
     +clearfix
     background: #fff
+
   .title
     background: $primary-color
     height: rem($shoe-title-height)
@@ -134,10 +139,11 @@
     .visit_link
       background-color: #236aa8
       a
-        background: url(asset_path('cart.png')) no-repeat
-        display: block
         height: rem($btn-height)
         line-height: rem($btn-height)
         margin: 0 auto
         text-align: right
         width: rem($shoe-button-visit-link)
+        i
+          @extend %i
+          @extend %cart

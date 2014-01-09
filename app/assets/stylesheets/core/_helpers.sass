@@ -71,6 +71,23 @@
   &.opacity-10
     background: rgba($primary-color, 0.1)
 
+// ----- Image Filter ----- //
+
+%img-filter-unselected
+  -webkit-filter: contrast(1.3) grayscale(0.1) invert(0.2) opacity(0.8) sepia(0.3)
+
+%img-filter-selected
+  -webkit-filter: contrast(0.6) grayscale(0.2) sepia(0) !important
+
+%img-filter-none
+  -webkit-filter: none !important
+
+// ----- Image center ----- //
+%img-center
+  display: inline-block
+  height: 100%
+  vertical-align: middle
+
 // -------------------------------------
 //   Functions
 // -------------------------------------
