@@ -20,6 +20,7 @@
         slug: slug
         brand: brand
         page: page
+
       App.vent.trigger 'set:current:category', slug
       App.vent.trigger 'set:current:brand', brand
 

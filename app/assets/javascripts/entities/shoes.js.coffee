@@ -152,14 +152,14 @@
       shoes.fetch()
       shoes
 
-    getShoe: (slug) ->
+    getShoe: (category, brand, slug) ->
       shoe = new Entities.Shoe
       shoe.fetch
-        url: Routes.shoe_path(slug)
+        url: Routes.shoe_path(category, brand, slug)
       shoe
 
-  App.reqres.setHandler 'shoe:entity', (slug) ->
-    API.getShoe(slug)
+  App.reqres.setHandler 'shoe:entity', (category, brand, slug) ->
+    API.getShoe(category, brand, slug)
 
   App.reqres.setHandler 'shoes:entities', (page) ->
     API.getShoes(page)

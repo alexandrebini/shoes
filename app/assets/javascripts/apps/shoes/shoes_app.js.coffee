@@ -11,8 +11,11 @@
     list: (page) ->
       new ShoesApp.List.Controller(page)
 
-    show: (brand, category, slug) ->
-      new ShoesApp.Show.Controller(slug)
+    show: (category, brand, slug) ->
+      new ShoesApp.Show.Controller
+        category: category
+        brand: brand
+        slug: slug
 
   App.vent.on 'visit:home', (slug) ->
     API.list()
