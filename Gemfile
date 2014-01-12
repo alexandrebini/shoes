@@ -27,6 +27,10 @@ gem 'js-routes', '0.9.6'
 gem 'puma', '2.7.1'
 gem 'minitest', '4.7.5'
 
+group :production do
+  gem 'exception_notification', '4.0.1'
+end
+
 group :development do
   gem 'foreman', '0.63.0'
   gem 'capistrano', '3.0.1'

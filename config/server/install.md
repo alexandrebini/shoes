@@ -32,7 +32,7 @@ vim /etc/ssh/sshd_config
   apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
   add-apt-repository 'deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/debian wheezy main'
 
-  aptitude update && aptitude install mariadb-server
+  aptitude update && aptitude install mariadb-server libmariadbclient-dev
 
   mysql -u root mysql -pC6rPqFNCLmWtU3T
     CREATE USER 'shoes'@'localhost' IDENTIFIED BY 'n8gHbrNanrUXajF2ea';
@@ -53,6 +53,7 @@ vim /etc/ssh/sshd_config
   aptitude install fontconfig
   wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
   tar -vxjf phantomjs-1.9.2-linux-x86_64.tar.bz2
+  ln -s phantomjs-1.9.2-linux-x86_64/bin/phantomjs /usr/local/bin/
 
 # rvm
   curl -L get.rvm.io | bash -s stable
@@ -69,6 +70,7 @@ vim /etc/ssh/sshd_config
 
   rvm install 2.1
   rvm --default 2.1
+  rvm rvmrc warning ignore all.rvmrcs
 
   chmod +x $rvm_path/hooks/after_cd_bundler
 
