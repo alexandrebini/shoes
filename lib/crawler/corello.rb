@@ -54,11 +54,17 @@ module Crawler
       reject = %(home todos)
       links = page.css('#breadcrumbs li a')
       links = page.css('#breadcrumbs li strong') if links.size == 1
-      name = links.map do |a|
+      candidates = [page.css('h1.name').text.strip]
+      candidates += links.map do |a|
         name = a.text.strip.mb_chars.downcase
         name unless reject.include?(name)
-      end.join(' ')
-      Category.against(name) || name
+      end
+      candidates.each do |candidate|
+        if name = Category.matches(candidate)
+          return name
+        end
+      end
+      nil
     end
 
     def parse_photos(page)
@@ -85,7 +91,7 @@ module Crawler
     private
     def categories_urls(page)
       page.css('#nav li a').map do |a|
-        if Category.against(a.text.strip.mb_chars.downcase)
+        if Category.matches(a.text.strip.mb_chars.downcase)
           a.attr(:href)
         end
       end.compact.uniq

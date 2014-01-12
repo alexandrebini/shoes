@@ -1,5 +1,6 @@
 class Shoe < ActiveRecord::Base
   extend FriendlyId
+  include SlugGenerator
 
   belongs_to :brand
   belongs_to :category
@@ -8,7 +9,7 @@ class Shoe < ActiveRecord::Base
   has_many :numerations, dependent: :destroy
   has_and_belongs_to_many :colors
 
-  friendly_id :name, use: :slugged
+  friendly_id :to_slug, use: [:slugged, :scoped], scope: [:category, :brand]
   paginates_per 86
 
   validates :name, presence: true
@@ -65,7 +66,7 @@ class Shoe < ActiveRecord::Base
   end
 
   def category_name=name
-    name = Category.against(name) || name.to_s
+    name = Category.matches(name) || name.to_s
     self.category = Category.where(name: name.mb_chars.titleize.pluralize).lock(true).first_or_create
   end
 end

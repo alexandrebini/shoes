@@ -4,8 +4,11 @@
   matchers:
     - botum
     - boots
+- name: Chinelo
 - name: Creepers
 - name: Espadrilles
+- name: Flats
+- name: Mocassim
 - name: Peep Toes
   matchers:
     - peep toe
@@ -13,6 +16,11 @@
     - peep to
     - peep tos
     - peep-tos
+    - peeptoes
+- name: Rasteirinha
+  matchers:
+    - sandália rasteira
+    - rasteira
 - name: Sandálias
   matchers:
     - sandálium
@@ -22,6 +30,8 @@
     - salto baixo
     - salto medio
     - low
+    - saltos
+- name: Sapatilha
 - name: Scarpins
 - name: Splipper
 - name: Tênis

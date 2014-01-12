@@ -100,7 +100,7 @@ module Crawler
 
     def categories_urls(page)
       page.css('.cat-menu .holder ul li:eq(2) ul#subMenu:first li a').map do |a|
-        if Category.against(a.text.force_encoding('iso-8859-1').encode('utf-8').strip.mb_chars.downcase)
+        if Category.matches(a.text.force_encoding('iso-8859-1').encode('utf-8').strip.mb_chars.downcase)
           a.attr(:href)
         end
       end.compact.uniq

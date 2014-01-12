@@ -54,7 +54,7 @@ module Crawler
 
     def parse_category_name(page)
       name = page.css('h1.titProduto').text.strip.mb_chars.downcase
-      Category.against(name) || name.split(' ').first
+      Category.matches(name) || name.split(' ').first
     end
 
     def parse_photos(page)
@@ -81,7 +81,7 @@ module Crawler
     private
     def categories_urls(page)
       page.css('.mnu1 ul.submenu li a').map do |a|
-        if Category.against(a.text.strip.mb_chars.downcase)
+        if Category.matches(a.text.strip.mb_chars.downcase)
           a.attr(:href)
         end
       end.compact.uniq

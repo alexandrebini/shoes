@@ -25,3 +25,13 @@ staging:
   database: shoes_staging
   username: shoes
   password: 4g6RmHezzqu
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: true
+  pool: 360
+  checkout_timeout: 720
+  database: shoes_production
+  username: shoes
+  password: n8gHbrNanrUXajF2ea

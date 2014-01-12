@@ -4,5 +4,6 @@ def seed(klass)
   klass.create(config)
 end
 
-seed Category
 seed Brand
+seed Category
+seed Palette

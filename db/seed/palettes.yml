@@ -1,0 +1,310 @@
+- name: Amarelos
+  hex: '#f4e10e'
+  matchers:
+    - Amarela
+    - Amarelo
+    - Amarelo Flocado
+    - Amarelo Ouro Flocado Slim
+    - Canario
+    - Carambola
+    - Damasco
+
+- name: Cremes
+  hex: '#f9f7ea'
+  matchers:
+    - Areia
+    - Baunilha
+    - Pearl
+    - Pearl I
+    - Pele
+    - Bege
+    - Bege Agata Opaco
+    - Bege Duna
+    - Bege Ff Leitoso
+    - Bege Flocado
+    - Bege Leitoso
+    - Bege Opaco
+    - Bege Agata efeito Leitoso
+    - Creme
+    - Palha
+    - Panna
+    - Mármore
+    - Renda
+    - Lux Nude
+    - Natural
+    - Saara
+
+- name: Cinzas
+  hex: '#969696'
+  matchers:
+    - Argila
+    - Cinza
+    - Cinza Aroma Opaco
+    - Cinza Escuro Opaco
+    - Cinza Flocado
+    - Cinza Flocos
+    - Cinza Leitoso Coq
+    - Cinza Leitoso
+    - Cinza Prata
+    - Cinza Ugly Ff Op
+    - Cinza Escuro Opaco
+    - Fendi
+    - Fumê
+    - Grafite
+    - Lux Fendi
+    - Aço
+    - Oyster (cinza claro)
+    - Platina
+    - Prata
+    - Prata Night Metal
+    - Prata Secret Pero
+    - Prata Velho
+    - Sky Gray
+    - Titanium
+
+- name: Azuis
+  hex: '#2756dc'
+  matchers:
+    - Azul Contraste Ff
+    - Azul Contraste Ff Op
+    - Azul
+    - Blue
+    - Azul Opaco
+    - Azul Orion Ff Op
+    - Azul Park Flocado Slim
+    - Azul Claro - Bola
+    - Azul Flocado
+    - Azul Fulm Ff Op
+    - Azul Piscina Flocado
+    - Curacao
+    - Turquesa
+    - Azul Reebok
+    - Azul Reebok Opaco
+    - Klein
+    - Royal
+    - Azul Real Opaco
+    - Marinho
+    - Marinho Vulca
+    - Navy
+
+- name: Brancos
+  hex: '#fffff'
+  matchers:
+    - Branco Coco Ff Op
+    - Branco Côco
+    - Branco Coco Ff Op
+    - Bl
+    - Bl-Pea
+    - Bl-Wh
+    - Branca
+    - Branco
+    - White
+    - Python White
+    - Branco Cintilante
+    - Branco Perolado
+    - Cristal
+    - Ivory I
+    - Branco Fosco
+    - Branco Opaco
+    - Branco Polido
+    - Cera
+    - Lirio
+    - Neve
+    - Off White
+    - Python Off White
+
+- name: Pretos
+  hex: '#000'
+  matchers:
+    - Black
+    - Lux Preto
+    - Preto Onix
+    - Marroquino Preto
+    - Preta
+    - Preto
+    - Preto - Selo
+    - Preto Croco
+    - Preto Ff Leitoso
+    - Preto Flocada
+    - Preto Opaco
+    - Preto Grafiti
+    - Preto Leitoso
+    - Preto Leitoso - Bola
+    - Preto Transparente
+    - Python Preto
+
+- name: Vermelhos
+  hex: '#ab1212'
+  matchers:
+    - Bordô
+    - Bordô Flocado
+    - Mercury
+    - Bordô Noite
+    - Bordo Noite Ff Op
+    - Blush
+    - Frutas Vermelhas
+    - Pepper
+    - Ruby
+    - Vermelho Pica Pau
+    - Marroquino Red
+    - Python Red
+    - Red Valentin
+    - Vermelho Tango Ff Op
+    - Vermelha
+    - Vermelho
+    - Vermelho - Selo
+    - Vermelho Croco
+    - Vermelho Flocado
+    - Vermelho Galapago
+    - Vermelho Galapago Flocado
+    - Vermelho Galapago Flocado Slim
+    - Vermelho Galápagos
+    - Vermelho Médio
+    - Red
+    - Vermelho Rio
+    - Vermelho Rio Ff O
+    - Vermelho Metalizado
+    - Vermelho Sofly Opaco
+
+- name: Bronzes
+  hex: '#bb8a35'
+  matchers:
+    - Bronze
+    - Bronze Eclipse Me
+
+
+- name: Marrons
+  hex: '#502f09'
+  matchers:
+    - Brownie I
+    - Cacau
+    - Café
+    - Dark Brown
+    - Hot Chocolat
+    - Camel
+    - Camelo Flocado
+    - Caramelo
+    - Caramelo Opaco
+    - Chamois
+    - Light Wood
+    - Morel
+    - Pinhão
+    - Deserto
+    - Doce De Leite
+    - Marroquino Areia
+    - Tan
+    - Marrom
+    - Marrom Flocado
+    - Python Natural
+    - Sela
+    - Conhaque
+    - Tâmara
+    - Terracota
+
+- name: Corais
+  hex: '#e86830'
+  matchers:
+    - Coral
+    - Fresh Salmon
+    - Salmão
+    - Laranja
+    - Laranja - Bola
+    - Laranja Papaia
+    - Laranja Vermillion
+    - Orange
+    - Peach
+    - Peach I I
+
+- name: Dourados
+  hex: '#e8c434'
+  matchers:
+    - Dourada
+    - Dourado
+    - Dourado Ff Tp C
+    - Dourado Sand
+    - Duna
+    - Ouro
+    - Ouro Claro
+
+- name: Glitters
+  hex: '#CCC'
+  matchers:
+    - Gliter
+    - Glitter
+    - Dourada Glitter
+    - New Ouro Glitter
+    - Ouro Glitter
+    - Ouro Light Metalico
+    - Grafite Glitter
+    - Fume Ff Tp Com Glitter
+    - Preta Glitter
+    - Cinza Glitter
+    - Mystic
+    - Prata Glitter
+    - Bege Glitter Ouro
+    - Azul Ff Tp Com Glitter
+    - Azul Glitter
+    - Azul Glitter Pta
+    - Vermelho Glitter
+    - Marrom Glitter
+    - Marrom Terra Ff Tp Com Glitter
+    - Rosa Glitter
+    - Rosa Glitter Pta
+
+- name: Lilas
+  hex: '#d7b4f5'
+  matchers:
+    - Lilas
+    - Lilas Colo Ff Op
+    - Lilas Leitoso
+    - Lilas Sury Opaco
+    - Lince Opaco
+
+- name: Verdes
+  hex: '#31a55a'
+  matchers:
+    - Menta
+    - Papagalo
+    - Verde
+    - Verde Real
+    - Verde Bay
+    - Verde Flocada
+    - Verde Flocado
+    - Verde Floripa
+    - Verde Ultramar
+    - Verde Opaco
+    - Verde Tempo Ff Op
+
+- name: Rosas
+  hex: '#e181e0'
+  matchers:
+  - Rosa
+  - Rosa Barbie
+  - Rosa Batom
+  - Rosa Cameo Leitoso
+  - Rosa Leitosa
+  - Rosa Leitoso
+  - Rosa Flocada
+  - Rosa Flocado
+  - Rosa Flocado Dourado
+  - Rosa Flocos
+  - Rosa Frankfurt Ff
+  - Rosa Fucsia Ff Op
+  - Rosa Glaze Ff Op
+  - Rosa Glaze Ff Tp C
+  - Rosa Metalizado
+  - Rosa Nude Ff Op
+  - Rosa Pádua
+  - Rosa Pádua Ff
+  - Rosa Pádua Ff Op
+  - Rosa Padua Ff Opaco
+  - Rosa Pink Flocado
+  - Rose
+
+- name: Roxos
+  hex: '#7d15d5'
+  matchers:
+  - Roxo
+  - Roxo Flocado
+  - Violeta
+  - Blueberry

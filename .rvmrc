@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-environment_id="ruby-2.0.0-p353@shoes"
+environment_id="ruby-2.1.0@shoes"
 
 if [[ -d "${rvm_path:-$HOME/.rvm}/environments"
   && -s "${rvm_path:-$HOME/.rvm}/environments/$environment_id" ]]
