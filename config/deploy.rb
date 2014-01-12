@@ -25,9 +25,9 @@ namespace :deploy do
     end
   end
 
-  before :restart do
+  before :restart, :copy_server_files do
     on roles(:web) do
-      execute "ln -sf /home/shoes/www/current/conf/nginx /usr/local/nginx/conf"
+      execute "ln -sf /home/shoes/www/current/config/server/nginx /usr/local/nginx/conf"
     end
   end
   after :finishing, 'deploy:cleanup'
