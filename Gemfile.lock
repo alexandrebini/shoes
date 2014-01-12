@@ -212,6 +212,7 @@ DEPENDENCIES
   jquery-rails (= 3.0.4)
   js-routes (= 0.9.6)
   kaminari (= 0.15.0)
+  minitest (= 4.7.5)
   miro (= 0.2.3)
   mysql2 (= 0.3.14)
   nokogiri (= 1.6.1)
