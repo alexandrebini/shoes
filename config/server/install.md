@@ -36,7 +36,9 @@ vim /etc/ssh/sshd_config
 
   mysql -u root mysql -pC6rPqFNCLmWtU3T
     CREATE USER 'shoes'@'localhost' IDENTIFIED BY 'n8gHbrNanrUXajF2ea';
-    GRANT ALL PRIVILEGES ON * . * TO  'wallpapers'@'localhost';
+    GRANT ALL PRIVILEGES ON * . * TO  'shoes'@'localhost';
+    CREATE USER 'shoes'@'%' IDENTIFIED BY 'n8gHbrNanrUXajF2ea';
+    GRANT ALL PRIVILEGES ON *.* TO 'shoes'@'%';
     FLUSH PRIVILEGES;
     exit
 
@@ -54,6 +56,16 @@ vim /etc/ssh/sshd_config
   wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
   tar -vxjf phantomjs-1.9.2-linux-x86_64.tar.bz2
   ln -s phantomjs-1.9.2-linux-x86_64/bin/phantomjs /usr/local/bin/
+
+# nginx
+  aptitude install libpcre++-dev
+  cd /usr/local/src
+  wget http://nginx.org/download/nginx-1.4.4.tar.gz
+  tar xzvf nginx-1.4.4.tar.gz && cd nginx-*
+  ./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_spdy_module
+  make
+  make install
+  ln -s /usr/local/nginx/sbin/nginx /usr/local/sbin/nginx
 
 # rvm
   curl -L get.rvm.io | bash -s stable
