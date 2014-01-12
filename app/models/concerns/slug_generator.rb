@@ -7,25 +7,28 @@ module SlugGenerator
 
   private
   def cleared_name
-    name.split(' ').map do |word|
+    words = name.split(' ').map do |word|
       cleared_word(word)
-    end.compact.uniq.each_slice(2).map do |words|
-      cleared_word(words.join ' ')
     end.compact.uniq
+
+    slice_size = words.size > 2 ? 2 : words.size
+    words.permutation.to_a.flatten.each_slice(slice_size) do |slice|
+      words -= slice if cleared_word(slice.join ' ').nil?
+    end
+
+    words
   end
 
   def cleared_colors
-    if self.colors
-      colors.map{ |color| cleared_word(color.name) }
-    else
-      []
-    end.compact.uniq
+    self.colors.map(&:name)
   end
 
   def cleared_word(word)
     case
-    when category && category.against(word) then nil
-    when brand && brand.against(word) then nil
+    when Category.matches(word) then nil
+    when Brand.matches(word) then nil
+    when Palette.matches(word) then nil
+    when Color.matches(word) then nil
     else word
     end
   end

@@ -16,6 +16,5 @@
 capybara-*.html
 db/schema.rb
 dump.rdb
-Gemfile.lock
 pickle-email-*.html
 rerun.txt

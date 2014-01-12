@@ -18,6 +18,9 @@
     - peep-tos
     - peeptoes
 - name: Rasteirinha
+  matchers:
+    - sandália rasteira
+    - rasteira
 - name: Sandálias
   matchers:
     - sandálium

@@ -24,7 +24,13 @@ gem 'coffee-rails', '4.0.1'
 gem 'haml_coffee_assets', '1.16.0'
 gem 'js-routes', '0.9.6'
 
+gem 'puma', '2.7.1'
+
 group :development do
-  gem 'puma', '2.7.1'
   gem 'foreman', '0.63.0'
+  gem 'capistrano', '3.0.1'
+  gem 'capistrano-rails', '1.1.0'
+  gem 'capistrano-bundler', '1.1.1'
+  gem 'capistrano-rvm', '0.1.0'
+  gem 'capistrano3-puma', '0.1.2'
 end

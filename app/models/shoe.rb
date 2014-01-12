@@ -66,7 +66,7 @@ class Shoe < ActiveRecord::Base
   end
 
   def category_name=name
-    name = Category.against(name) || name.to_s
+    name = Category.matches(name) || name.to_s
     self.category = Category.where(name: name.mb_chars.titleize.pluralize).lock(true).first_or_create
   end
 end

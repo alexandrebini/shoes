@@ -65,7 +65,7 @@ module Crawler
       categories << page.css('meta[name="description"]').first.attr(:content)
       categories.each do |category|
         name = category.strip.mb_chars.downcase
-        if name = Category.against(name)
+        if name = Category.matches(name)
           return name
         end
       end

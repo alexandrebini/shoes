@@ -60,7 +60,7 @@ module Crawler
         name unless reject.include?(name)
       end
       candidates.each do |candidate|
-        if name = Category.against(candidate)
+        if name = Category.matches(candidate)
           return name
         end
       end
@@ -91,7 +91,7 @@ module Crawler
     private
     def categories_urls(page)
       page.css('#nav li a').map do |a|
-        if Category.against(a.text.strip.mb_chars.downcase)
+        if Category.matches(a.text.strip.mb_chars.downcase)
           a.attr(:href)
         end
       end.compact.uniq
