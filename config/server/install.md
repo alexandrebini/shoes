@@ -73,6 +73,7 @@ vim /etc/ssh/sshd_config
   rvm rvmrc warning ignore all.rvmrcs
 
   chmod +x $rvm_path/hooks/after_cd_bundler
+  /usr/local/rvm/bin/rvm default do gem install bundler
 
 adduser shoes
 passwd -d shoes
