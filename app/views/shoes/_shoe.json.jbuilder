@@ -1,6 +1,8 @@
 json.cache! shoe do
   json.slug shoe_path(shoe.category, shoe.brand, shoe.slug)
   json.name shoe.name
+  json.price shoe.price[:int]
+  json.cents shoe.price[:cents]
   json.thumb do |json|
     json.url shoe.photo.url(:thumb)
     json.height shoe.photo.height(:thumb)

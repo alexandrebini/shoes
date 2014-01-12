@@ -1,2 +1,7 @@
-.l-middle
-  %img{ src: @[@style].url, width: @[@style].width, height: @[@style].height, alt: @name }
+%a{ href: @slug }
+  .price
+    %sup R$
+    = @price
+
+  .l-middle
+    %img{ src: @[@style].url, width: @[@style].width, height: @[@style].height, alt: @name }

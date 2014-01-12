@@ -15,6 +15,7 @@ article.list
 .shoes
   @extend %grid-box
   padding: rem($default-padding)
+  margin-top: rem($header-height)
 
 // -------------------------------------
 //   Modifiers
@@ -99,6 +100,19 @@ article.list
 %shoes--shoe
   @extend %grid-box
   text-align: center
+  position: relative
+  .price
+    +border-corner-radius(top, left, 50%)
+    +border-corner-radius(bottom, left, 50%)
+    +border-corner-radius(bottom, right, 50%)
+    background: $primary-color
+    font-size: rem(24px)
+    padding: rem(16px) rem(6px)
+    position: absolute
+    top: 3px
+    right: 3px
+    sup
+      font-size: rem(8px)
 
   .l-middle
     background: white

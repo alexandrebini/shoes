@@ -22,8 +22,16 @@ namespace :crawler do
 
   desc 'start downloads'
   task download: :environment do
-    Shoe.pending.random.limit(jobs).each do |shoe|
-      shoe.download_image
+    shoes = Shoe.pending
+    count = shoes.count
+    limit = 10
+
+    while count > 0
+      shoes.random.limit(limit).each do |shoe|
+        shoe.photos.each{ |photo| photo.download_image }
+      end
+
+      count -= limit
     end
   end
 end

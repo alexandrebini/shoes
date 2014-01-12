@@ -14,7 +14,7 @@ nav
   background: $nav-background
   display: none
   height: 100%
-  top: $header-height
+  margin-top: rem($header-height)
 
 // -------------------------------------
 //   Modifiers
@@ -41,6 +41,25 @@ nav
 // ----- Submodule ----- //
 
 // .module-submodule
-nav ul
-  li
-    float: left
+nav
+  h3
+    margin: 12px 6px 2px 6px
+  ul
+    margin-top: 15px
+    li
+      @extend %ellipsis
+      float: left
+      width: 90px
+      background: #fff
+      color: $secondary-color
+      padding: 3px 6px 3px 20px
+      margin: 2px 6px
+      &:before
+        border: 1px solid $tertiary-color
+        content: ' '
+        position: relative
+        right: 15px
+        width: 1px
+      a, h4
+        color: $secondary-color
+        font-size: 12px
