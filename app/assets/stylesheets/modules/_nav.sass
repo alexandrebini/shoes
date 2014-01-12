@@ -5,12 +5,12 @@
 // *************************************
 
 nav
-  @extend %grid-box
+  @extend %grid-box--1of3
   @extend %grid-box--xlg--2of12
   @extend %grid-box--lg--2of12
   @extend %grid-box--md--2of12
   @extend %grid-box--sm--2of12
-  @extend %grid-box--xs--2of12
+  @extend %grid-box--xs--4of12
   background: $nav-background
   display: none
   height: 100%
@@ -21,6 +21,13 @@ nav
 // -------------------------------------
 
 // .module--modifier
+.nav--list
+  @extend %grid-box
+  @extend %grid-box--xlg--1of2
+  @extend %grid-box--lg--1of2
+  @extend %grid-box--md--1of2
+  @extend %grid-box--sm--1of1
+  @extend %grid-box--xs--1of1
 
 // -------------------------------------
 //   States
@@ -42,24 +49,33 @@ nav
 
 // .module-submodule
 nav
+  position: fixed
+  overflow: auto
   h3
+    font-weight: none
+    font-size: 12px
     margin: 12px 6px 2px 6px
   ul
     margin-top: 15px
     li
-      @extend %ellipsis
-      float: left
-      width: 90px
-      background: #fff
-      color: $secondary-color
-      padding: 3px 6px 3px 20px
-      margin: 2px 6px
-      &:before
-        border: 1px solid $tertiary-color
-        content: ' '
-        position: relative
-        right: 15px
-        width: 1px
       a, h4
+        @extend %ellipsis
+        background: #fff
         color: $secondary-color
+        color: $secondary-color
+        display: block
         font-size: 12px
+        margin: 2px 6px
+        padding: 3px 6px 3px 20px
+        &:before
+          border: 1px solid $tertiary-color
+          content: ' '
+          position: relative
+          right: 15px
+          width: 1px
+
+      h4
+        font-weight: bold
+        margin-left: 14px
+        text-transform: none
+        width: 79px
