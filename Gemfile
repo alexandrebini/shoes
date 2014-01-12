@@ -25,6 +25,7 @@ gem 'haml_coffee_assets', '1.16.0'
 gem 'js-routes', '0.9.6'
 
 gem 'puma', '2.7.1'
+gem 'minitest', '4.7.5'
 
 group :development do
   gem 'foreman', '0.63.0'
