@@ -62,7 +62,7 @@ vim /etc/ssh/sshd_config
   cd /usr/local/src
   wget http://nginx.org/download/nginx-1.4.4.tar.gz
   tar xzvf nginx-1.4.4.tar.gz && cd nginx-*
-  ./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_spdy_module
+  ./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_spdy_module --with-http_gzip_static_module
   make
   make install
   ln -s /usr/local/nginx/sbin/nginx /usr/local/sbin/nginx
