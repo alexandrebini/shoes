@@ -5,6 +5,7 @@
 // *************************************
 
 header
+  @extend %grid-box
   +box-shadow(rgba($header-shadow, 0.70) 0px 5px 10px)
   border-bottom: 1px solid $header-shadow
   background: $header-background
@@ -20,6 +21,24 @@ header
 // -------------------------------------
 
 // .module--modifier
+.header--list
+  @extend %grid-box
+  @extend %grid-box--xlg--1of12
+  @extend %grid-box--lg--1of12
+  @extend %grid-box--md--1of12
+  @extend %grid-box--sm--1of12
+  @extend %grid-box--xs--1of12
+  background: $quaternary-color
+  height: $header-height
+  padding: 0 !important
+
+.header--logo
+  @extend %grid-box
+  @extend %grid-box--xlg--11of12
+  @extend %grid-box--lg--11of12
+  @extend %grid-box--md--11of12
+  @extend %grid-box--sm--11of12
+  @extend %grid-box--xs--11of12
 
 // -------------------------------------
 //   States
@@ -41,3 +60,21 @@ header
 
 // .module-submodule
 
+header
+  h1
+    padding: 0 !important
+    text-align: center
+
+  a
+    cursor: pointer
+  a.logo
+    +inline-block
+    background: url(asset_path('logo.png')) no-repeat
+    height: rem($header-height)
+    width: 210px
+  a.button
+    +inline-block
+    background: url(asset_path('list.png')) no-repeat
+    height: rem($header-height)
+    padding: 20px
+    background-position: 0 20px

@@ -7,15 +7,17 @@
       listRegion: '.list'
       logoRegion: '.logo'
 
+  class Show.List extends Marionette.ItemView
+    template: 'header/show/templates/list'
+    className: 'header--list'
+
+    triggers:
+      'click' : 'toggle:list'
+
   class Show.Logo extends Marionette.ItemView
     template: 'header/show/templates/logo'
+    className: 'header--logo'
     tagName: 'h1'
 
     triggers:
       'click' : 'home:back'
-
-  class Show.List extends Marionette.ItemView
-    template: 'header/show/templates/list'
-
-    triggers:
-      'click' : 'toggle:list'
