@@ -4,6 +4,7 @@
       @_instance ?= new @(arguments...)
 
     navigate: (route, options = {}) ->
+      console.log '------'
       route = App.UrlHelper.Helper.getInstance().urlFor(route)
       Backbone.history.navigate route, options
       @trackPageView(route) unless options.trackPageView is false

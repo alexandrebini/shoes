@@ -43,11 +43,10 @@
   @extend %grid-box--xs--1of1
   text-align: center
 
-  span.center
-    @extend %img-center
-
   .main
     background: #fff
+    div
+      height: 100%
     img
       max-width: 100%
       max-height: 100%
@@ -68,10 +67,11 @@
       background: #fff
       height: rem($shoe-thumb-height)
       margin: rem($default-padding)
-
+      div
+        height: 100%
       img
         @extend %img-filter-unselected
-        max-width: 100%
+        max-width: 90%
         max-height: 90%
         display: inline-block
         vertical-align: middle

@@ -7,6 +7,7 @@
       brandsRegion: 'section.brands'
 
   class Show.Category extends Marionette.ItemView
+    className: 'nav--list'
     tagName: 'li'
     template: 'nav/show/templates/category'
     templateHelpers: App.UrlHelper.Helper.getInstance()
@@ -21,6 +22,7 @@
     itemViewContainer: 'ul'
 
   class Show.Brand extends Marionette.ItemView
+    className: 'nav--list'
     tagName: 'li'
     template: 'nav/show/templates/brand'
     templateHelpers: App.UrlHelper.Helper.getInstance()

@@ -15,6 +15,7 @@
         @brandsRegion()
 
       App.navRegion.show @layout
+
       App.vent.on 'set:current:brand', (slug) =>
         App.execute 'when:fetched', @brands, =>
           @nav.setCurrentBrand(slug)
