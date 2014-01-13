@@ -17,7 +17,8 @@
       for view in children
         firstChild = view.$el.children().first()
 
-        top = firstChild.offset().top - topGap
-        if scrollTop >= top
-          view.trigger('scroll:matches')
-          return
+        if firstChild.offset()
+          top = firstChild.offset().top - topGap
+          if scrollTop >= top
+            view.trigger('scroll:matches')
+            return

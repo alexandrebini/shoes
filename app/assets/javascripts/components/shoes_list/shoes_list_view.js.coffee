@@ -8,6 +8,7 @@
       bottomPaginationRegion: '.bottom'
 
   class View.Shoe extends Marionette.ItemView
+    templateHelpers: App.UrlHelper.Helper.getInstance()
     template: 'shoes_list/templates/shoe'
     className: ->
       className = "shoes--#{ @model.get('style') }"

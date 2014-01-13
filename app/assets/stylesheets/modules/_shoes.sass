@@ -66,24 +66,6 @@ article.list
 .shoes--long.is-right
   @extend %l-pullRight
 
-// .shoes--box.is-last--1of4
-//   @extend %grid-box--xlg--1of1
-//   .shoes--thumb
-//     @extend %grid-box--xlg--1of8
-//   .shoes--long
-//     @extend %grid-box--xlg--1of8
-//   .shoes--wide
-//     @extend %grid-box--xlg--2of8
-
-// .shoes--box.is-last--2of4
-//   @extend %grid-box--xlg--4of8
-//   .shoes--thumb
-//     @extend %grid-box--xlg--1of4
-//   .shoes--long
-//     @extend %grid-box--xlg--1of4
-//   .shoes--wide
-//     @extend %grid-box--xlg--2of4
-
 // -------------------------------------
 //   Context
 // -------------------------------------
@@ -107,8 +89,9 @@ article.list
     +border-corner-radius(bottom, right, 50%)
     background: $primary-color
     font-size: rem(24px)
-    padding: rem(16px) rem(6px)
+    padding: rem(16px) 0
     position: absolute
+    width: rem(68px)
     top: 3px
     right: 3px
     sup
@@ -117,5 +100,5 @@ article.list
   .l-middle
     background: white
     img
-      max-width: 100%
-      max-height: 100%
+      max-width: 95%
+      max-height: 95%

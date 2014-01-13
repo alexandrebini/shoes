@@ -23,11 +23,11 @@ nav
 // .module--modifier
 .nav--list
   @extend %grid-box
-  @extend %grid-box--xlg--1of2
+  @extend %grid-box--xlg--1of3
   @extend %grid-box--lg--1of2
   @extend %grid-box--md--1of2
   @extend %grid-box--sm--1of1
-  @extend %grid-box--xs--1of1
+  @extend %grid-box--xs--1of2
 
 // -------------------------------------
 //   States
@@ -52,9 +52,9 @@ nav
   position: fixed
   overflow: auto
   h3
-    font-weight: none
+    font-weight: normal
     font-size: 12px
-    margin: 12px 6px 2px 6px
+    margin: 12px 6px 0 12px
   ul
     margin-top: 15px
     li
@@ -75,7 +75,10 @@ nav
           width: 1px
 
       h4
+        +opacity(0.7)
         font-weight: bold
         margin-left: 14px
         text-transform: none
         width: 79px
+        &:before
+          border: 1px solid $quaternary-color
