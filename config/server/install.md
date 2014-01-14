@@ -1,6 +1,6 @@
 aptitude update && aptitude upgrade
 
-aptitude install vim rsync lynx screen htop curl sudo ntp -y
+aptitude install vim rsync lynx screen htop curl sudo ntp imagemagick -y
 
 dpkg-reconfigure tzdata
 
