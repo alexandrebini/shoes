@@ -53,9 +53,10 @@ vim /etc/ssh/sshd_config
 
 # Phantomjs
   aptitude install fontconfig
+  cd /usr/local/src
   wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
   tar -vxjf phantomjs-1.9.2-linux-x86_64.tar.bz2
-  ln -s phantomjs-1.9.2-linux-x86_64/bin/phantomjs /usr/local/bin/
+  ln -sf /usr/local/src/phantomjs-1.9.2-linux-x86_64/bin/phantomjs /usr/local/bin/
 
 # nginx
   aptitude install libpcre++-dev

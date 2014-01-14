@@ -14,37 +14,6 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
 
-namespace :seoserver do
-  namespace :npm do
-    task :install do
-      execute <<-CMD
-        mkdir -p #{ shared_path }/node_modules &&
-        ln -s #{ shared_path }/node_modules #{ release_path }/seoserver/ &&
-        cd #{ release_path }/seoserver/ && npm install --production --silent
-      CMD
-    end
-  end
-
-  task :stop do
-    execute <<-CMD
-      cd #{ release_path }/seoserver &&
-      ./node_modules/.bin/forever stopall
-    CMD
-  end
-
-  task :start do
-    execute <<-CMD
-      cd #{ release_path }/seoserver &&
-      ./node_modules/.bin/forever start node_modules/.bin/nodemon seoserver.js
-    CMD
-  end
-
-  task :restart do
-    stop
-    start
-  end
-end
-
 namespace :deploy do
   desc 'Restart application'
   task :restart do
@@ -55,8 +24,45 @@ namespace :deploy do
 
   before :restart, :copy_server_files do
     on roles(:web) do
-      execute "ln -sf /home/shoes/www/current/config/server/nginx /usr/local/nginx/conf"
+      execute "ln -sf /home/shoes/www/current/config/server/production/nginx /usr/local/nginx/conf"
     end
   end
   after :finishing, 'deploy:cleanup'
+end
+
+namespace :seoserver do
+  namespace :npm do
+    after 'bundler:install', :install do
+      on roles(:app) do
+        execute <<-CMD
+          mkdir -p #{ shared_path }/node_modules
+          ln -s #{ shared_path }/node_modules #{ release_path }/seoserver/
+          cd #{ release_path }/seoserver/ && npm install --production --silent
+        CMD
+      end
+    end
+  end
+
+  task :stop do
+    on roles(:app) do
+      execute <<-CMD
+        cd #{ release_path }/seoserver
+        ./node_modules/.bin/forever stopall
+      CMD
+    end
+  end
+
+  task :start do
+    on roles(:app) do
+      execute <<-CMD
+        cd #{ release_path }/seoserver
+        ./node_modules/.bin/forever start node_modules/.bin/nodemon seoserver.js
+      CMD
+    end
+  end
+
+  before 'deploy:restart', :restart do
+    invoke 'seoserver:stop' rescue nil
+    invoke 'seoserver:start'
+  end
 end
