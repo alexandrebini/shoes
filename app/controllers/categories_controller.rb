@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   respond_to :json
 
   def index
-    @categories = Category.all
+    @categories = Category.with_shoes
     respond_with @categories
   end
 

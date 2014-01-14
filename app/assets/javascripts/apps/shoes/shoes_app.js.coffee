@@ -9,13 +9,17 @@
 
   API =
     list: (page) ->
+      @closeShoe()
       new ShoesApp.List.Controller(page)
 
     show: (category, brand, slug) ->
-      new ShoesApp.Show.Controller
+      @showController = new ShoesApp.Show.Controller
         category: category
         brand: brand
         slug: slug
+
+    closeShoe: ->
+      @showController.layout.close() if @showController
 
   App.vent.on 'visit:home', (slug) ->
     API.list()

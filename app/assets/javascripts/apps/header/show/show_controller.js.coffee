@@ -7,7 +7,6 @@
       App.headerRegion.show @layout
 
       @logoRegion()
-      @listRegion()
       @page = new App.PageChanger.Changer()
 
     getLayoutView: ->
@@ -23,14 +22,3 @@
 
     getLogoRegion: ->
       new Show.Logo()
-
-    listRegion: ->
-      getListRegion = @getListRegion()
-
-      @listenTo getListRegion, 'toggle:list', =>
-        console.log 'esconder a lista'
-
-      @layout.listRegion.show getListRegion
-
-    getListRegion: ->
-      new Show.List()
