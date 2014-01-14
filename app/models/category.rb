@@ -10,4 +10,6 @@ class Category < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   validates_presence_of :name
+
+  scope :with_shoes, joins(:shoes).uniq
 end
