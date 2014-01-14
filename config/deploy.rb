@@ -9,13 +9,41 @@ set :format, :pretty
 set :log_level, :debug
 set :pty, true
 
-# set :bundle_flags, '--deployment --quiet --binstubs'
-
-# set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
+
+namespace :seoserver do
+  namespace :npm do
+    task :install do
+      execute <<-CMD
+        mkdir -p #{ shared_path }/node_modules &&
+        ln -s #{ shared_path }/node_modules #{ release_path }/seoserver/ &&
+        cd #{ release_path }/seoserver/ && npm install --production --silent
+      CMD
+    end
+  end
+
+  task :stop do
+    execute <<-CMD
+      cd #{ release_path }/seoserver &&
+      ./node_modules/.bin/forever stopall
+    CMD
+  end
+
+  task :start do
+    execute <<-CMD
+      cd #{ release_path }/seoserver &&
+      ./node_modules/.bin/forever start node_modules/.bin/nodemon seoserver.js
+    CMD
+  end
+
+  task :restart do
+    stop
+    start
+  end
+end
 
 namespace :deploy do
   desc 'Restart application'
