@@ -67,6 +67,9 @@ vim /etc/ssh/sshd_config
   make install
   ln -s /usr/local/nginx/sbin/nginx /usr/local/sbin/nginx
 
+# redis
+  aptitude install redis-server
+
 # rvm
   curl -L get.rvm.io | bash -s stable
   rvm requirements
