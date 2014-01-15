@@ -42,14 +42,16 @@
   @extend %grid-box--sm--1of1
   @extend %grid-box--xs--1of1
   text-align: center
+  .l-middle
+    height: auto
 
   .main
     background: #fff
     div
       height: 100%
     img
-      max-width: 100%
-      max-height: 100%
+      max-width: 90%
+      max-height: 90%
 
   .thumbs_container
     @extend %grid-box
@@ -65,6 +67,7 @@
       @extend %img-filter-unselected
       +inline-block
       background: #fff
+      cursor: pointer
       height: rem($shoe-thumb-height)
       margin: rem($default-padding)
       div

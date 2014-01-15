@@ -2,5 +2,6 @@
   class List.Controller extends App.Components.ShoesList.Controller
     initialize: (page) ->
       App.module('NavApp').start()
+      App.vent.trigger 'set:header:headings'
       shoes = App.request('shoes:entities', page)
       super(shoes)

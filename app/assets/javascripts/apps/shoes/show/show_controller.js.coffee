@@ -5,7 +5,8 @@
       @layout = @getLayoutView()
 
       App.execute 'when:fetched', shoe, =>
-        App.mainRegion.show @layout
+        App.vent.trigger 'remove:header:headings'
+        App.shoeRegion.show @layout
 
       @listenTo @layout, 'show', =>
         @thumbRegion(shoe)

@@ -1,4 +1,5 @@
 - if @isCurrent
-  %h4= @name
+  %h1= @name
+
 - else
   %a{ href: @urlFor(@path || @slug), title: @name, data-internal: true }= @name
