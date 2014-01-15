@@ -13,4 +13,4 @@
     tagName: 'h1'
 
     triggers:
-      'click' : 'home:back'
+      'click a' : 'logo:clicked'

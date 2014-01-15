@@ -1,4 +1,4 @@
 .visit_link
-  %a{ href: @source_url, alt: @name, target: '_blank' }
+  %a{ href: @source_url, title: @name, target: '_blank', rel: 'nofollow' }
     %i.cart
     Ir para loja

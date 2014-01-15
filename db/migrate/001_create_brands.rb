@@ -7,6 +7,8 @@ class CreateBrands < ActiveRecord::Migration
       t.string :start_url
       t.string :verification_matcher
       t.has_attached_file :logo
+      t.string :logo_fingerprint
+      t.text :logo_meta
       t.timestamps
     end
     add_index :brands, :name

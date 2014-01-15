@@ -9,16 +9,16 @@
       @logoRegion()
       @page = new App.PageChanger.Changer()
 
+    logoRegion: ->
+      logoView = @getLogoView()
+
+      @listenTo logoView, 'logo:clicked', =>
+        App.vent.trigger 'visit:home'
+
+      @layout.logoRegion.show logoView
+
     getLayoutView: ->
       new Show.Layout
 
-    logoRegion: ->
-      getLogoRegion = @getLogoRegion()
-
-      @listenTo getLogoRegion, 'home:back', =>
-        @page.navigate('/', true)
-
-      @layout.logoRegion.show getLogoRegion
-
-    getLogoRegion: ->
-      new Show.Logo()
+    getLogoView: ->
+      new Show.Logo

@@ -5,6 +5,9 @@
     show: ->
       new HeaderApp.Show.Controller()
 
+  App.vent.on 'visit:home', ->
+    App.vent.trigger 'visit', '/'
+
   HeaderApp.on 'start', ->
     new App.HeadingHelper.Helper()
     API.show()
