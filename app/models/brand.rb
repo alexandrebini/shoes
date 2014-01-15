@@ -11,6 +11,8 @@ class Brand < ActiveRecord::Base
 
   validates_presence_of :name, :start_url, :verification_matcher
 
+  scope :with_shoes, -> { joins(:shoes).uniq }
+
   def logo_path=path
     self.logo = File.open path if File.exists?(path)
   end

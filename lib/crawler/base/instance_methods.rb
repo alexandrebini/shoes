@@ -5,7 +5,7 @@ module Crawler
       Thread.abort_on_exception = true
 
       @semaphore = Mutex.new
-      @threads_number ||= 20
+      @threads_number ||= Settings.crawler_threads
       @sleep_time ||= 0
     end
 

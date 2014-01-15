@@ -29,7 +29,8 @@
 
     previousPage: ->
       currentPage = @currentPage()
-      if currentPage == 1
+      console.log currentPage
+      if currentPage <= 1
         1
       else
         currentPage - 1

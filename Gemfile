@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.2'
 gem 'mysql2', '0.3.14'
+gem 'actionpack-page_caching', '1.0.2'
 gem 'sinatra', '1.4.4', require: false
 
 gem 'paperclip', '3.5.2'

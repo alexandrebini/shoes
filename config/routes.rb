@@ -1,5 +1,3 @@
-require 'sidekiq/web'
-
 Shoes::Application.routes.draw do
   class FormatConstraint
     attr_accessor :mime_type
@@ -23,7 +21,12 @@ Shoes::Application.routes.draw do
     end
   end
 
-  mount Sidekiq::Web, at: '/sidekiq'
+  namespace :admin do
+    mount Sidekiq::Web, at: '/sidekiq'
+    root to: 'shoes#index'
+    resources :shoes
+  end
+
   constraints FormatConstraint.new(:html) do
     root to: 'application#index'
     get '*path' => 'application#index'

@@ -15,12 +15,13 @@ class Shoe < ActiveRecord::Base
   validates :name, presence: true
   validates :source_url, presence: true
 
+  scope :with_category, -> { where('shoes.category_id IS NOT NULL') }
   scope :available, -> { joins(:numerations).uniq }
   scope :random, -> { order('RAND()') }
   scope :downloading, -> { joins(:photos).where(photos: { status: 'downloading' }).uniq }
   scope :downloaded, -> { joins(:photos).where(photos: { status: 'downloaded' }).uniq }
   scope :pending, -> { joins(:photos).where(photos: { status: 'pending' }).uniq }
-  scope :ready, -> { downloaded.available }
+  scope :ready, -> { with_category.downloaded.available }
 
   def available?
     numerations.present?

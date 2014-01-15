@@ -11,7 +11,7 @@ page.onLoadStarted = function (request) {
 
 page.onLoadFinished = function (response) {
     isLoaded = page.evaluate(function() {
-        return document.getElementsByClassName('loading').length == 0;
+        return document.getElementsByClassName('is-loading').length == 0;
     });
 };
 
