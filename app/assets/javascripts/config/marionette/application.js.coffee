@@ -5,7 +5,6 @@ do (Backbone) ->
     startHistory: ->
       Backbone.history.start({ pushState: true })
       $(document).on 'click', 'a[data-internal]', (ev) ->
-        console.log 'click', ev
         ev.preventDefault()
 
     scrollTop: ->
