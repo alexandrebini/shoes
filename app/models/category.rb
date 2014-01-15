@@ -11,5 +11,5 @@ class Category < ActiveRecord::Base
 
   validates_presence_of :name
 
-  scope :with_shoes, joins(:shoes).uniq
+  scope :with_shoes, -> { joins(:shoes).uniq }
 end

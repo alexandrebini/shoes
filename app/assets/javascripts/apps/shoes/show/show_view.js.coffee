@@ -55,6 +55,7 @@
 
   class Show.Title extends Marionette.ItemView
     template: 'shoes/show/templates/title'
+    templateHelpers: App.UrlHelper.Helper.getInstance()
 
   class Show.Price extends Marionette.ItemView
     template: 'shoes/show/templates/price'
@@ -64,6 +65,7 @@
 
   class Show.Brand extends Marionette.ItemView
     template: 'shoes/show/templates/brand'
+    templateHelpers: App.UrlHelper.Helper.getInstance()
 
   class Show.Number extends Marionette.ItemView
     template: 'shoes/show/templates/number'

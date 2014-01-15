@@ -1,0 +1,22 @@
+defaults: &defaults
+  auth:
+    name: fucking
+    password: Amazing2312
+  email:
+    domain: buscasapato.com.br
+    user_name: contato@buscasapato.com.br
+    password: xsbi3JHnK9mTo
+
+development:
+  <<: *defaults
+  crawler_threads: 20
+  domain: dev.buscasapato.com.br
+
+test:
+  crawler_threads: 1
+  <<: *defaults
+
+production:
+  <<: *defaults
+  crawler_threads: 10
+  domain: buscasapato.com.br

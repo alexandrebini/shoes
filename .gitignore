@@ -13,6 +13,9 @@
 /spec/tmp/*
 /tmp/*
 /vendor/bundle
+seoserver/*.log
+seoserver/node_modules
+seoserver/node_modules/*
 capybara-*.html
 db/schema.rb
 dump.rdb

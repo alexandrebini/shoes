@@ -16,7 +16,7 @@
       App.vent.on 'remove:header:headings', => @removeH1()
 
     triggers:
-      'click' : 'home:back'
+      'click a' : 'logo:clicked'
 
     events:
       'set:home:headings' : 'foo'

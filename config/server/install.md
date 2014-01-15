@@ -1,6 +1,6 @@
 aptitude update && aptitude upgrade
 
-aptitude install vim rsync lynx screen htop curl sudo ntp -y
+aptitude install vim rsync lynx screen htop curl sudo ntp imagemagick -y
 
 dpkg-reconfigure tzdata
 
@@ -53,9 +53,10 @@ vim /etc/ssh/sshd_config
 
 # Phantomjs
   aptitude install fontconfig
+  cd /usr/local/src
   wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
   tar -vxjf phantomjs-1.9.2-linux-x86_64.tar.bz2
-  ln -s phantomjs-1.9.2-linux-x86_64/bin/phantomjs /usr/local/bin/
+  ln -sf /usr/local/src/phantomjs-1.9.2-linux-x86_64/bin/phantomjs /usr/local/bin/
 
 # nginx
   aptitude install libpcre++-dev
@@ -66,6 +67,9 @@ vim /etc/ssh/sshd_config
   make
   make install
   ln -s /usr/local/nginx/sbin/nginx /usr/local/sbin/nginx
+
+# redis
+  aptitude install redis-server
 
 # rvm
   curl -L get.rvm.io | bash -s stable

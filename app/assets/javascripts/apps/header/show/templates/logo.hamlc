@@ -1,1 +1,1 @@
-%a{ class: 'logo' }
+%a.logo{ href: '/', title: 'Busca Sapato', data-internal: true } Busca Sapato

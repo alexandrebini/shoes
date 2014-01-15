@@ -9,9 +9,6 @@ set :format, :pretty
 set :log_level, :debug
 set :pty, true
 
-# set :bundle_flags, '--deployment --quiet --binstubs'
-
-# set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -27,8 +24,45 @@ namespace :deploy do
 
   before :restart, :copy_server_files do
     on roles(:web) do
-      execute "ln -sf /home/shoes/www/current/config/server/nginx /usr/local/nginx/conf"
+      execute "ln -sf /home/shoes/www/current/config/server/production/nginx /usr/local/nginx/conf"
     end
   end
   after :finishing, 'deploy:cleanup'
+end
+
+namespace :seoserver do
+  namespace :npm do
+    after 'bundler:install', :install do
+      on roles(:app) do
+        execute <<-CMD
+          mkdir -p #{ shared_path }/node_modules
+          ln -s #{ shared_path }/node_modules #{ release_path }/seoserver/
+          cd #{ release_path }/seoserver/ && npm install --production --silent
+        CMD
+      end
+    end
+  end
+
+  task :stop do
+    on roles(:app) do
+      execute <<-CMD
+        cd #{ release_path }/seoserver
+        ./node_modules/.bin/forever stopall
+      CMD
+    end
+  end
+
+  task :start do
+    on roles(:app) do
+      execute <<-CMD
+        cd #{ release_path }/seoserver
+        ./node_modules/.bin/forever start node_modules/.bin/nodemon seoserver.js
+      CMD
+    end
+  end
+
+  before 'deploy:restart', :restart do
+    invoke 'seoserver:stop' rescue nil
+    invoke 'seoserver:start'
+  end
 end

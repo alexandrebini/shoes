@@ -1,1 +1,2 @@
-%h1= @name
+%h1
+  %a{ href: @urlFor(@slug), title: @name, data-internal: true }= @name
