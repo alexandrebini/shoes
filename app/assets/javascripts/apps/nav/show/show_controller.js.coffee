@@ -14,6 +14,7 @@
         @categoriesRegion()
         @brandsRegion()
 
+      window.a = @layout
       App.navRegion.show @layout
 
       App.vent.on 'set:current:brand', (slug) =>

@@ -16,6 +16,9 @@
         className += " is-#{ @model.get('orientation') }"
       className
 
+    triggers:
+      'click a' : 'shoe:clicked'
+
   class View.ShoesGroup extends Marionette.CollectionView
     itemView: View.Shoe
     className: 'shoes--box'

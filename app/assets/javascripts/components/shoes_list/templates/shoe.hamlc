@@ -1,4 +1,4 @@
-%a{ href: @urlFor(@slug) }
+%a{ href: @urlFor(@slug), title: @name, data-internal: true }
   .price
     %sup R$
     = @price

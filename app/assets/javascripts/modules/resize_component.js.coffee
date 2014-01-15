@@ -3,7 +3,7 @@
 
     constructor: (layout) ->
       @layout = layout
-      App.vent.on 'resize:main:photo', @resizeMainPhoto, @
+      # App.vent.on 'resize:main:photo', @resizeMainPhoto, @
 
     resizeMainPhoto: (a) ->
       mainPhoto = @layout.mainPhotoRegion.$el

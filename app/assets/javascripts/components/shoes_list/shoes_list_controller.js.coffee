@@ -16,6 +16,9 @@
     shoesRegion: (shoes) ->
       shoesView = @getShoesView(shoes)
       @layout.shoesRegion.show shoesView
+      @listenTo shoesView, 'itemview:itemview:itemview:shoe:clicked', (page, group, shoe) =>
+        App.vent.trigger 'visit:shoe', shoe.model.get('slug')
+
       @listenTo shoesView, 'itemview:scroll:matches', (child, args) =>
         App.vent.trigger 'page:change', child.model.page
 
