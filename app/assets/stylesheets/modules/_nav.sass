@@ -51,14 +51,15 @@ nav
 nav
   position: fixed
   overflow: auto
-  h3
+  h1, h3
     font-weight: normal
     font-size: 12px
+    letter-spacing: 1px
     margin: 12px 6px 0 12px
   ul
     margin-top: 15px
     li
-      a, h4
+      a, h1
         @extend %ellipsis
         background: #fff
         color: $secondary-color
@@ -66,7 +67,7 @@ nav
         display: block
         font-size: 12px
         margin: 2px 6px
-        padding: 3px 6px 3px 20px
+        padding: 4px 6px 4px 20px
         &:before
           border: 1px solid $tertiary-color
           content: ' '
@@ -74,7 +75,7 @@ nav
           right: 15px
           width: 1px
 
-      h4
+      h1
         +opacity(0.7)
         font-weight: bold
         margin-left: 2px

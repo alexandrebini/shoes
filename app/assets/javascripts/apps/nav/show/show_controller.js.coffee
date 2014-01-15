@@ -18,10 +18,12 @@
 
       App.vent.on 'set:current:brand', (slug) =>
         App.execute 'when:fetched', @brands, =>
+          App.vent.trigger 'remove:header:headings'
           @nav.setCurrentBrand(slug)
 
       App.vent.on 'set:current:category', (slug) =>
         App.execute 'when:fetched', @categories, =>
+          App.vent.trigger 'remove:header:headings'
           @nav.setCurrentCategory(slug)
 
     navRegion: ->

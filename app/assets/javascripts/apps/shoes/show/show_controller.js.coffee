@@ -5,6 +5,7 @@
       @layout = @getLayoutView()
 
       App.execute 'when:fetched', shoe, =>
+        App.vent.trigger 'remove:header:headings'
         App.shoeRegion.show @layout
 
       @listenTo @layout, 'show', =>
