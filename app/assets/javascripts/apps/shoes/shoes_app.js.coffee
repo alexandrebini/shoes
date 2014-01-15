@@ -21,9 +21,14 @@
     closeShoe: ->
       @showController.layout.close() if @showController
 
-  App.vent.on 'visit:home', (slug) ->
+  App.vent.on 'visit:home', ->
     API.list()
     App.vent.trigger 'visit', '/'
+
+  App.vent.on 'visit:shoe', (slug) ->
+    split = _.compact slug.split('/')
+    API.show split[0], split[1], split[2]
+    App.vent.trigger 'visit', slug
 
   ShoesApp.on 'start', ->
     new ShoesApp.Router

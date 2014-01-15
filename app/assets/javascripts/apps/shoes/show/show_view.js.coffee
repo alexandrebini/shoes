@@ -66,6 +66,8 @@
   class Show.Brand extends Marionette.ItemView
     template: 'shoes/show/templates/brand'
     templateHelpers: App.UrlHelper.Helper.getInstance()
+    triggers:
+      'click a' : 'logo:clicked'
 
   class Show.Number extends Marionette.ItemView
     template: 'shoes/show/templates/number'

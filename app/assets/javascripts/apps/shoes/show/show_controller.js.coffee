@@ -67,6 +67,8 @@
 
     brandRegion: (shoe) ->
       brandView = @getBrandView(shoe)
+      @listenTo brandView, 'logo:clicked', (child, args) =>
+        App.vent.trigger 'visit:brand', child.model.get('brand').slug
       @layout.brandRegion.show brandView
 
     getBrandView: (shoe) ->
