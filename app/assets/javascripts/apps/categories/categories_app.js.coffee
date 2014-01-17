@@ -10,28 +10,37 @@
 
   API =
     show: (slug, page) ->
-      new CategoriesApp.Show.Controller
+      @controller = new CategoriesApp.Show.Controller
         slug: slug
         page: page
       App.vent.trigger 'set:current:category', slug
-      App.module('NavApp').start()
 
     brand: (slug, brand, page) ->
-      new CategoriesApp.Brand.Controller
+      @controller = new CategoriesApp.Brand.Controller
         slug: slug
         brand: brand
         page: page
 
       App.vent.trigger 'set:current:category', slug
       App.vent.trigger 'set:current:brand', brand
-      App.module('NavApp').start()
+
+    disable: ->
+      @controller.disable() if @controller
+
+    enable: ->
+      @controller.enable() if @controller
+
+  App.vent.on 'visit:shoe', ->
+    API.disable()
 
   App.vent.on 'visit:category', (slug) ->
     API.show(slug)
+    API.enable()
     App.vent.trigger 'visit', slug
 
   App.vent.on 'visit:category:brand', (slug, brand) ->
     API.show(slug, brand)
+    API.enable()
     App.vent.trigger 'visit', "#{ slug }/#{ brand }"
 
   CategoriesApp.on 'start', ->

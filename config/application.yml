@@ -13,8 +13,9 @@ development:
   domain: dev.buscasapato.com.br
 
 test:
-  crawler_threads: 1
   <<: *defaults
+  crawler_threads: 1
+  domain: test.buscasapato.com.br
 
 production:
   <<: *defaults

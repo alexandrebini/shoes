@@ -9,7 +9,7 @@ set :format, :pretty
 set :log_level, :debug
 set :pty, true
 
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/cache}
 
 set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
@@ -24,9 +24,16 @@ namespace :deploy do
 
   before :restart, :copy_server_files do
     on roles(:web) do
-      execute "ln -sf /home/shoes/www/current/config/server/production/nginx /usr/local/nginx/conf"
+      execute "ln -sf #{ release_path }/config/server/production/nginx /usr/local/nginx/conf"
     end
   end
+
+  after :deploy, :install_cron do
+    on roles(:web) do
+      execute "crontab #{ release_path }/config/server/production/crontab"
+    end
+  end
+
   after :finishing, 'deploy:cleanup'
 end
 
