@@ -21,3 +21,5 @@ db/schema.rb
 dump.rdb
 pickle-email-*.html
 rerun.txt
+dump.*
+npm-debug.*

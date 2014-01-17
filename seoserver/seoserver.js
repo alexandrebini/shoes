@@ -19,9 +19,10 @@ var getContent = function(url, callback) {
     });
 };
 
-var respond = function (req, res) {
+var respond = function(req, res) {
+    console.log('----------');
     url = 'http://' + req.headers['x-forwarded-host'] + req.params[0];
-    getContent(url, function (content) {
+    getContent(url, function(content) {
         res.send(content);
     });
 }
