@@ -24,8 +24,16 @@ namespace :deploy do
 
   before :restart, :copy_server_files do
     on roles(:web) do
-      execute "ln -sf /home/shoes/www/current/config/server/production/nginx /usr/local/nginx/conf"
+      execute "ln -sf #{ release_path }/config/server/production/nginx /usr/local/nginx/conf"
     end
+  end
+
+  after :deploy, :install_cron do
+    on roles(:web) do
+      execute "crontab #{ release_path }/config/server/production/crontab"
+    end
+  end
+
   end
   after :finishing, 'deploy:cleanup'
 end

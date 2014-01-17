@@ -5,3 +5,5 @@
 
 # Clear fragment cache
 5 5 * * * cd /home/shoes/www/current && bundle exec rake tmp:clear
+
+# remember to add newline before EOF
