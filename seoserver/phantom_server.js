@@ -1,6 +1,6 @@
 var system = require('system');
 var page = require('webpage').create();
-var timeout = 40000;
+var timeout = 5000;
 var startTime = new Date().getTime();
 var isLoaded = false
 
@@ -18,6 +18,7 @@ page.onLoadFinished = function(response) {
 var checkComplete = function() {
     if (isLoaded || new Date().getTime() - startTime > timeout) {
         clearInterval(checkCompleteInterval);
+        console.log('checkComplete ==========');
         console.log(page.content);
         phantom.exit();
     }

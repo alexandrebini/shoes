@@ -20,11 +20,13 @@ var getContent = function(url, callback) {
 };
 
 var respond = function(req, res) {
-    url = 'http://' + req.headers['x-forwarded-host'] + req.params[0];
-    console.log(url);
-    getContent(url, function(content) {
-        res.send(content);
-    });
+    if (req.headers['accept'].match(/text\/html/)) {
+        console.log('if ==============', req.headers)
+        url = 'http://' + req.headers['x-forwarded-host'] + req.params[0];
+        getContent(url, function(content) {
+            res.send(content);
+        });
+    }
 }
 
 app.get(/(.*)/, respond);
