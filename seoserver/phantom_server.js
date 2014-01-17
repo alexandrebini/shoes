@@ -1,6 +1,6 @@
 var system = require('system');
 var page = require('webpage').create();
-var timeout = 5000;
+var timeout = 40000;
 var startTime = new Date().getTime();
 var isLoaded = false
 
