@@ -4,19 +4,20 @@
       shoe = App.request('shoe:entity', options.category, options.brand, options.slug)
       @layout = @getLayoutView()
 
-      App.execute 'when:fetched', shoe, =>
-        App.vent.trigger 'remove:header:headings'
-        App.shoeRegion.show @layout
-
       @listenTo @layout, 'show', =>
-        @thumbRegion(shoe)
-        @titleRegion(shoe)
-        @priceRegion(shoe)
-        @descriptionRegion(shoe)
-        @brandRegion(shoe)
-        @numberRegion(shoe)
-        @buttonRegion(shoe)
-        @mainPhotoRegion(shoe)
+        App.execute 'when:fetched', shoe, =>
+          App.vent.trigger 'remove:header:headings'
+
+          @thumbRegion(shoe)
+          @titleRegion(shoe)
+          @priceRegion(shoe)
+          @descriptionRegion(shoe)
+          @brandRegion(shoe)
+          @numberRegion(shoe)
+          @buttonRegion(shoe)
+          @mainPhotoRegion(shoe)
+
+      @enable()
 
     mainPhotoRegion: (shoe) ->
       mainPhotoView = @getMainPhotoView(shoe.photos.setMainCurrent())
@@ -90,3 +91,11 @@
     getButtonView: (shoe) ->
       new Show.Button
         model: shoe
+
+    enable: ->
+      App.shoeRegion.show @layout
+      App.shoeRegion.$el.show()
+
+    disable: ->
+      @layout.close()
+      App.shoeRegion.$el.hide()

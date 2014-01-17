@@ -9,14 +9,23 @@
 
   API =
     show: (slug, page) ->
-      new BrandsApp.Show.Controller
+      @controller = new BrandsApp.Show.Controller
         slug: slug
         page: page
       App.vent.trigger 'set:current:brand', slug
-      App.module('NavApp').start()
+
+    disable: ->
+      @controller.disable() if @controller
+
+    enable: ->
+      @controller.enable() if @controller
+
+  App.vent.on 'visit:shoe', ->
+    API.disable()
 
   App.vent.on 'visit:brand', (slug) ->
     API.show(slug)
+    API.enable()
     App.vent.trigger 'visit', slug
 
   BrandsApp.on 'start', (slugs) ->

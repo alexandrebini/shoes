@@ -8,13 +8,12 @@
 
       @layout = @getLayoutView()
 
-
       @listenTo @layout, 'show', =>
         @navRegion()
         @categoriesRegion()
         @brandsRegion()
 
-      App.navRegion.show @layout
+      @enable()
 
       App.vent.on 'set:current:brand', (slug) =>
         App.execute 'when:fetched', @brands, =>
@@ -66,3 +65,11 @@
     getBrandsView: ->
       new Show.Brands
         collection: @brands
+
+    disable: ->
+      @layout.close()
+      App.navRegion.$el.hide()
+
+    enable: ->
+      App.navRegion.show @layout
+      App.navRegion.$el.show()

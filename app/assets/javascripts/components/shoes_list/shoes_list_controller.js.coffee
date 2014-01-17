@@ -9,7 +9,7 @@
         @shoesRegion(@shoes)
         @bottomPaginationRegion(@shoes)
 
-      App.mainRegion.show @layout
+      @enable()
       App.vent.on 'scroll:bottom', @getNextPage, @
       App.vent.on 'scroll:top', @getPreviousPage, @
 
@@ -50,3 +50,11 @@
 
     getPreviousPage: ->
       @shoes.getPreviousPage()
+
+    enable: ->
+      App.mainRegion.show @layout
+      App.mainRegion.$el.show()
+
+    disable: ->
+      @layout.close()
+      App.mainRegion.$el.hide()

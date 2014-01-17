@@ -9,8 +9,7 @@
 
   API =
     list: (page) ->
-      @closeShoe()
-      new ShoesApp.List.Controller(page)
+      @listController = new ShoesApp.List.Controller(page)
 
     show: (category, brand, slug) ->
       @showController = new ShoesApp.Show.Controller
@@ -18,17 +17,24 @@
         brand: brand
         slug: slug
 
-    closeShoe: ->
-      @showController.layout.close() if @showController
+    enableShow: ->
+      @showController.enable() if @showController
+      @listController.disable() if @listController
+
+    enableList: ->
+      @listController.enable() if @listController
+      @showController.disable() if @showController
 
   App.vent.on 'visit:home', ->
     API.list()
+    API.enableList()
     App.vent.trigger 'visit', '/'
 
   App.vent.on 'visit:shoe', (slug) ->
     split = _.compact slug.split('/')
     API.show split[0], split[1], split[2]
     App.vent.trigger 'visit', slug
+    API.enableShow()
 
   ShoesApp.on 'start', ->
     new ShoesApp.Router
