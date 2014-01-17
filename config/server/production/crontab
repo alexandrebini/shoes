@@ -1,0 +1,7 @@
+# Crontab
+
+# clean cache page cache
+5 5 * * * rm -rf /home/shoes/www/shared/cache/*
+
+# Clear fragment cache
+5 5 * * * cd /home/shoes/www/current && bundle exec rake tmp:clear
