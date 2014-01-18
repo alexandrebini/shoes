@@ -11,6 +11,7 @@ module Crawler
       @filename = File.basename URI.parse(@photo.source_url).path
       @file = StringIO.new(Crawler::UrlOpener.instance.open_url @photo.source_url,
         proxy: false, min_size: 5.kilobytes, image: true, name: @photo.brand.slug)
+      @file.class.class_eval { attr_accessor :original_filename }
       @file.original_filename = @filename
 
       @photo.data = @file
