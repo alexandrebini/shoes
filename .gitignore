@@ -24,3 +24,4 @@ rerun.txt
 dump.*
 npm-debug.*
 public/cache/*
+config/server/development/nginx/logs/*
