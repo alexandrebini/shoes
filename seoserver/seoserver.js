@@ -7,7 +7,7 @@ var getContent = function(url, callback) {
     phantom.stdout.setEncoding('utf8');
 
     phantom.stdout.on('data', function(data) {
-        content += data.toString();
+        content += data; //.toString();
     });
 
     phantom.on('exit', function(code) {
@@ -21,9 +21,10 @@ var getContent = function(url, callback) {
 
 var respond = function(req, res) {
     if (req.headers['accept'].match(/text\/html/)) {
-        console.log('if ==============', req.headers)
         url = 'http://' + req.headers['x-forwarded-host'] + req.params[0];
+        console.log(url)
         getContent(url, function(content) {
+            console.log(content)
             res.send(content);
         });
     }

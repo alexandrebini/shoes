@@ -1,8 +1,8 @@
 // MarionetteJS (Backbone.Marionette)
 // ----------------------------------
-// v1.4.1
+// v1.5.1
 //
-// Copyright (c)2013 Derick Bailey, Muted Solutions, LLC.
+// Copyright (c)2014 Derick Bailey, Muted Solutions, LLC.
 // Distributed under MIT license
 //
 // http://marionettejs.com
@@ -500,11 +500,11 @@ var Marionette = (function(global, Backbone, _) {
     // `this.triggerMethod("foo")` will trigger the "foo" event and
     // call the "onFoo" method.
     //
-    // `this.triggerMethod("foo:bar") will trigger the "foo:bar" event and
+    // `this.triggerMethod("foo:bar")` will trigger the "foo:bar" event and
     // call the "onFooBar" method.
     Marionette.triggerMethod = (function() {
 
-        // split the event name on the :
+        // split the event name on the ":"
         var splitter = /(^|:)(\w)/gi;
 
         // take the event section ("section1:section2:section3")
@@ -513,7 +513,7 @@ var Marionette = (function(global, Backbone, _) {
             return eventName.toUpperCase();
         }
 
-        // actual triggerMethod name
+        // actual triggerMethod implementation
         var triggerMethod = function(event) {
             // get the method name from the event name
             var methodName = 'on' + event.replace(splitter, getEventName);
@@ -541,7 +541,7 @@ var Marionette = (function(global, Backbone, _) {
     // in the DOM, trigger a "dom:refresh" event every time it is
     // re-rendered.
 
-    Marionette.MonitorDOMRefresh = (function() {
+    Marionette.MonitorDOMRefresh = (function(documentElement) {
         // track when the view has been shown in the DOM,
         // using a Marionette.Region (or by other means of triggering "show")
         function handleShow(view) {
@@ -557,11 +557,15 @@ var Marionette = (function(global, Backbone, _) {
 
         // Trigger the "dom:refresh" event and corresponding "onDomRefresh" method
         function triggerDOMRefresh(view) {
-            if (view._isShown && view._isRendered) {
+            if (view._isShown && view._isRendered && isInDOM(view)) {
                 if (_.isFunction(view.triggerMethod)) {
                     view.triggerMethod("dom:refresh");
                 }
             }
+        }
+
+        function isInDOM(view) {
+            return documentElement.contains(view.el);
         }
 
         // Export public API
@@ -574,7 +578,7 @@ var Marionette = (function(global, Backbone, _) {
                 handleRender(view);
             });
         };
-    })();
+    })(document.documentElement);
 
 
     // Marionette.bindEntityEvents & unbindEntityEvents
@@ -815,6 +819,7 @@ var Marionette = (function(global, Backbone, _) {
 
             if (regionConfig.selector) {
                 selector = regionConfig.selector;
+                delete regionConfig.selector;
             }
 
             // get the type for the region
@@ -829,12 +834,17 @@ var Marionette = (function(global, Backbone, _) {
 
             if (regionConfig.regionType) {
                 RegionType = regionConfig.regionType;
+                delete regionConfig.regionType;
             }
 
+            if (regionIsString || regionIsType) {
+                regionConfig = {};
+            }
+
+            regionConfig.el = selector;
+
             // build the region instance
-            var region = new RegionType({
-                el: selector
-            });
+            var region = new RegionType(regionConfig);
 
             // override the `getEl` function if we have a parentEl
             // this must be overridden to ensure the selector is found
@@ -925,7 +935,7 @@ var Marionette = (function(global, Backbone, _) {
                 view.remove();
             }
 
-            Marionette.triggerMethod.call(this, "close");
+            Marionette.triggerMethod.call(this, "close", view);
 
             delete this.currentView;
         },
@@ -1230,7 +1240,7 @@ var Marionette = (function(global, Backbone, _) {
             // this is a backfill since backbone removed the assignment
             // of this.options
             // at some point however this may be removed
-            this.options = _.extend({}, this.options, options);
+            this.options = _.extend({}, _.result(this, 'options'), _.isFunction(options) ? options.call(this) : options);
 
             // parses out the @ui DSL for events
             this.events = this.normalizeUIKeys(_.result(this, 'events'));
@@ -1546,6 +1556,7 @@ var Marionette = (function(global, Backbone, _) {
         // fragment and then insert that document fragment into the page
         initRenderBuffer: function() {
             this.elBuffer = document.createDocumentFragment();
+            this._bufferedChildren = [];
         },
 
         startBuffering: function() {
@@ -1554,9 +1565,19 @@ var Marionette = (function(global, Backbone, _) {
         },
 
         endBuffering: function() {
-            this.appendBuffer(this, this.elBuffer);
-            this.initRenderBuffer();
             this.isBuffering = false;
+            this.appendBuffer(this, this.elBuffer);
+            this._triggerShowBufferedChildren();
+            this.initRenderBuffer();
+        },
+
+        _triggerShowBufferedChildren: function() {
+            if (this._isShown) {
+                _.each(this._bufferedChildren, function(child) {
+                    Marionette.triggerMethod.call(child, "show");
+                });
+                this._bufferedChildren = [];
+            }
         },
 
         // Configured the initial events that the collection view
@@ -1707,12 +1728,14 @@ var Marionette = (function(global, Backbone, _) {
 
             // call the "show" method if the collection view
             // has already been shown
-            if (this._isShown) {
+            if (this._isShown && !this.isBuffering) {
                 Marionette.triggerMethod.call(view, "show");
             }
 
             // this view was added
             this.triggerMethod("after:item:added", view);
+
+            return view;
         },
 
         // Set up the child view event forwarding. Uses an "itemview:"
@@ -1724,11 +1747,28 @@ var Marionette = (function(global, Backbone, _) {
             // prepending "itemview:" to the event name
             this.listenTo(view, "all", function() {
                 var args = slice(arguments);
-                args[0] = prefix + ":" + args[0];
+                var rootEvent = args[0];
+                var itemEvents = this.getItemEvents();
+
+                args[0] = prefix + ":" + rootEvent;
                 args.splice(1, 0, view);
+
+                // call collectionView itemEvent if defined
+                if (typeof itemEvents !== "undefined" && _.isFunction(itemEvents[rootEvent])) {
+                    itemEvents[rootEvent].apply(this, args);
+                }
 
                 Marionette.triggerMethod.apply(this, args);
             }, this);
+        },
+
+        // returns the value of itemEvents depending on if a function
+        getItemEvents: function() {
+            if (_.isFunction(this.itemEvents)) {
+                return this.itemEvents.call(this);
+            }
+
+            return this.itemEvents;
         },
 
         // render the item view
@@ -1796,6 +1836,7 @@ var Marionette = (function(global, Backbone, _) {
                 // in order to reduce the number of inserts into the
                 // document, which are expensive.
                 collectionView.elBuffer.appendChild(itemView.el);
+                collectionView._bufferedChildren.push(itemView);
             } else {
                 // If we've already rendered the main collection, just
                 // append the new items directly into the element.
@@ -1949,6 +1990,7 @@ var Marionette = (function(global, Backbone, _) {
         appendHtml: function(compositeView, itemView, index) {
             if (compositeView.isBuffering) {
                 compositeView.elBuffer.appendChild(itemView.el);
+                compositeView._bufferedChildren.push(itemView);
             } else {
                 // If we've already rendered the main collection, just
                 // append the new items directly into the element.
@@ -1969,7 +2011,7 @@ var Marionette = (function(global, Backbone, _) {
             var itemViewContainer = Marionette.getOption(containerView, "itemViewContainer");
             if (itemViewContainer) {
 
-                var selector = _.isFunction(itemViewContainer) ? itemViewContainer() : itemViewContainer;
+                var selector = _.isFunction(itemViewContainer) ? itemViewContainer.call(this) : itemViewContainer;
                 container = containerView.$(selector);
                 if (container.length <= 0) {
                     throwError("The specified `itemViewContainer` was not found: " + containerView.itemViewContainer, "ItemViewContainerMissingError");

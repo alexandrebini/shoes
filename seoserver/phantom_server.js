@@ -18,7 +18,6 @@ page.onLoadFinished = function(response) {
 var checkComplete = function() {
     if (isLoaded || new Date().getTime() - startTime > timeout) {
         clearInterval(checkCompleteInterval);
-        console.log('checkComplete ==========');
         console.log(page.content);
         phantom.exit();
     }
