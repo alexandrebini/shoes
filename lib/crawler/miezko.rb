@@ -11,7 +11,7 @@ module Crawler
     end
 
     def brand
-      @brand ||= Brand.where(name: 'Melissa').first
+      @brand ||= Brand.where(name: 'Miezko').first
     end
 
     def pages_urls(page)
