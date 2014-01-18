@@ -15,7 +15,8 @@ class Photo < ActiveRecord::Base
     },
     convert_options: {
       original: '-fuzz 2% -trim +repage'
-    }
+    },
+    processors: [:thumbnail, :compression]
 
   validates :source_url, uniqueness: true, presence: true
 
