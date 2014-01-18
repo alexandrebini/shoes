@@ -7,6 +7,7 @@ gem 'sinatra', '1.4.4', require: false
 
 gem 'paperclip', '3.5.2'
 gem 'paperclip-meta', '0.4.3'
+gem 'paperclip-compression', '0.3.4'
 gem 'miro', '0.2.3'
 gem 'jbuilder', '2.0.2'
 gem 'friendly_id', '5.0.2'

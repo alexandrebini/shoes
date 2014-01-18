@@ -10,7 +10,8 @@ class Brand < ActiveRecord::Base
     url: '/system/brands/:id_partition/:basename_:style_:fingerprint.:extension',
     styles: {
       thumb: '200x180'
-    }
+    },
+    processors: [:thumbnail, :compression]
 
   validates_presence_of :name, :start_url, :verification_matcher
 
