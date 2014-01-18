@@ -1,5 +1,7 @@
 Shoes::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.action_controller.page_cache_directory = Rails.root.join("public/cache").to_s
+  config.action_controller.default_url_options = { trailing_slash: true }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
