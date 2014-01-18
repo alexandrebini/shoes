@@ -1,7 +1,7 @@
 namespace :db do
   desc 'populate...'
   task populate: :environment do
-    FileUtils.rm_rf("#{ Rails.root }/public/system")
+    FileUtils.rm_rf Dir.glob("#{ Rails.root }/public/system/*")
     Rake::Task['db:drop'].invoke
     Rake::Task['db:create'].invoke
     Rake::Task['db:migrate'].invoke
