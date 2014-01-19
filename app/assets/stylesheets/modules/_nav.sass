@@ -60,7 +60,11 @@ nav
   ul
     margin-top: 15px
     li
-      a, h1
+      h1
+        margin: 0
+        padding: 0
+        text-transform: none
+      a
         @extend %ellipsis
         background: #fff
         color: $secondary-color
@@ -69,17 +73,17 @@ nav
         font-size: 12px
         margin: 2px 6px
         padding: 4px 6px 4px 20px
+        &:hover
+          text-decoration: none
         &:before
           border: 1px solid $tertiary-color
           content: ' '
           position: relative
           right: 15px
           width: 1px
-
-      h1
-        +opacity(0.7)
-        font-weight: bold
-        margin-left: 2px
-        text-transform: none
-        &:before
-          border: 1px solid $quaternary-color
+        &.selected
+          +opacity(0.7)
+          font-weight: bold
+          margin-left: 2px
+          &:before
+            border: 1px solid $quaternary-color
