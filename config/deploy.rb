@@ -14,12 +14,9 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
 
-namespace :deploy do
-  desc "Config files"
-  task :config_files, wait: 5 do
-    execute 'cp #{ release_path }/config/server/production/*.yml #{ release_path }/config/'
-  end
+after 'deploy:updating', 'assets:copy_config_files'
 
+namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -70,5 +67,13 @@ namespace :seoserver do
   before 'deploy:restart', :restart do
     invoke 'seoserver:stop' rescue nil
     invoke 'seoserver:start'
+  end
+end
+
+namespace :assets do
+  task :copy_config_files do
+    on roles(:app) do
+      execute "cp #{release_path}/config/server/production/*.yml #{release_path}/config/"
+    end
   end
 end
