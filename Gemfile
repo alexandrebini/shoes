@@ -26,10 +26,12 @@ gem 'coffee-rails', '4.0.1'
 gem 'haml_coffee_assets', '1.16.0'
 gem 'js-routes', '0.9.6'
 
+gem 'sitemap_generator', '4.3.1'
 gem 'puma', '2.7.1'
 gem 'minitest', '4.7.5'
 
 group :production do
+  gem 'whenever', '0.9.0', require: false
   gem 'exception_notification', '4.0.1'
 end
 
