@@ -14,13 +14,17 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
 
-after 'deploy:updating', 'assets:copy_config_files', 'assets:copy_server_files'
-
 namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
+
+  before :restart, :copy_server_files do
+    on roles(:web) do
+      execute "ln -sf #{ release_path }/config/server/production/nginx /usr/local/nginx/conf"
     end
   end
 
@@ -32,6 +36,7 @@ namespace :seoserver do
     after 'bundler:install', :install do
       on roles(:app) do
         execute <<-CMD
+          cp #{ release_path }/config/server/production/*.yml #{ release_path }/current/
           mkdir -p #{ shared_path }/node_modules
           ln -s #{ shared_path }/node_modules #{ release_path }/seoserver/
           cd #{ release_path }/seoserver/ && npm install --production --silent
@@ -61,19 +66,5 @@ namespace :seoserver do
   before 'deploy:restart', :restart do
     invoke 'seoserver:stop' rescue nil
     invoke 'seoserver:start'
-  end
-end
-
-namespace :assets do
-  task :copy_config_files do
-    on roles(:app) do
-      execute "cp #{release_path}/config/server/production/*.yml #{release_path}/config/"
-    end
-  end
-
-  task :copy_server_files do
-    on roles(:web) do
-      execute "ln -sf #{ release_path }/config/server/production/nginx /usr/local/nginx/conf"
-    end
   end
 end
