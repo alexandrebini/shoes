@@ -13,7 +13,7 @@ SitemapGenerator::Sitemap.create do
   end
 
   Shoe.ready.each do |shoe|
-    add shoe_path(shoe.category, shoe.brand, shoe.slug), priority: 0.5,
+    add shoe_path(shoe.category.slug, shoe.brand.slug, shoe.slug), priority: 0.5,
       lastmod: shoe.updated_at, changefreq: 'weekly'
   end
 end

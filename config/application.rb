@@ -10,8 +10,8 @@ module Shoes
     config.autoload_paths += %W(#{ config.root }/lib/crawler #{ config.root }/app/workers)
     config.active_record.timestamped_migrations = false
 
-    # config.action_controller.page_cache_directory = "#{ Rails.root }/public/cache"
-    # config.action_controller.default_url_options = { trailing_slash: true }
+    config.action_controller.page_cache_directory = "#{ Rails.root }/public/cache"
+    config.action_controller.default_url_options = { trailing_slash: true }
 
     config.action_mailer.default_url_options = { host: Settings.domain }
     config.action_mailer.delivery_method = :smtp
