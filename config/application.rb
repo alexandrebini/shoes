@@ -13,7 +13,7 @@ module Shoes
     config.action_controller.page_cache_directory = "#{ Rails.root }/public/cache"
     config.action_controller.default_url_options = { trailing_slash: true }
 
-    config.action_mailer.default_url_options = { host: Settings.domain }
+    config.action_mailer.default_url_options = { host: Settings.domain, trailing_slash: true }
     config.action_mailer.delivery_method = :smtp
 
     config.action_mailer.smtp_settings = {
