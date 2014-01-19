@@ -3,13 +3,13 @@ defaults: &defaults
     name: fucking
     password: Amazing2312
   email:
-    address: 'smtp.gmail.com',
-    authentication: 'plain',
+    address: 'smtp.gmail.com'
+    authentication: 'plain'
     domain: buscasapato.com.br
     enable_starttls_auto: true
     user_name: contato@buscasapato.com.br
     password: xsbi3JHnK9mTo
-    port: 587,
+    port: 587
 
 production:
   <<: *defaults

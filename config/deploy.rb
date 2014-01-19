@@ -15,6 +15,11 @@ set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
 
 namespace :deploy do
+  desc "Config files"
+  task :config_files, wait: 5 do
+    execute 'cp #{ release_path }/config/server/production/*.yml #{ release_path }/config/'
+  end
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
