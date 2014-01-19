@@ -25,5 +25,3 @@ dump.*
 npm-debug.*
 public/cache/*
 config/server/development/nginx/logs/*
-config/application.yml
-config/database.yml

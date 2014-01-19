@@ -1,0 +1,26 @@
+defaults: &defaults
+  adapter: mysql2
+  encoding: utf8
+  reconnect: true
+  username: root
+  password:
+
+development:
+  <<: *defaults
+  pool: 360
+  checkout_timeout: 720
+  database: shoes_development
+
+test:
+  <<: *defaults
+  database: shoes_test
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: true
+  pool: 360
+  checkout_timeout: 720
+  database: shoes_production
+  username: shoes
+  password: n8gHbrNanrUXajF2ea

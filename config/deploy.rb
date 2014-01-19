@@ -36,7 +36,6 @@ namespace :seoserver do
     after 'bundler:install', :install do
       on roles(:app) do
         execute <<-CMD
-          cp #{ release_path }/config/server/production/*.yml #{ release_path }/current/
           mkdir -p #{ shared_path }/node_modules
           ln -s #{ shared_path }/node_modules #{ release_path }/seoserver/
           cd #{ release_path }/seoserver/ && npm install --production --silent
