@@ -5,3 +5,10 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
 ga('create', 'UA-47073912-1', 'buscasapato.com.br');
 ga('send', 'pageview');
+
+function _gaHeartbeat(){
+  ga('send', 'event', 'heartbeat', 'beat');
+  setTimeout(_gaHeartbeat, (30 * 1000))
+};
+
+setTimeout(_gaHeartbeat, (2 * 60 * 1000));
