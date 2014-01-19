@@ -11,7 +11,7 @@
     enable: ->
       @controller.enable()
 
-  App.vent.on 'visit:shoe', ->
+  App.vent.on 'visit:shoe direct:link:shoe', ->
     API.disable()
 
   App.vent.on 'visit:home visit:brand visit:category visit:category:brand', ->

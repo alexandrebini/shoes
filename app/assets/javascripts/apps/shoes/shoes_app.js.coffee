@@ -12,6 +12,7 @@
       @listController = new ShoesApp.List.Controller(page)
 
     show: (category, brand, slug) ->
+      App.vent.trigger 'direct:link:shoe'
       @showController = new ShoesApp.Show.Controller
         category: category
         brand: brand
