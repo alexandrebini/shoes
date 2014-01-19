@@ -1,9 +1,0 @@
-# Crontab
-
-# clean cache page cache
-5 5 * * * rm -rf /home/shoes/www/shared/public/cache/*
-
-# Clear fragment cache
-5 5 * * * cd /home/shoes/www/current && bundle exec rake tmp:clear
-
-# remember to add newline before EOF

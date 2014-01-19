@@ -11,13 +11,16 @@ development:
   <<: *defaults
   crawler_threads: 20
   domain: dev.buscasapato.com.br
+  host: http://dev.buscasapato.com.br
 
 test:
   <<: *defaults
   crawler_threads: 1
   domain: test.buscasapato.com.br
+  host: http://test.buscasapato.com.br
 
 production:
   <<: *defaults
   crawler_threads: 10
   domain: buscasapato.com.br
+  host: http://buscasapato.com.br

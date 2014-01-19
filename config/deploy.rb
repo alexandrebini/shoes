@@ -28,12 +28,6 @@ namespace :deploy do
     end
   end
 
-  after :deploy, :install_cron do
-    on roles(:web) do
-      execute "crontab #{ release_path }/config/server/production/crontab"
-    end
-  end
-
   after :finishing, 'deploy:cleanup'
 end
 
