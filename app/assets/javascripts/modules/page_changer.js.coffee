@@ -6,7 +6,7 @@
     navigate: (route, options = {}) ->
       route = App.UrlHelper.Helper.getInstance().urlFor(route)
       Backbone.history.navigate route, options
-      @trackPageView(route) unless options.trackPageView is false
+      @trackPageView(route)
 
     changePage: (page) ->
       @navigate App.UrlHelper.Helper.getInstance().pagePath(page)
@@ -14,9 +14,9 @@
     trackPageView: (route) ->
       unless navigator.userAgent.match(/Googlebot|facebookexternalhit/)
         if route?
-          # window.ga 'send', 'pageview', route
+          window.ga 'send', 'pageview', route
         else
-          # window.ga 'send', 'pageview'
+          window.ga 'send', 'pageview'
 
   API =
     navigate: (route) ->
