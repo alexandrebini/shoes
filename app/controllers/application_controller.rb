@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   caches_page :index, unless: :is_search_engine?
 
   def index
-    p '-----------------rails', params
   end
 
   def render_404
