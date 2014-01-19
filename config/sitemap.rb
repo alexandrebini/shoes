@@ -4,7 +4,7 @@ SitemapGenerator::Sitemap.sitemaps_path = "#{ Rails.root }/public/system"
 SitemapGenerator::Sitemap.create do
   Category.with_shoes.each do |category|
     add category_path(category.slug), priority: 0.7,
-      lastmod: brand.updated_at, changefreq: 'weekly'
+      lastmod: category.updated_at, changefreq: 'weekly'
   end
 
   Brand.with_shoes.each do |brand|
