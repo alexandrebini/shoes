@@ -3,21 +3,13 @@ defaults: &defaults
     name: fucking
     password: Amazing2312
   email:
+    address: 'smtp.gmail.com',
+    authentication: 'plain',
     domain: buscasapato.com.br
+    enable_starttls_auto: true
     user_name: contato@buscasapato.com.br
     password: xsbi3JHnK9mTo
-
-development:
-  <<: *defaults
-  crawler_threads: 20
-  domain: dev.buscasapato.com.br
-  host: http://dev.buscasapato.com.br
-
-test:
-  <<: *defaults
-  crawler_threads: 1
-  domain: test.buscasapato.com.br
-  host: http://test.buscasapato.com.br
+    port: 587,
 
 production:
   <<: *defaults

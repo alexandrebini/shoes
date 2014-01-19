@@ -17,13 +17,13 @@ module Shoes
     config.action_mailer.delivery_method = :smtp
 
     config.action_mailer.smtp_settings = {
-      address: 'smtp.gmail.com',
-      port: 587,
+      address: Settings.email.address,
+      port: Settings.email.port,
       domain: Settings.email.domain,
       user_name: Settings.email.user_name,
       password: Settings.email.password,
-      authentication: 'plain',
-      enable_starttls_auto: true
+      authentication: Settings.email.authentication,
+      enable_starttls_auto: Settings.email.enable_starttls_auto
     }
   end
 end
