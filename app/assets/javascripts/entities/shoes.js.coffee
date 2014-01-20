@@ -79,6 +79,7 @@
 
   class Entities.ShoesCollection extends App.Components.Pagination.Entities.Page
     model: Entities.ShoesGroup
+
     url: => Routes.shoes_path()
 
     types:
