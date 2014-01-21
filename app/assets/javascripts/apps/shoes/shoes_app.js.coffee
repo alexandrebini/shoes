@@ -14,10 +14,11 @@
     show: (category, brand, slug) ->
       shoe = App.request('shoe:entity', category, brand, slug)
 
-      @showController = new ShoesApp.Show.Controller
-        shoe: shoe
+      App.execute 'when:fetched', shoe, =>
+        @showController = new ShoesApp.Show.Controller
+          shoe: shoe
 
-      App.vent.trigger 'shoe:visited', shoe
+        App.vent.trigger 'shoe:visited', shoe
 
 
     enableShow: ->
