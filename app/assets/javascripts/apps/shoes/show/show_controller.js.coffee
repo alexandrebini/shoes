@@ -4,17 +4,14 @@
       @layout = @getLayoutView()
 
       @listenTo @layout, 'show', =>
-        App.execute 'when:fetched', shoe, =>
-          App.vent.trigger 'remove:header:headings'
-
-          @thumbRegion(shoe)
-          @titleRegion(shoe)
-          @priceRegion(shoe)
-          @descriptionRegion(shoe)
-          @brandRegion(shoe)
-          @numberRegion(shoe)
-          @buttonRegion(shoe)
-          @mainPhotoRegion(shoe)
+        @thumbRegion(shoe)
+        @titleRegion(shoe)
+        @priceRegion(shoe)
+        @descriptionRegion(shoe)
+        @brandRegion(shoe)
+        @numberRegion(shoe)
+        @buttonRegion(shoe)
+        @mainPhotoRegion(shoe)
 
       @enable()
 
