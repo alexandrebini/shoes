@@ -103,6 +103,29 @@ adduser shoes
 passwd -d shoes
 usermod -a -G rvm shoes
 
+# nagios
+  aptitude install nagios3 nagios-nrpe-server nagios-plugins nagios-nrpe-plugin fcgiwrap spawn-fcgi
+
+
+
+
+<!--   # htpasswd -c /etc/nagios3/htpasswd.users nagiosadmin
+    - set our passwd
+
+  # confire apache
+    - apt-get install apache2
+    - vim /etc/apache2/ports.conf
+      - set port 8080
+
+    - cp /etc/nagios3/apache2.conf /etc/apache2/conf.d/
+    - /etc/init.d/apache2 restart
+
+  # configure email
+    - apt-get install postfix mailx
+    - vim /etc/nagios3/conf.d/contacts_nagios2.cfg
+
+  - /etc/init.d/nagios3 restart
+ -->
 ---
 
 su shoes
