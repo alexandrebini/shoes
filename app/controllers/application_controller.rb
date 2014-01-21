@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   caches_page :index, unless: :is_search_engine?
+  helper_method :is_search_engine?
 
   def index
   end
@@ -14,7 +15,6 @@ class ApplicationController < ActionController::Base
     render nothing: true, status: '404 Not Found'
   end
 
-  protected
   def is_search_engine?
     params[:search_engine].present?
   end

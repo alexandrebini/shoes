@@ -10,19 +10,21 @@
 
   API =
     show: (slug, page) ->
-      @controller = new CategoriesApp.Show.Controller
-        slug: slug
-        page: page
-      App.vent.trigger 'set:current:category', slug
+      category = App.request('category:entity', slug)
+      shoes = App.request('category:shoes:entities', slug, page)
 
-    brand: (slug, brand, page) ->
-      @controller = new CategoriesApp.Brand.Controller
-        slug: slug
-        brand: brand
-        page: page
+      @controller = new CategoriesApp.Show.Controller(shoes)
 
-      App.vent.trigger 'set:current:category', slug
-      App.vent.trigger 'set:current:brand', brand
+      App.vent.trigger 'category:visited', category
+
+    brand: (slug, brandSlug, page) ->
+      category = App.request('category:entity', slug)
+      brand = App.request('brand:entity', brandSlug)
+      shoes = App.request('category:brand:shoes:entities', slug, brandSlug, page)
+
+      @controller = new CategoriesApp.Brand.Controller(shoes)
+
+      App.vent.trigger 'category:brand:visited', category, brand
 
     disable: ->
       @controller.disable() if @controller
@@ -30,7 +32,7 @@
     enable: ->
       @controller.enable() if @controller
 
-  App.vent.on 'visit:shoe', ->
+  App.vent.on 'shoe:visited', ->
     API.disable()
 
   App.vent.on 'visit:category', (slug) ->

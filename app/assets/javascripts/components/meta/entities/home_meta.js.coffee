@@ -1,5 +1,5 @@
-@Shoes.module 'Components.ShoeMeta.Entities', (Entities, App, Backbone, Marionette, $, _) ->
-  class Entities.ShoeMeta extends Backbone.Model
+@Shoes.module 'Components.HomeMeta.Entities', (Entities, App, Backbone, Marionette, $, _) ->
+  class Entities.HomeMeta extends Backbone.Model
     defaults:
       title: undefined
       metaDescription: undefined
@@ -9,6 +9,8 @@
         title: "Busca sapato ",
         metaDescription: "Encontre "
 
-    categoriesJoin:
+    categoriesJoin: ->
+      'foo'
 
-    brandsJoin:
+    brandsJoin: ->
+      'bar'

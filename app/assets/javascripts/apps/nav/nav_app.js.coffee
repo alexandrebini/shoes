@@ -3,7 +3,24 @@
 
   API =
     start: ->
-      @controller = new NavApp.Show.Controller()
+      @nav = App.request('nav:entities')
+      @categories = @nav.get('categories')
+      @brands = @nav.get('brands')
+
+      @controller = new NavApp.Show.Controller
+        nav: @nav
+        brands: @brands
+        categories: @categories
+
+    setCurrentBrand: (brand) ->
+      App.execute 'when:fetched', @brands, =>
+        slug = if brand then brand.get('slug') else null
+        @nav.setCurrentBrand(slug)
+
+    setCurrentCategory: (category) ->
+      App.execute 'when:fetched', @categories, =>
+        slug = if category then category.get('slug') else null
+        @nav.setCurrentCategory(slug)
 
     disable: ->
       @controller.disable()
@@ -14,8 +31,23 @@
   App.vent.on 'shoe:visited', ->
     API.disable()
 
-  App.vent.on 'visit:home visit:brand visit:category visit:category:brand', ->
+  App.vent.on 'home:visited', ->
     API.enable()
+    API.setCurrentCategory(null)
+    API.setCurrentBrand(null)
+
+  App.vent.on 'brand:visited', (brand) ->
+    API.enable()
+    API.setCurrentBrand(brand)
+
+  App.vent.on 'category:visited', (category) ->
+    API.enable()
+    API.setCurrentCategory(category)
+
+  App.vent.on 'category:brand:visited', (category, brand) ->
+    API.enable()
+    API.setCurrentCategory(category)
+    API.setCurrentBrand(brand)
 
   NavApp.on 'start', ->
     API.start()

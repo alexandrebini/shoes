@@ -3,6 +3,7 @@
     $(document).ready(function() {
       Shoes.start({
         environment: '#{ Rails.env }',
-        brandsSlugs: #{ brands_slugs.to_json }
+        brandsSlugs: #{ brands_slugs.to_json },
+        isSearchEngine: #{ is_search_engine? }
       })
     })

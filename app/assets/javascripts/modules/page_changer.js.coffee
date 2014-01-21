@@ -12,15 +12,11 @@
       @navigate App.UrlHelper.Helper.getInstance().pagePath(page)
 
     trackPageView: (route) ->
-      switch
-        when navigator.userAgent.match(/Googlebot/)
-          ga 'send', 'pageview', 'Googlebot'
-        when navigator.userAgent.match(/facebookexternalhit/)
-          ga 'send', 'pageview', 'facebook hit'
-        when route?
-          ga 'send', 'pageview', route
-        else
-          ga 'send', 'pageview'
+      return if App.isSearchEngine
+      if route?
+        ga 'send', 'pageview', route
+      else
+        ga 'send', 'pageview'
 
   API =
     navigate: (route) ->

@@ -3,6 +3,7 @@
 
   App.on 'initialize:before', (options) ->
     App.environment = options.environment
+    App.isSearchEngine = options.isSearchEngine
 
   App.on 'initialize:after', ->
     @startHistory()

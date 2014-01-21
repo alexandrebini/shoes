@@ -27,6 +27,14 @@ vim /etc/ssh/sshd_config
   PasswordAuthentication no
   UsePAM no
 
+vim /etc/sysctl.conf
+  # disable ipv6
+  net.ipv6.conf.all.disable_ipv6 = 1
+  net.ipv6.conf.default.disable_ipv6 = 1
+  net.ipv6.conf.lo.disable_ipv6 = 1
+
+sudo sysctl -p /etc/sysctl.conf
+
 # MaridDB
   aptitude install python-software-properties
   apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
