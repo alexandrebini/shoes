@@ -9,14 +9,13 @@
 
   API =
     list: (page) ->
-      @listController = new ShoesApp.List.Controller(page)
+      shoes = App.request('shoes:entities', page)
+      @listController = new ShoesApp.List.Controller(shoes)
+      App.vent.trigger 'home:visited'
 
     show: (category, brand, slug) ->
       shoe = App.request('shoe:entity', category, brand, slug)
-
-      @showController = new ShoesApp.Show.Controller
-        shoe: shoe
-
+      @showController = new ShoesApp.Show.Controller(shoe)
       App.vent.trigger 'shoe:visited', shoe
 
     enableShow: ->
@@ -37,6 +36,9 @@
     API.show split[0], split[1], split[2]
     App.vent.trigger 'visit', slug
     API.enableShow()
+
+  App.vent.on 'home:visited brand:visited category:visited category:brand:visited', ->
+    API.enableList()
 
   ShoesApp.on 'start', ->
     new ShoesApp.Router

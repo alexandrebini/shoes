@@ -9,10 +9,11 @@
 
   API =
     show: (slug, page) ->
-      @controller = new BrandsApp.Show.Controller
-        slug: slug
-        page: page
+      brand = App.request('brand:entity', slug)
+      shoes = App.request('brand:shoes:entities', slug, page)
+      @controller = new BrandsApp.Show.Controller(shoes)
       App.vent.trigger 'set:current:brand', slug
+      App.vent.trigger 'brand:visited', brand
 
     disable: ->
       @controller.disable() if @controller
@@ -20,7 +21,7 @@
     enable: ->
       @controller.enable() if @controller
 
-  App.vent.on 'visit:shoe', ->
+  App.vent.on 'shoe:visited', ->
     API.disable()
 
   App.vent.on 'visit:brand', (slug) ->

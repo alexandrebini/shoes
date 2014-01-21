@@ -14,7 +14,7 @@
   App.vent.on 'shoe:visited', ->
     API.disable()
 
-  App.vent.on 'visit:home visit:brand visit:category visit:category:brand', ->
+  App.vent.on 'home:visited brand:visited category:visited category:brand:visited', ->
     API.enable()
 
   NavApp.on 'start', ->
