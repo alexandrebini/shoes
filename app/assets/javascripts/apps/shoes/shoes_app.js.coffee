@@ -12,11 +12,12 @@
       @listController = new ShoesApp.List.Controller(page)
 
     show: (category, brand, slug) ->
-      App.vent.trigger 'direct:link:shoe'
+      shoe = App.request('shoe:entity', category, brand, slug)
+
       @showController = new ShoesApp.Show.Controller
-        category: category
-        brand: brand
-        slug: slug
+        shoe: shoe
+
+      App.vent.trigger 'shoe:visited', shoe
 
     enableShow: ->
       @showController.enable() if @showController

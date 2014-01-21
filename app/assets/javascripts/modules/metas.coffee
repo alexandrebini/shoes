@@ -13,7 +13,8 @@
   API =
     set: (obj) ->
       Metas.Insert.getInstance().metaDescription(obj.description)
-      Metas.Insert.getInstance().metaDescription(obj.title)
+      Metas.Insert.getInstance().title(obj.title)
 
-  App.vent.on 'set:metas', (obj) ->
-    API.set(obj)
+  App.vent.on 'shoe:visited', (shoe) ->
+    metas = new App.Components.ShoeMeta.Entities.ShoeMeta(shoe)
+    console.log metas, '------------- metas ----------'

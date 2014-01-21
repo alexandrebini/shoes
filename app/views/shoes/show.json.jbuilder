@@ -5,6 +5,11 @@ json.cents @shoe.price[:cents]
 json.slug shoe_path(@shoe.category, @shoe.brand, @shoe.slug)
 json.source_url @shoe.source_url
 
+json.category do |json|
+  json.name @shoe.category.name
+  json.slug category_path(@shoe.category, @shoe.brand)
+end
+
 json.brand do |json|
   json.name @shoe.brand.name
   json.slug @shoe.brand.slug
