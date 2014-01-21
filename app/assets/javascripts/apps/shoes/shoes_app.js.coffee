@@ -19,6 +19,7 @@
 
       App.vent.trigger 'shoe:visited', shoe
 
+
     enableShow: ->
       @showController.enable() if @showController
       @listController.disable() if @listController

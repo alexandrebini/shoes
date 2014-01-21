@@ -3,8 +3,4 @@
     initialize: (page) ->
       shoes = App.request('shoes:entities', page)
       App.vent.trigger 'set:header:headings'
-
-      App.Metas.Insert.getInstance()
-      App.vent.trigger 'set:metas', { title: 'Busca sapato', description: 'Encontre seu sapato.'}
-
       super(shoes)
