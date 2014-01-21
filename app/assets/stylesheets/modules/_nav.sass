@@ -33,8 +33,12 @@ nav
 //   States
 // -------------------------------------
 
-// .is-module-state
-
+.is_selected
+  +opacity(0.7)
+  font-weight: bold
+  margin-left: 2px
+  &:before
+    border: 1px solid $quaternary-color
 // -------------------------------------
 //   Context
 // -------------------------------------
@@ -81,9 +85,3 @@ nav
           position: relative
           right: 15px
           width: 1px
-        &.selected
-          +opacity(0.7)
-          font-weight: bold
-          margin-left: 2px
-          &:before
-            border: 1px solid $quaternary-color
