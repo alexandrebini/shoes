@@ -15,7 +15,6 @@
 
       @controller = new CategoriesApp.Show.Controller(shoes)
 
-      App.vent.trigger 'set:current:category', slug
       App.vent.trigger 'category:visited', category
 
     brand: (slug, brandSlug, page) ->
@@ -25,8 +24,6 @@
 
       @controller = new CategoriesApp.Brand.Controller(shoes)
 
-      App.vent.trigger 'set:current:category', slug
-      App.vent.trigger 'set:current:brand', brandSlug
       App.vent.trigger 'category:brand:visited', category, brand
 
     disable: ->

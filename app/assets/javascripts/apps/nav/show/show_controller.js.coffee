@@ -1,42 +1,26 @@
 @Shoes.module 'NavApp.Show', (Show, App, Backbone, Marionette, $, _) ->
 
   class Show.Controller extends Marionette.Controller
-    initialize: ->
-      @nav = App.request('nav:entities')
-      @categories = @nav.get('categories')
-      @brands = @nav.get('brands')
+    initialize: (options) ->
+      @nav = options.nav
 
       @layout = @getLayoutView()
 
       @listenTo @layout, 'show', =>
-        @navRegion()
-        @categoriesRegion()
-        @brandsRegion()
+        @categoriesRegion(options.categories)
+        @brandsRegion(options.brands)
 
       @enable()
 
-      App.vent.on 'set:current:brand', (slug) =>
-        App.execute 'when:fetched', @brands, =>
-          App.vent.trigger 'remove:header:headings'
-          @nav.setCurrentBrand(slug)
-
-      App.vent.on 'set:current:category', (slug) =>
-        App.execute 'when:fetched', @categories, =>
-          App.vent.trigger 'remove:header:headings'
-          @nav.setCurrentCategory(slug)
-
-    navRegion: ->
-      App.navRegion.$el.show()
-
-    categoriesRegion: ->
-      categoriesView = @getCategoriesView()
+    categoriesRegion: (categories) ->
+      categoriesView = @getCategoriesView(categories)
       @listenTo categoriesView, 'itemview:category:clicked', (child) =>
         @nav.toggleCurrentCategory child.model
         @visit()
       @layout.categoriesRegion.show categoriesView
 
-    brandsRegion: ->
-      brandsView = @getBrandsView()
+    brandsRegion: (brands) ->
+      brandsView = @getBrandsView(brands)
       @listenTo brandsView, 'itemview:brand:clicked', (child) =>
         @nav.toggleCurrentBrand child.model
         @visit()
@@ -58,13 +42,13 @@
     getLayoutView: ->
       new Show.Layout
 
-    getCategoriesView: ->
+    getCategoriesView: (categories) ->
       new Show.Categories
-        collection: @categories
+        collection: categories
 
-    getBrandsView: ->
+    getBrandsView: (brands) ->
       new Show.Brands
-        collection: @brands
+        collection: brands
 
     disable: ->
       @layout.close()
