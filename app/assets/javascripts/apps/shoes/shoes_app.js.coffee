@@ -11,6 +11,8 @@
     list: (page) ->
       shoes = App.request('shoes:entities', page)
       @listController = new ShoesApp.List.Controller(shoes)
+      App.vent.trigger 'set:current:brand', ''
+      App.vent.trigger 'set:current:category', ''
       App.vent.trigger 'home:visited'
 
     show: (category, brand, slug) ->
