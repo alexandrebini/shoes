@@ -3,8 +3,8 @@
 
   class CategoriesApp.Router extends Marionette.AppRouter
     appRoutes:
-      'categories/:slug/' : 'show'
-      'categories/:slug/pg-:page/' : 'show'
+      ':slug/' : 'show'
+      ':slug/pg-:page/' : 'show'
       ':slug/:brand/' : 'brand'
       ':slug/:brand/pg-:page/' : 'brand'
 
@@ -36,8 +36,7 @@
     API.disable()
 
   App.vent.on 'visit:category', (slug) ->
-    shortSlug = _.compact(slug.split('/'))
-    API.show(_.last(shortSlug))
+    API.show(slug)
     API.enable()
     App.vent.trigger 'visit', slug
 
