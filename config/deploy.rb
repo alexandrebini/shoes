@@ -27,6 +27,7 @@ namespace :deploy do
       execute <<-CMD
         ln -sf #{ release_path }/config/server/production/nginx /usr/local/nginx/conf
         ln -sf #{ release_path }/config/server/production/apache/ports.conf /etc/apache2/ports.conf
+        ln -sf #{ release_path }/config/server/production/nagios /etc/nagios3/conf.d
       CMD
     end
   end
