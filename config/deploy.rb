@@ -24,7 +24,13 @@ namespace :deploy do
 
   before :restart, :copy_server_files do
     on roles(:web) do
-      execute "ln -sf #{ release_path }/config/server/production/nginx /usr/local/nginx/conf"
+      execute <<-CMD
+        unlink /usr/local/nginx/conf
+        ln -sf #{ release_path }/config/server/production/nginx /usr/local/nginx/conf
+        unlink /etc/nagios3/conf.d
+        ln -sf #{ release_path }/config/server/production/nagios /etc/nagios3/conf.d
+        ln -sf #{ release_path }/config/server/production/apache/ports.conf /etc/apache2/ports.conf
+      CMD
     end
   end
 
