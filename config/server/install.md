@@ -104,7 +104,7 @@ passwd -d shoes
 usermod -a -G rvm shoes
 
 # nagios
-  aptitude install nagios3 nagios-nrpe-server nagios-plugins nagios-nrpe-plugin fcgiwrap spawn-fcgi
+  aptitude install nagios3 nagios-nrpe-server nagios-plugins nagios-nrpe-plugin fcgiwrap spawn-fcgi php5-fpm
 
 
 
