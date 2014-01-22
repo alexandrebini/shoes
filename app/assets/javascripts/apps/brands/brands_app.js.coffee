@@ -11,10 +11,8 @@
     show: (slug, page) ->
       brand = App.request('brand:entity', slug)
       shoes = App.request('brand:shoes:entities', slug, page)
-
-      App.execute 'when:fetched', shoes, =>
-        @controller = new BrandsApp.Show.Controller(shoes)
-        App.vent.trigger 'brand:visited', brand
+      @controller = new BrandsApp.Show.Controller(shoes)
+      App.vent.trigger 'brand:visited', brand
 
     disable: ->
       @controller.disable() if @controller

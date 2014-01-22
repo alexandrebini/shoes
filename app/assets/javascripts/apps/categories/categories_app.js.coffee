@@ -12,19 +12,15 @@
     show: (slug, page) ->
       category = App.request('category:entity', slug)
       shoes = App.request('category:shoes:entities', slug, page)
-
-      App.execute 'when:fetched', shoes, =>
-        @controller = new CategoriesApp.Show.Controller(shoes)
-        App.vent.trigger 'category:visited', category
+      @controller = new CategoriesApp.Show.Controller(shoes)
+      App.vent.trigger 'category:visited', category
 
     brand: (slug, brandSlug, page) ->
       category = App.request('category:entity', slug)
       brand = App.request('brand:entity', brandSlug)
       shoes = App.request('category:brand:shoes:entities', slug, brandSlug, page)
-
-      App.execute 'when:fetched', shoes, =>
-        @controller = new CategoriesApp.Brand.Controller(shoes)
-        App.vent.trigger 'category:brand:visited', category, brand, shoes
+      @controller = new CategoriesApp.Brand.Controller(shoes)
+      App.vent.trigger 'category:brand:visited', category, brand, shoes
 
     disable: ->
       @controller.disable() if @controller
