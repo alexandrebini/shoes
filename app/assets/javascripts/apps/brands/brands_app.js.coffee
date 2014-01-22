@@ -4,15 +4,17 @@
   class BrandsApp.Router extends Marionette.AppRouter
     addBrandsRoutes: (slugs) ->
       _.each slugs, (slug) =>
-        @route "#{ slug }/", => API.show(slug)
-        @route "#{ slug }/pg-:page/", (page) => API.show(slug, page)
+        @route "brands/#{ slug }/", => API.show(slug)
+        @route "brands/#{ slug }/pg-:page/", (page) => API.show(slug, page)
 
   API =
     show: (slug, page) ->
       brand = App.request('brand:entity', slug)
       shoes = App.request('brand:shoes:entities', slug, page)
-      @controller = new BrandsApp.Show.Controller(shoes)
-      App.vent.trigger 'brand:visited', brand
+
+      App.execute 'when:fetched', shoes, =>
+        @controller = new BrandsApp.Show.Controller(shoes)
+        App.vent.trigger 'brand:visited', brand
 
     disable: ->
       @controller.disable() if @controller
@@ -24,7 +26,8 @@
     API.disable()
 
   App.vent.on 'visit:brand', (slug) ->
-    API.show(slug)
+    shortSlug = _.compact(slug.split('/'))
+    API.show(_.last(shortSlug))
     API.enable()
     App.vent.trigger 'visit', slug
 

@@ -13,14 +13,12 @@
         categories: @categories
 
     setCurrentBrand: (brand) ->
-      App.execute 'when:fetched', @brands, =>
-        slug = if brand then brand.get('slug') else null
-        @nav.setCurrentBrand(slug)
+      slug = if brand then brand.get('slug') else null
+      @nav.setCurrentBrand(slug)
 
     setCurrentCategory: (category) ->
-      App.execute 'when:fetched', @categories, =>
-        slug = if category then category.get('slug') else null
-        @nav.setCurrentCategory(slug)
+      slug = if category then category.get('slug') else null
+      @nav.setCurrentCategory(slug)
 
     disable: ->
       @controller.disable()

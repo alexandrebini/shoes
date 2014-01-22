@@ -4,7 +4,8 @@
       title: undefined
       metaDescription: undefined
 
-    parse: (shoes) ->
+    parse: (home) ->
+      console.log home
       @set
         title: "Busca sapato ",
         metaDescription: "Encontre "

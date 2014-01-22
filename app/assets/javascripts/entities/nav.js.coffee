@@ -14,9 +14,12 @@
         brands: App.request('brand:entities')
 
     setCurrentCategory: (slug) ->
-      @set currentCategory: @get('categories').findWhere(slug: slug)
+      category = @get('categories').findWhere({ slug: slug })
+      if @get('currentCategory') != category
+        @set currentCategory: category
 
     toggleCurrentCategory: (currentCategory) ->
+      console.log '-------- click'
       if currentCategory == @get('currentCategory')
         @set currentCategory: null
       else
