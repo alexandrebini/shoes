@@ -1,6 +1,6 @@
 aptitude update && aptitude upgrade
 
-aptitude install vim rsync lynx screen htop curl sudo ntp imagemagick libjpeg-progs optipng nmap -y
+aptitude install vim rsync lynx screen htop curl sudo ntp imagemagick libjpeg-progs optipng nmap telnet -y
 
 dpkg-reconfigure tzdata
 
