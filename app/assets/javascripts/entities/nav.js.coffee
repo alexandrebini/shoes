@@ -19,7 +19,6 @@
         @set currentCategory: category
 
     toggleCurrentCategory: (currentCategory) ->
-      console.log '-------- click'
       if currentCategory == @get('currentCategory')
         @set currentCategory: null
       else

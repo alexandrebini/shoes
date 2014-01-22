@@ -1,17 +1,7 @@
 @Shoes.module 'Components.HomeMeta.Entities', (Entities, App, Backbone, Marionette, $, _) ->
-  class Entities.HomeMeta extends Backbone.Model
-    defaults:
-      title: undefined
-      metaDescription: undefined
-
-    parse: (home) ->
-      console.log home
+  class Entities.HomeMeta extends App.Components.MetaBase.Entities.MetaBase
+    parse: (categories, brands) ->
       @set
-        title: "Busca sapato ",
-        metaDescription: "Encontre "
+        title: "Busca sapato - #{ @modelsNamesJoin(brands) } ",
+        metaDescription: "Encontre #{ @modelsNamesJoin(categories) }"
 
-    categoriesJoin: ->
-      'foo'
-
-    brandsJoin: ->
-      'bar'

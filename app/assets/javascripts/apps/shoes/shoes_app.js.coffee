@@ -9,20 +9,16 @@
 
   API =
     list: (page) ->
+      categories = App.request('category:entities')
+      brands = App.request('brand:entities')
       shoes = App.request('shoes:entities', page)
-      @nav = App.request('nav:entities')
-      categories = @nav.get('categories')
-      brands = @nav.get('brands')
-
       @listController = new ShoesApp.List.Controller(shoes)
-      App.vent.trigger 'home:visited', { categories: categories, brands: brands }
+      App.vent.trigger 'home:visited', categories, brands
 
     show: (category, brand, slug) ->
       shoe = App.request('shoe:entity', category, brand, slug)
-
-      App.execute 'when:fetched', shoe, =>
-        @showController = new ShoesApp.Show.Controller(shoe)
-        App.vent.trigger 'shoe:visited', shoe
+      @showController = new ShoesApp.Show.Controller(shoe)
+      App.vent.trigger 'shoe:visited', shoe
 
     enableShow: ->
       @showController.enable() if @showController

@@ -4,14 +4,15 @@
       @layout = @getLayoutView()
 
       @listenTo @layout, 'show', =>
-        @thumbRegion(shoe)
-        @titleRegion(shoe)
-        @priceRegion(shoe)
-        @descriptionRegion(shoe)
-        @brandRegion(shoe)
-        @numberRegion(shoe)
-        @buttonRegion(shoe)
-        @mainPhotoRegion(shoe)
+        App.execute 'when:fetched', shoe, =>
+          @thumbRegion(shoe)
+          @titleRegion(shoe)
+          @priceRegion(shoe)
+          @descriptionRegion(shoe)
+          @brandRegion(shoe)
+          @numberRegion(shoe)
+          @buttonRegion(shoe)
+          @mainPhotoRegion(shoe)
 
       @enable()
 

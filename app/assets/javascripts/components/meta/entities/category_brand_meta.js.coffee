@@ -1,13 +1,6 @@
 @Shoes.module 'Components.CategoryBrandMeta.Entities', (Entities, App, Backbone, Marionette, $, _) ->
-  class Entities.CategoryBrandMeta extends Backbone.Model
-    defaults:
-      title: undefined
-      metaDescription: undefined
-
+  class Entities.CategoryBrandMeta extends App.Components.MetaBase.Entities.MetaBase
     parse: (category, brand, shoes) ->
       @set
-        title: "#{ category.get('name') } da #{ brand.get('name') } - Busca Sapato",
-        metaDescription: "Encontre #{ category.get('name') } da #{ brand.get('name') } #{ @shoesNames(shoes) }"
-
-    shoesNames: (shoes) ->
-      'fooo'
+        title: "#{ category.get('name') } #{ brand.get('name') } - Busca Sapato",
+        metaDescription: "#{ category.get('name') } #{ brand.get('name') } #{ @modelsNamesJoin(shoes) }"
