@@ -106,6 +106,9 @@ usermod -a -G rvm shoes
 # nagios
   aptitude install nagios3 apache2 php5 nagios-nrpe-server nagios-plugins nagios-nrpe-plugin postfix mailx
 
+  vim /etc/nagios3/nagios.cfg
+    check_external_commands=1
+
 su shoes
 
 ssh-keygen -t rsa
