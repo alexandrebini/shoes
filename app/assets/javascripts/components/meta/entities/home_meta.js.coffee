@@ -4,4 +4,3 @@
       @set
         title: "Busca sapato - #{ @modelsNamesJoin(brands) } ",
         metaDescription: "Encontre #{ @modelsNamesJoin(categories) }"
-

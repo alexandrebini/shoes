@@ -13,7 +13,6 @@
     headerRegion: 'header'
     mainRegion: 'article.list'
     shoeRegion: 'article.shoe'
-    headRegion: 'head'
 
   App.addInitializer (options) ->
     App.module('HeaderApp').start()

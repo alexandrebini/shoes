@@ -5,7 +5,7 @@
       lastName = models.pop().get('name')
       names = ''
 
-      unless models
+      unless _.isEmpty(models)
         names = _.map(models, (model) ->
           return model.get('name')
         ).join(', ')
