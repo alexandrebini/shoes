@@ -1,6 +1,6 @@
 aptitude update && aptitude upgrade
 
-aptitude install vim rsync lynx screen htop curl sudo ntp imagemagick libjpeg-progs optipng -y
+aptitude install vim rsync lynx screen htop curl sudo ntp imagemagick libjpeg-progs optipng nmap -y
 
 dpkg-reconfigure tzdata
 
@@ -104,18 +104,7 @@ passwd -d shoes
 usermod -a -G rvm shoes
 
 # nagios
-  aptitude install nagios3 apache2 php5 nagios-nrpe-server nagios-plugins nagios-nrpe-plugin
-
-  ln -s /home
-
-<!--
-  # configure email
-    - apt-get install postfix mailx
-    - vim /etc/nagios3/conf.d/contacts_nagios2.cfg
-
-  - /etc/init.d/nagios3 restart
- -->
----
+  aptitude install nagios3 apache2 php5 nagios-nrpe-server nagios-plugins nagios-nrpe-plugin postfix mailx
 
 su shoes
 
