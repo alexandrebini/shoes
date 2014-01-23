@@ -5,18 +5,26 @@
       @set
         currentCategory: null
         currentBrand: null
+        categories: new Backbone.Collection()
+        brands: new Backbone.Collection()
       @on 'change:currentCategory', @onCurrentCategoryChange, @
       @on 'change:currentBrand', @onCurrentBrandChange, @
 
     fetch: ->
-      @set
-        categories: App.request('category:entities')
-        brands: App.request('brand:entities')
+      @allCategories = App.request('category:entities')
+      @allBrands = App.request('brand:entities')
+
+      App.execute 'when:fetched', @allBrands, =>
+        @update()
+
+      App.execute 'when:fetched', @allCategories, =>
+        @update()
 
     setCurrentCategory: (slug) ->
-      category = @get('categories').findWhere({ slug: slug })
-      if @get('currentCategory') != category
-        @set currentCategory: category
+      App.execute 'when:fetched', @allCategories, =>
+        category = @allCategories.findWhere({ slug: slug })
+        if @get('currentCategory') != category
+          @set currentCategory: category
 
     toggleCurrentCategory: (currentCategory) ->
       if currentCategory == @get('currentCategory')
@@ -25,7 +33,10 @@
         @set currentCategory: currentCategory
 
     setCurrentBrand: (slug) ->
-      @set currentBrand: @get('brands').findWhere(slug: slug)
+      App.execute 'when:fetched', @allBrands, =>
+        brand = @allBrands.findWhere({ slug: slug })
+        if @get('currentBrand') != brand
+          @set currentBrand: brand
 
     toggleCurrentBrand: (currentBrand) ->
       if currentBrand == @get('currentBrand')
@@ -34,18 +45,27 @@
         @set currentBrand: currentBrand
 
     onCurrentCategoryChange: ->
-      @get('categories').each (category) =>
+      @allCategories.each (category) =>
         category.set isCurrent: category == @get('currentCategory')
-      @updatePaths()
+      @update()
 
     onCurrentBrandChange: ->
-      @get('brands').each (brand) =>
+      @allBrands.each (brand) =>
         brand.set isCurrent: brand == @get('currentBrand')
-      @updatePaths()
+      @update()
 
-    updatePaths: ->
+    update: ->
+      @updateCategories()
+      @updateBrands()
       @updateCategoriesPaths()
       @updateBrandsPaths()
+
+    updateCategories: ->
+      if @get('currentBrand')
+        @get('categories').reset @allCategories.filter (category) =>
+          _.contains @get('currentBrand').get('categories'), category.get('slug')
+      else
+        @get('categories').reset @allCategories.models
 
     updateCategoriesPaths: ->
       @get('categories').each (category) =>
@@ -53,6 +73,13 @@
           category.set path: @pathTo(category, @get('currentBrand'))
         else
           category.set path: null
+
+    updateBrands: ->
+      if @get('currentCategory')
+        @get('brands').reset @allBrands.filter (brand) =>
+          _.contains @get('currentCategory').get('brands'), brand.get('slug')
+      else
+        @get('brands').reset @allBrands.models
 
     updateBrandsPaths: ->
       @get('brands').each (brand) =>
