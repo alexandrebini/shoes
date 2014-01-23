@@ -10,9 +10,9 @@
       shoe = new Shoes.Components.ShoeMeta.Entities.ShoeMeta().parse(shoe)
       API.metas(shoe)
 
-  App.vent.on 'home:visited', (category, brand) ->
-    App.execute 'when:fetched', [category, brand], ->
-      home = new Shoes.Components.HomeMeta.Entities.HomeMeta().parse(category, brand)
+  App.vent.on 'home:visited', (categories, brands) ->
+    App.execute 'when:fetched', [categories, brands], ->
+      home = new Shoes.Components.HomeMeta.Entities.HomeMeta().parse(categories, brands)
       API.metas(home)
 
   App.vent.on 'category:visited', (category) ->

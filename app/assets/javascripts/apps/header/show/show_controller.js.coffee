@@ -10,15 +10,21 @@
       @page = new App.PageChanger.Changer()
 
     logoRegion: ->
-      logoView = @getLogoView()
+      @logoView = @getLogoView()
 
-      @listenTo logoView, 'logo:clicked', =>
+      @listenTo @logoView, 'logo:clicked', =>
         App.vent.trigger 'visit:home'
 
-      @layout.logoRegion.show logoView
+      @layout.logoRegion.show @logoView
 
     getLayoutView: ->
       new Show.Layout
 
     getLogoView: ->
       new Show.Logo
+
+    setH1View: ->
+      @logoView.h1Add()
+
+    removeH1View: ->
+      @logoView.h1Remove()

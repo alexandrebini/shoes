@@ -11,19 +11,14 @@
     template: 'header/show/templates/logo'
     className: 'header--logo'
 
-    initialize: ->
-      App.vent.on 'set:header:headings', => @addH1()
-      App.vent.on 'remove:header:headings', => @removeH1()
-
     triggers:
       'click a' : 'logo:clicked'
 
-    events:
-      'set:home:headings' : 'foo'
+    h1Add: ->
+      content = @$el.html()
+      @$el.html $('<h1>').append content
 
-    addH1: ->
-      h1 = $('<h1>').text('busca sapato')
-      @$el.append(h1)
-
-    removeH1: ->
+    h1Remove: ->
+      content = @$el.find('h1').html()
       @$el.find('h1').remove()
+      @$el.html content
