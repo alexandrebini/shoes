@@ -26,6 +26,6 @@
       API.metas(brand)
 
   App.vent.on 'category:brand:visited', (category, brand, shoes) ->
-    App.execute 'when:fetched', brand, =>
+    App.execute 'when:fetched', shoes, =>
       categoryBrand = new Shoes.Components.CategoryBrandMeta.Entities.CategoryBrandMeta().parse(category, brand, shoes)
       API.metas(categoryBrand)

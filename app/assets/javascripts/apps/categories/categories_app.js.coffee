@@ -5,8 +5,8 @@
     appRoutes:
       ':slug/' : 'show'
       ':slug/pg-:page/' : 'show'
-      ':slug/:brand/' : 'brand'
-      ':slug/:brand/pg-:page/' : 'brand'
+      ':slug/:brand/shoes/' : 'brand'
+      ':slug/:brand/shoes/pg-:page/' : 'brand'
 
   API =
     show: (slug, page) ->
