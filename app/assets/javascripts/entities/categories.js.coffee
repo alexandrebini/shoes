@@ -28,7 +28,6 @@
         options = _.extend(default_options, options)
         Routes.category_shoes_path options
       shoes.fetch()
-      console.log 'ca', shoes
       shoes
 
     getCategoryBrandShoes: (slug, brand, page) ->
@@ -37,10 +36,8 @@
       shoes.url = (options) =>
         default_options = { slug: slug, brand: brand }
         options = _.extend(default_options, options)
-        console.log options
         Routes.category_brand_shoes_path options
       shoes.fetch()
-      console.log shoes, 'cacete'
       shoes
 
   App.reqres.setHandler 'category:entity', (slug) ->
