@@ -1,7 +1,7 @@
 @Shoes.module 'Components.MetaBase.Entities', (Entities, App, Backbone, Marionette, $, _) ->
   class Entities.MetaBase extends Backbone.Model
-    modelsNamesJoin: (models) ->
-      models = models.models
+    modelsNamesJoin: (collection) ->
+      models = collection.models
       lastName = models.pop().get('name')
       names = ''
 
@@ -11,3 +11,7 @@
         ).join(', ')
 
       "#{ names } e #{ lastName }"
+
+    getShoes: (shoesGroupsCollections) ->
+      shoes = _.map(shoesGroupsCollections, (collection) -> collection.models)
+      { models: _.flatten(shoes) }

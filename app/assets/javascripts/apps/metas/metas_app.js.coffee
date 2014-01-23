@@ -11,7 +11,7 @@
       API.metas(shoe)
 
   App.vent.on 'home:visited', (category, brand) ->
-    App.execute 'when:fetched', brand, =>
+    App.execute 'when:fetched', [category, brand], ->
       home = new Shoes.Components.HomeMeta.Entities.HomeMeta().parse(category, brand)
       API.metas(home)
 
@@ -26,6 +26,6 @@
       API.metas(brand)
 
   App.vent.on 'category:brand:visited', (category, brand, shoes) ->
-    App.execute 'when:fetched', shoes, =>
-      categoryBrand = new Shoes.Components.CategoryBrandMeta.Entities.CategoryBrandMeta().parse(category, brand, shoes)
+    App.execute 'when:fetched', [category, brand, shoes], ->
+      categoryBrand = new Shoes.Components.CategoryBrandMeta.Entities.CategoryBrandMeta().parse(category, brand, shoes.models[0].models)
       API.metas(categoryBrand)
