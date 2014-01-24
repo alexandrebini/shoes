@@ -4,25 +4,20 @@
     @getInstance: ->
       @_instance ?= new @(arguments...)
 
-    constructor: ->
-      @controller = new App.HeaderApp.Show.Controller()
-
-    h1Add: ->
-      @controller.setH1View()
-
-    h1Remove: ->
-      @controller.removeH1View()
+    constructor: -> @controller = new App.HeaderApp.Show.Controller()
+    hasH1: -> @controller.logoRegion(true)
+    withoutH1: -> @controller.logoRegion()
 
   API =
     show: -> HeaderApp.Getter.getInstance()
-    h1Add: -> HeaderApp.Getter.getInstance().h1Add()
-    h1Remove: -> HeaderApp.Getter.getInstance().h1Remove()
+    hasH1: -> HeaderApp.Getter.getInstance().hasH1()
+    withoutH1: -> HeaderApp.Getter.getInstance().withoutH1()
 
   App.vent.on 'shoe:visited category:visited brand:visited category:brand:visited', ->
-    API.h1Remove()
+    API.withoutH1()
 
   App.vent.on 'home:visited', ->
-    API.h1Add()
+    API.hasH1()
 
   HeaderApp.on 'start', ->
     API.show()

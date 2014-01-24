@@ -90,7 +90,7 @@
 
     pathTo: (category, brand) ->
       switch
-        when category && brand then "#{ category.get('slug') }/#{ brand.get('slug') }/shoes/"
+        when category && brand then "#{ category.get('slug') }/#{ brand.get('slug') }/"
         when category then category.get('slug')
         when brand then category.get('slug')
         else null

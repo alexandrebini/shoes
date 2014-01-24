@@ -1,0 +1,2 @@
+%h1
+  %a.logo{ href: '/', title: 'Busca Sapato', data-internal: true } Busca Sapato

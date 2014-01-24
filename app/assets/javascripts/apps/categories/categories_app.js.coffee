@@ -5,8 +5,8 @@
     appRoutes:
       ':slug/' : 'show'
       ':slug/pg-:page/' : 'show'
-      ':slug/:brand/shoes/' : 'brand'
-      ':slug/:brand/shoes/pg-:page/' : 'brand'
+      ':slug/:brand/' : 'brand'
+      ':slug/:brand/pg-:page/' : 'brand'
 
   API =
     show: (slug, page) ->
@@ -39,7 +39,7 @@
   App.vent.on 'visit:category:brand', (slug, brand) ->
     API.brand(slug, brand)
     API.enable()
-    App.vent.trigger 'visit', "#{ slug }/#{ brand }/shoes"
+    App.vent.trigger 'visit', "#{ slug }/#{ brand }"
 
   CategoriesApp.on 'start', ->
     new CategoriesApp.Router

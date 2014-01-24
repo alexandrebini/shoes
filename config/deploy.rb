@@ -1,6 +1,6 @@
 set :application, 'shoes'
 set :repo_url, 'git@github.com:alexandrebini/shoes.git'
-set :branch, 'master'
+set :branch, 'meta'
 
 set :deploy_to, '/home/shoes/www/'
 set :scm, :git

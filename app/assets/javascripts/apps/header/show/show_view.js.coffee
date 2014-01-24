@@ -14,11 +14,9 @@
     triggers:
       'click a' : 'logo:clicked'
 
-    h1Add: ->
-      content = @$el.html()
-      @$el.html $('<h1>').append content
+  class Show.LogoH1 extends Marionette.ItemView
+    template: 'header/show/templates/logo_h1'
+    className: 'header--logo'
 
-    h1Remove: ->
-      content = @$el.find('h1').html()
-      @$el.find('h1').remove()
-      @$el.html content
+    triggers:
+      'click a' : 'logo:clicked'
