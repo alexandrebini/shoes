@@ -7,6 +7,7 @@
         currentBrand: null
         categories: new Backbone.Collection()
         brands: new Backbone.Collection()
+
       @on 'change:currentCategory', @onCurrentCategoryChange, @
       @on 'change:currentBrand', @onCurrentBrandChange, @
 
@@ -44,14 +45,29 @@
       else
         @set currentBrand: currentBrand
 
+    setCategoryH1: (category) ->
+      isH1 = if @get('currentBrand')
+        false
+      else
+        true
+
+      category.set isH1: isH1
+
+    onAllCategoryH1Change: ->
+      @allCategories.each (category) =>
+        @setCategoryH1(category)
+
     onCurrentCategoryChange: ->
       @allCategories.each (category) =>
         category.set isCurrent: category == @get('currentCategory')
+        @setCategoryH1(category)
+
       @update()
 
     onCurrentBrandChange: ->
       @allBrands.each (brand) =>
         brand.set isCurrent: brand == @get('currentBrand')
+        @onAllCategoryH1Change()
       @update()
 
     update: ->
