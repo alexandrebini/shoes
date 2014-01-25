@@ -11,19 +11,12 @@
     template: 'header/show/templates/logo'
     className: 'header--logo'
 
-    initialize: ->
-      App.vent.on 'set:header:headings', => @addH1()
-      App.vent.on 'remove:header:headings', => @removeH1()
-
     triggers:
       'click a' : 'logo:clicked'
 
-    events:
-      'set:home:headings' : 'foo'
+  class Show.LogoH1 extends Marionette.ItemView
+    template: 'header/show/templates/logo_h1'
+    className: 'header--logo'
 
-    addH1: ->
-      h1 = $('<h1>').text('busca sapato')
-      @$el.append(h1)
-
-    removeH1: ->
-      @$el.find('h1').remove()
+    triggers:
+      'click a' : 'logo:clicked'

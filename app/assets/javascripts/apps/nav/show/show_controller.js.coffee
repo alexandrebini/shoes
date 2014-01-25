@@ -14,16 +14,20 @@
 
     categoriesRegion: (categories) ->
       categoriesView = @getCategoriesView(categories)
+
       @listenTo categoriesView, 'itemview:category:clicked', (child) =>
         @nav.toggleCurrentCategory child.model
         @visit()
+
       @layout.categoriesRegion.show categoriesView
 
     brandsRegion: (brands) ->
       brandsView = @getBrandsView(brands)
+
       @listenTo brandsView, 'itemview:brand:clicked', (child) =>
         @nav.toggleCurrentBrand child.model
         @visit()
+
       @layout.brandsRegion.show brandsView
 
     visit: ->

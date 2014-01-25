@@ -12,19 +12,15 @@
     show: (slug, page) ->
       category = App.request('category:entity', slug)
       shoes = App.request('category:shoes:entities', slug, page)
-
       @controller = new CategoriesApp.Show.Controller(shoes)
-
       App.vent.trigger 'category:visited', category
 
     brand: (slug, brandSlug, page) ->
       category = App.request('category:entity', slug)
       brand = App.request('brand:entity', brandSlug)
       shoes = App.request('category:brand:shoes:entities', slug, brandSlug, page)
-
       @controller = new CategoriesApp.Brand.Controller(shoes)
-
-      App.vent.trigger 'category:brand:visited', category, brand
+      App.vent.trigger 'category:brand:visited', category, brand, shoes
 
     disable: ->
       @controller.disable() if @controller
@@ -41,7 +37,7 @@
     App.vent.trigger 'visit', slug
 
   App.vent.on 'visit:category:brand', (slug, brand) ->
-    API.show(slug, brand)
+    API.brand(slug, brand)
     API.enable()
     App.vent.trigger 'visit', "#{ slug }/#{ brand }"
 

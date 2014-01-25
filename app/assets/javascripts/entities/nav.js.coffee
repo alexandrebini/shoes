@@ -14,22 +14,40 @@
         brands: App.request('brand:entities')
 
     setCurrentCategory: (slug) ->
-      @set currentCategory: @get('categories').findWhere(slug: slug)
+      category = null
+      category = @get('categories').findWhere(slug: slug) if slug?
 
-    toggleCurrentCategory: (currentCategory) ->
-      if currentCategory == @get('currentCategory')
-        @set currentCategory: null
+      currentBrand = @get('currentBrand')
+      if category && currentBrand && !_.contains category.get('brands'), currentBrand.get('slug')
+        currentBrand = null
+
+      @set
+        currentBrand: currentBrand
+        currentCategory: category
+
+    toggleCurrentCategory: (category) ->
+      if category == @get('currentCategory')
+        @setCurrentCategory null
       else
-        @set currentCategory: currentCategory
+        @setCurrentCategory category.get('slug')
 
     setCurrentBrand: (slug) ->
-      @set currentBrand: @get('brands').findWhere(slug: slug)
+      brand = null
+      brand = @get('brands').findWhere(slug: slug) if slug?
 
-    toggleCurrentBrand: (currentBrand) ->
-      if currentBrand == @get('currentBrand')
-        @set currentBrand: null
+      currentCategory = @get('currentCategory')
+      if brand && currentCategory && !_.contains brand.get('categories'), currentCategory.get('slug')
+        currentCategory = null
+
+      @set
+        currentCategory: currentCategory
+        currentBrand: brand
+
+    toggleCurrentBrand: (brand) ->
+      if brand == @get('currentBrand')
+        @setCurrentBrand null
       else
-        @set currentBrand: currentBrand
+        @setCurrentBrand brand.get('slug')
 
     onCurrentCategoryChange: ->
       @get('categories').each (category) =>
@@ -46,25 +64,20 @@
       @updateBrandsPaths()
 
     updateCategoriesPaths: ->
+      currentBrand = @get('currentBrand')
       @get('categories').each (category) =>
-        if @get('currentBrand')
-          category.set path: @pathTo(category, @get('currentBrand'))
+        if currentBrand && _.contains category.get('brands'), currentBrand.get('slug')
+          category.set path: "#{ category.get('slug') }/#{ currentBrand.get('slug') }"
         else
           category.set path: null
 
     updateBrandsPaths: ->
+      currentCategory = @get('currentCategory')
       @get('brands').each (brand) =>
-        if @get('currentCategory')
-          brand.set path: @pathTo(@get('currentCategory'), brand)
+        if currentCategory && _.contains brand.get('categories'), currentCategory.get('slug')
+          brand.set path: "#{ currentCategory.get('slug') }/#{ brand.get('slug') }"
         else
           brand.set path: null
-
-    pathTo: (category, brand) ->
-      switch
-        when category && brand then "#{ category.get('slug') }/#{ brand.get('slug') }"
-        when category then category.get('slug')
-        when brand then category.get('slug')
-        else null
 
   API =
     getNavEntities: ->

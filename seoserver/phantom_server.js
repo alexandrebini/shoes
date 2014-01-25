@@ -24,5 +24,4 @@ var checkComplete = function() {
 }
 
 page.open(system.args[1], function(status) {});
-
 var checkCompleteInterval = setInterval(checkComplete, 1);

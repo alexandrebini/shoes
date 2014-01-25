@@ -20,4 +20,6 @@
     App.module('ShoesApp').start()
     App.module('CategoriesApp').start()
     App.module('BrandsApp').start(options.brandsSlugs)
+    App.module('MetasApp').start()
+
   App

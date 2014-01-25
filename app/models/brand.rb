@@ -3,6 +3,7 @@ class Brand < ActiveRecord::Base
   include Matcher
 
   has_many :shoes
+  has_many :categories, through: :shoes
 
   friendly_id :name, use: :slugged
   has_attached_file :logo,

@@ -3,22 +3,23 @@
   class Show.Controller extends Marionette.Controller
     initialize: ->
       @layout = @getLayoutView()
-
       App.headerRegion.show @layout
-
-      @logoRegion()
       @page = new App.PageChanger.Changer()
-
-    logoRegion: ->
-      logoView = @getLogoView()
-
-      @listenTo logoView, 'logo:clicked', =>
-        App.vent.trigger 'visit:home'
-
-      @layout.logoRegion.show logoView
 
     getLayoutView: ->
       new Show.Layout
 
-    getLogoView: ->
-      new Show.Logo
+    logoRegion: (hasH1) ->
+      @hasH1 = hasH1
+      @logoView = @getLogoView()
+
+      @listenTo @logoView, 'logo:clicked', =>
+        App.vent.trigger 'visit:home'
+
+      @layout.logoRegion.show @logoView
+
+    getLogoView: () ->
+      if @hasH1
+        new Show.LogoH1
+      else
+        new Show.Logo
