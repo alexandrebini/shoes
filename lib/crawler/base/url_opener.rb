@@ -57,7 +57,7 @@ module Crawler
     def open_url_without_proxy(uri, options)
       attempts = 1
       begin
-        http = Net::HTTP.start(uri.host)
+        http = Net::HTTP.start(uri.host, use_ssl: uri.scheme == 'https')
         body = response_is_valid?(http, uri, options)
         raise "Body is invalid" if body.blank?
         GC.start
