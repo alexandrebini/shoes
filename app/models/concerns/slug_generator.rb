@@ -7,11 +7,13 @@ module SlugGenerator
 
   private
   def cleared_name
+    p "cleared_name: #{ name }"
     words = name.split(' ').map do |word|
       cleared_word(word)
     end.compact.uniq
 
     slice_size = words.size > 2 ? 2 : words.size
+    p 'slice_size', words
     words.permutation.to_a.flatten.each_slice(slice_size) do |slice|
       words -= slice if cleared_word(slice.join ' ').nil?
     end

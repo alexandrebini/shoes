@@ -17,4 +17,5 @@ module Crawler
   autoload :Melissa,          File.expand_path('../melissa', __FILE__)
   autoload :Miezko,           File.expand_path('../miezko', __FILE__)
   autoload :Schutz,           File.expand_path('../schutz', __FILE__)
+  autoload :Tanara,           File.expand_path('../tanara', __FILE__)
 end

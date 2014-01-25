@@ -8,7 +8,7 @@ module Crawler
         return
       end
 
-      @filename = File.basename URI.parse(@photo.source_url).path
+      @filename = Pathname.new(@photo.source_url).basename.to_s
       @file = StringIO.new(Crawler::UrlOpener.instance.open_url @photo.source_url,
         proxy: false, min_size: 5.kilobytes, image: true, name: @photo.brand.slug)
       @file.class.class_eval { attr_accessor :original_filename }

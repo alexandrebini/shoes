@@ -6,7 +6,7 @@ class Shoe < ActiveRecord::Base
   belongs_to :category
   has_many :photos, dependent: :destroy
   has_many :prices, dependent: :destroy
-  has_many :numerations, dependent: :destroy
+  has_many :numerations, -> { order('number') }, dependent: :destroy
   has_and_belongs_to_many :colors
 
   friendly_id :to_slug, use: [:slugged, :scoped, :finders], scope: [:category, :brand]
