@@ -5,7 +5,7 @@ class Color < ActiveRecord::Base
   has_and_belongs_to_many :palettes
   has_and_belongs_to_many :shoes
 
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :finders]
 
   validates_presence_of :name
   after_create :add_to_palette
