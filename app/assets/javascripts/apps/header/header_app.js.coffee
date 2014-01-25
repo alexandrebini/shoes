@@ -3,8 +3,8 @@
 
   API =
     show: -> @controller = new App.HeaderApp.Show.Controller()
-    hasH1: -> @controller.logoRegion(true)
-    withoutH1: -> @controller.logoRegion(true)
+    hasH1: -> @controller.logoRegion(hasH1: true)
+    withoutH1: -> @controller.logoRegion(hasH1: false)
 
   App.vent.on 'shoe:visited category:visited brand:visited category:brand:visited', ->
     API.withoutH1()
