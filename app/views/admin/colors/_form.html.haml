@@ -1,4 +1,7 @@
 = simple_form_for [:admin, @color], html: { class: 'form-horizontal' } do |f|
+  - if @color.persisted?
+    = f.input :created_at, as: :string, input_html: { disabled: true }
+    = f.input :updated_at, as: :string, input_html: { disabled: true }
   = f.input :name
   = f.association :palettes, as: :check_boxes
   = f.button :wrapped, cancel: admin_colors_path

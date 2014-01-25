@@ -13,6 +13,7 @@ gem 'jbuilder', '2.0.2'
 gem 'friendly_id', '5.0.2'
 gem 'kaminari', '0.15.0'
 gem 'simple_form', '3.0.1'
+gem 'cocoon', '1.2.5'
 gem 'twitter-bootstrap-rails', '2.2.8'
 gem 'turbolinks', '2.2.0'
 

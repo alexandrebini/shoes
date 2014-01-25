@@ -23,6 +23,8 @@ class Shoe < ActiveRecord::Base
   scope :pending, -> { joins(:photos).where(photos: { status: 'pending' }).uniq }
   scope :ready, -> { with_category.downloaded.available }
 
+  accepts_nested_attributes_for :photos, reject_if: :all_blank, allow_destroy: true
+
   def available?
     numerations.present?
   end

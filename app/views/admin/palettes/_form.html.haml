@@ -1,4 +1,7 @@
 = simple_form_for [:admin, @palette], html: { class: 'form-horizontal' } do |f|
+  - if @palette.persisted?
+    = f.input :created_at, as: :string, input_html: { disabled: true }
+    = f.input :updated_at, as: :string, input_html: { disabled: true }
   = f.input :name
   = f.input :slug
   = f.input :hex
