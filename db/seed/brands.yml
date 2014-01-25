@@ -33,3 +33,9 @@
   start_url: http://shop.miezko.com.br/colecao-completa-s5/
   verification_matcher: EZ Commerce
   logo_path: <%= Rails.root %>/db/seed/files/brands/miezko.png
+
+- name: Tanara
+  url: http://www.tanarabrasil.com.br/site
+  start_url: https://www.lojatanara.com.br
+  verification_matcher: UA-10401553-1
+  logo_path: <%= Rails.root %>/db/seed/files/brands/tanara.png
