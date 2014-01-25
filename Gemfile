@@ -12,6 +12,9 @@ gem 'miro', '0.2.3'
 gem 'jbuilder', '2.0.2'
 gem 'friendly_id', '5.0.2'
 gem 'kaminari', '0.15.0'
+gem 'simple_form', '3.0.1'
+gem 'twitter-bootstrap-rails', '2.2.8'
+gem 'turbolinks', '2.2.0'
 
 gem 'nokogiri', '1.6.1'
 gem 'sidekiq', '2.17.1'
@@ -28,7 +31,6 @@ gem 'js-routes', '0.9.6'
 
 gem 'sitemap_generator', '4.3.1'
 gem 'puma', '2.7.1'
-gem 'minitest', '4.7.5'
 
 group :production do
   gem 'whenever', '0.9.0', require: false

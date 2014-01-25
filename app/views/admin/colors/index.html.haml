@@ -1,0 +1,19 @@
+- model_class = Color
+.page-header
+  %h1
+    =t '.title', default: model_class.model_name.human.pluralize.titleize
+    = link_to t('.new', default: t('helpers.links.new')), [:new, :admin, :color], class: 'btn btn-primary'
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:name)
+      %th=t '.actions', default: t('helpers.actions')
+
+  %tbody
+    - @colors.each do |color|
+      %tr
+        %td= color.id
+        %td= color.name
+        %td= link_to t('.edit', default: t('helpers.links.edit')), [:edit, :admin, color], class: 'btn btn-mini'

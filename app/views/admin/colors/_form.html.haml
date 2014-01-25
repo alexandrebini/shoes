@@ -1,0 +1,3 @@
+= simple_form_for [:admin, @color], html: { class: 'form-horizontal' } do |f|
+  = f.input :name
+  = f.button :wrapped, cancel: admin_colors_path

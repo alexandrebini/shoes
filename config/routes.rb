@@ -24,6 +24,9 @@ Shoes::Application.routes.draw do
   namespace :admin do
     mount Sidekiq::Web, at: '/sidekiq'
     root to: 'shoes#index'
+    resources :brands, except: :show
+    resources :categories, except: :show
+    resources :colors, except: :show
     resources :shoes
   end
 
