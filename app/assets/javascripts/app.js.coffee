@@ -9,8 +9,7 @@
     @startHistory()
 
   App.vent.on 'throw:error', (status) ->
-    console.log status, '------------'
-    # new App.Components.Error.Controller(status)
+    new App.Components.Error.Controller(status)
 
   App.addRegions
     navRegion: 'nav'
