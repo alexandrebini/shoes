@@ -3,7 +3,7 @@
 
   API =
     metas: (options) ->
-      new MetasApp.Meta.Controller(options)
+      new App.Components.Meta.Controller(options)
 
   App.vent.on 'shoe:visited', (shoe) ->
     App.execute 'when:fetched', shoe, =>

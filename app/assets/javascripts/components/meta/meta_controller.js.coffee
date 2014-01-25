@@ -1,11 +1,11 @@
-@Shoes.module 'MetasApp.Meta', (Meta, App, Backbone, Marionette, $, _) ->
+@Shoes.module 'Components.Meta', (Meta, App, Backbone, Marionette, $, _) ->
   class Meta.Controller extends Marionette.Controller
     initialize: (options) ->
       @setTitleView(options.get('title'))
       @setMetaDescriptionView(options.get('metaDescription'))
 
     setTitleView: (title) ->
-      Meta.Title.getInstance().set(title)
+      App.Components.Meta.View.Title.getInstance().set(title)
 
     setMetaDescriptionView: (metaDescription) ->
-      Meta.MetaDescription.getInstance().set(metaDescription)
+      App.Components.Meta.View.MetaDescription.getInstance().set(metaDescription)

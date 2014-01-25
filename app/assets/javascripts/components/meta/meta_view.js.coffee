@@ -1,5 +1,5 @@
-@Shoes.module 'MetasApp.Meta', (Meta, App, Backbone, Marionette, $, _) ->
-  class Meta.Title
+@Shoes.module 'Components.Meta.View', (View, App, Backbone, Marionette, $, _) ->
+  class View.Title
     @getInstance: ->
       @_instance ?= new @(arguments...)
 
@@ -9,7 +9,7 @@
     set: (title) ->
       @ui.title.html(title)
 
-  class Meta.MetaDescription
+  class View.MetaDescription
     @getInstance: ->
       @_instance ?= new @(arguments...)
 
