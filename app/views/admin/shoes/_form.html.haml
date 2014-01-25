@@ -1,4 +1,8 @@
 = simple_form_for [:admin, @shoe], html: { class: 'form-horizontal' } do |f|
+  - if @shoe.persisted?
+    = f.input :created_at, as: :string, input_html: { disabled: true }
+    = f.input :updated_at, as: :string, input_html: { disabled: true }
+    = f.input :crawled_at, as: :string, input_html: { disabled: true }
   = f.input :name
   = f.association :brand
   = f.association :category
@@ -6,4 +10,16 @@
   = f.input :source_url
   = f.input :description
   = f.association :colors, as: :check_boxes
+
+  .row
+    = f.simple_fields_for :photos do |photo|
+      .span3.thumbnail.nested-fields
+        = image_tag(photo.object.url(:thumb))
+        %fieldset.caption{ disabled: true }
+          = photo.input :source_url, input_html: { disabled: true }
+          = photo.input :status, input_html: { disabled: true }
+          = photo.input :data_content_type, input_html: { disabled: true }
+          = photo.input :data_file_size, input_html: { disabled: true }
+          = link_to_remove_association 'remove', photo, class: 'btn btn-danger btn-xs'
+
   = f.button :wrapped, cancel: admin_shoes_path
