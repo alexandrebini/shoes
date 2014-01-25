@@ -6,6 +6,7 @@
       Routes.category_path @get('slug')
 
   class Entities.CategoryCollection extends Backbone.Collection
+    @getInstance: -> @_instance ?= new @(arguments...)
     model: Entities.Category
     url: Routes.categories_path
 
@@ -16,7 +17,7 @@
       brand
 
     getCategories: ->
-      categories = new Entities.CategoryCollection()
+      categories = Entities.CategoryCollection.getInstance()
       categories.fetch()
       categories
 

@@ -81,9 +81,9 @@
 
   API =
     getNavEntities: ->
-      brand = new Entities.Nav()
-      brand.fetch()
-      brand
+      nav = new Entities.Nav()
+      nav.fetch()
+      nav
 
   App.reqres.setHandler 'nav:entities', ->
     API.getNavEntities()
