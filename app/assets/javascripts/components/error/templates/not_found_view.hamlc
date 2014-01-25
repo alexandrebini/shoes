@@ -1,0 +1,5 @@
+.error
+  %h1
+    Ops, página não encontrada...
+
+  %a{ href: '/', class: 'back', data: { internal: 'true' } } voltar

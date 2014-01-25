@@ -1,7 +1,9 @@
-%a{ href: @urlFor(@slug), title: @name, data-internal: true }
-  .price
+%a{ itemscope itemtype='http://schema.org/Product'  }
+  .price{ itemprop: "offers" itemscope itemtype: "http://schema.org/Offer" }
+
     %sup R$
-    = @price
+    %span{ itemprop: 'price' }= @price
 
   .l-middle
-    %img{ src: @[@style].url, width: @[@style].width, height: @[@style].height, alt: @name }
+
+    %img{ src: @[@style].url, width: @[@style].width, height: @[@style].height, alt: @name, itemprop: 'image' }

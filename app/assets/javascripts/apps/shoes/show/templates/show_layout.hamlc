@@ -1,18 +1,20 @@
-%section.shoe-photos
-  .social
-    .facebook
-    .pinterest
-    .twitter
-    .google_plus
+%div{ itemscope itemtype='http://schema.org/Product' }
+  fooo
+  %section.shoe-photos
+    .social
+      .facebook
+      .pinterest
+      .twitter
+      .google_plus
 
-  .main
-  .thumbs_container
+    .main
+    .thumbs_container
 
-%section.shoe-description
-  .l-description
-    .title
-    .price
-    .description
-    .grid
-    .brand
-    .button
+  %section.shoe-description
+    .l-description
+      .title
+      .price
+      .description
+      .grid
+      .brand
+      .button

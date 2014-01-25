@@ -11,6 +11,7 @@
 //= require ./app
 //= require_tree ./modules
 
+//= require_tree ./components/error
 //= require ./components/meta/entities/meta_base
 //= require ./components/meta/entities/brand_meta
 //= require ./components/meta/entities/category_brand_meta

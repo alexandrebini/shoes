@@ -1,0 +1,5 @@
+.error
+  %h1
+    Ops... Algum erro aconteceu...
+
+  %a{ href: '/', class: 'back', data: { internal: 'true' } } voltar
