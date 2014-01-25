@@ -9,6 +9,7 @@
     %tr
       %th= model_class.human_attribute_name(:id)
       %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:palettes)
       %th=t '.actions', default: t('helpers.actions')
 
   %tbody
@@ -16,4 +17,7 @@
       %tr
         %td= color.id
         %td= color.name
+        %td
+          - if color.palettes
+            = color.palettes.map(&:name).join(', ')
         %td= link_to t('.edit', default: t('helpers.links.edit')), [:edit, :admin, color], class: 'btn btn-mini'

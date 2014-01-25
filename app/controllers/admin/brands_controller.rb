@@ -42,6 +42,6 @@ class Admin::BrandsController < Admin::ApplicationController
 
     def brand_params
       params.require(:brand).permit(:name, :url, :start_url, :verification_matcher,
-        :meta_description, :logo)
+        :meta_description, :logo, :slug)
     end
 end

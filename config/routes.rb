@@ -27,7 +27,8 @@ Shoes::Application.routes.draw do
     resources :brands, except: :show
     resources :categories, except: :show
     resources :colors, except: :show
-    resources :shoes
+    resources :palettes, except: :show
+    resources :shoes, except: :show
   end
 
   constraints FormatConstraint.new(:html) do

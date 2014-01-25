@@ -1,0 +1,9 @@
+= simple_form_for [:admin, @shoe], html: { class: 'form-horizontal' } do |f|
+  = f.input :name
+  = f.association :brand
+  = f.association :category
+  = f.input :slug
+  = f.input :source_url
+  = f.input :description
+  = f.association :colors, as: :check_boxes
+  = f.button :wrapped, cancel: admin_shoes_path

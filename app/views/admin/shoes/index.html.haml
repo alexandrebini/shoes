@@ -1,1 +1,29 @@
-%h1 Shoes
+- model_class = Shoe
+.page-header
+  %h1
+    =t '.title', default: model_class.model_name.human.pluralize.titleize
+    = link_to t('.new', default: t('helpers.links.new')), [:new, :admin, :shoe], class: 'btn btn-primary'
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:photo)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:brand)
+      %th= model_class.human_attribute_name(:category)
+      %th= model_class.human_attribute_name(:created_at)
+      %th=t '.actions', default: t('helpers.actions')
+
+  %tbody
+    - @shoes.each do |shoe|
+      %tr
+        %td= shoe.id
+        %td
+          - if shoe.photo
+            = image_tag shoe.photo.url(:thumb), size: '50x40'
+        %td= shoe.name
+        %td= shoe.brand.name if shoe.brand
+        %td= shoe.category.name if shoe.category
+        %td=l shoe.created_at
+        %td= link_to t('.edit', default: t('helpers.links.edit')), [:edit, :admin, shoe], class: 'btn btn-mini'
