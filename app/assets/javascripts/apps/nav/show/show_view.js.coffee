@@ -14,7 +14,7 @@
     triggers:
       'click' : 'category:clicked'
     modelEvents:
-      'change:isCurrent change:isH1 change:path' : 'render'
+      'change:isCurrent change:path' : 'render'
 
   class Show.Categories extends Marionette.CompositeView
     template: 'nav/show/templates/categories'
