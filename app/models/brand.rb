@@ -4,7 +4,7 @@ class Brand < ActiveRecord::Base
 
   has_many :shoes
 
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :finders]
   has_attached_file :logo,
     path: ':rails_root/public/system/brands/:id_partition/:basename_:style_:fingerprint.:extension',
     url: '/system/brands/:id_partition/:basename_:style_:fingerprint.:extension',
@@ -13,7 +13,7 @@ class Brand < ActiveRecord::Base
     },
     processors: [:thumbnail, :compression]
 
-  validates_presence_of :name, :start_url, :verification_matcher
+  validates_presence_of :name, :url, :start_url, :verification_matcher
 
   scope :with_shoes, -> { joins(:shoes).uniq }
 

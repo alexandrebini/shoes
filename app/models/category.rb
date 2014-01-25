@@ -7,7 +7,7 @@ class Category < ActiveRecord::Base
   has_many :categories, through: :shoes
   has_many :brands, through: :shoes
 
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :finders]
 
   validates_presence_of :name
 

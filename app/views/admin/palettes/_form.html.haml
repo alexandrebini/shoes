@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @palette], html: { class: 'form-horizontal' } do |f|
+  = f.input :name
+  = f.input :slug
+  = f.input :hex
+  = f.input :matchers
+  = f.association :colors, as: :check_boxes
+  = f.button :wrapped, cancel: admin_palettes_path

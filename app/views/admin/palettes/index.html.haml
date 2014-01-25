@@ -1,0 +1,23 @@
+- model_class = Palette
+.page-header
+  %h1
+    =t '.title', default: model_class.model_name.human.pluralize.titleize
+    = link_to t('.new', default: t('helpers.links.new')), [:new, :admin, :palette], class: 'btn btn-primary'
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:slug)
+      %th= model_class.human_attribute_name(:colors)
+      %th=t '.actions', default: t('helpers.actions')
+
+  %tbody
+    - @palettes.each do |palette|
+      %tr
+        %td= palette.id
+        %td= palette.name
+        %td= palette.slug
+        %td= palette.colors.count
+        %td= link_to t('.edit', default: t('helpers.links.edit')), [:edit, :admin, palette], class: 'btn btn-mini'
