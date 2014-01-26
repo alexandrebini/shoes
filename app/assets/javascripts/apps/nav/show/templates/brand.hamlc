@@ -1,6 +1,8 @@
 - if @isCurrent
   %h1
-    %a{ href: @urlFor(@path || @slug), title: @name, data-internal: true, class: 'is_selected' }= @name
+    %a{ href: @urlFor(@path || @slug), title: @name, data-internal: true, class: 'is_selected', itemprop: 'url' }
+      %span{ itemprop: 'title' }= @name
 
 - else
-  %a{ href: @urlFor(@path || @slug), title: @name, data-internal: true }= @name
+  %a{ href: @urlFor(@path || @slug), title: @name, data-internal: true, itemprop: 'url' }
+    %span{ itemprop: 'title' }= @name

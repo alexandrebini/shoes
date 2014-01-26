@@ -1,1 +1,2 @@
-%p= @description
+%p
+  %span{ itemprop: 'description' }= @description
