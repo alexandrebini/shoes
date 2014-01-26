@@ -7,7 +7,8 @@ namespace :crawler do
       Crawler::Louloux,
       Crawler::Melissa,
       Crawler::Miezko,
-      Crawler::Schutz
+      Crawler::Schutz,
+      Crawler::Tanara
     ]
     pids = klasses.map do |klass|
       Process.fork do
