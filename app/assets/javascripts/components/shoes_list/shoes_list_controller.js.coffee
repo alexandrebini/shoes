@@ -5,9 +5,10 @@
       @layout = @getLayoutView()
 
       @listenTo @layout, 'show', =>
-        @topPaginationRegion(@shoes)
-        @shoesRegion(@shoes)
-        @bottomPaginationRegion(@shoes)
+        App.execute 'when:fetched', @shoes, =>
+          @topPaginationRegion(@shoes)
+          @shoesRegion(@shoes)
+          @bottomPaginationRegion(@shoes)
 
       @enable()
       App.vent.on 'scroll:bottom', @getNextPage, @

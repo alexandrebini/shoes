@@ -12,7 +12,7 @@ class CategoriesController < ApplicationController
     @category = Category.with_shoes.where(slug: params[:slug]).first
 
     if @category.blank?
-      raise(ActiveRecord::RecordNotFound)
+      raise ActiveRecord::RecordNotFound
     else
       respond_with @category
     end
@@ -20,12 +20,12 @@ class CategoriesController < ApplicationController
 
   def shoes
     @category = Category.with_shoes.where(slug: params[:slug]).first
-    raise(ActiveRecord::RecordNotFound) if @category.blank?
+    raise ActiveRecord::RecordNotFound if @category.blank?
 
     @shoes = @category.shoes.page(params[:page]).per(params[:per_page])
 
     if @shoes.blank?
-      raise(ActiveRecord::RecordNotFound)
+      raise ActiveRecord::RecordNotFound
     else
       respond_with @shoes
     end

@@ -12,7 +12,7 @@ class ShoesController < ApplicationController
     @shoe = Shoe.ready.where(slug: params[:slug]).first
 
     if @shoe.blank?
-      raise(ActiveRecord::RecordNotFound)
+      raise ActiveRecord::RecordNotFound
     else
       respond_with @shoe
     end
