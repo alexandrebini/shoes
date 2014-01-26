@@ -9,8 +9,7 @@
 
   API =
     list: (page) ->
-      shoes = App.request('shoes:entities', page)
-      @listController = new ShoesApp.List.Controller(shoes)
+      @listController = new ShoesApp.List.Controller(page)
       App.vent.trigger 'home:visited'
 
     show: (category, brand, slug) ->

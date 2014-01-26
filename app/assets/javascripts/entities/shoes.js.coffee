@@ -162,5 +162,5 @@
   App.reqres.setHandler 'shoe:entity', (category, brand, slug) ->
     API.getShoe(category, brand, slug)
 
-  App.reqres.setHandler 'shoes:entities', (page) ->
+  App.reqres.setHandler 'shoe:entities', (page) ->
     API.getShoes(page)

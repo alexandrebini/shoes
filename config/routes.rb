@@ -46,6 +46,6 @@ Shoes::Application.routes.draw do
     get '/categories/:slug/' => 'categories#show', as: :category
     get '/:category/:brand/:slug/' => 'shoes#show', as: :shoe
     get '/categories/:slug/shoes/(pg-:page)/' => 'categories#shoes', as: :category_shoes
-    get '/categories/:slug/:brand/shoes/(pg-:page)/' => 'categories#brand_shoes', as: :category_brand_shoes
+    get '/:slug/:brand/shoes/(pg-:page)/' => 'categories#brand_shoes', as: :category_brand_shoes
   end
 end

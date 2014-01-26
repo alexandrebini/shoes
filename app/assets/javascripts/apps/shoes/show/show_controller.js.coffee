@@ -5,8 +5,6 @@
 
       @listenTo @layout, 'show', =>
         App.execute 'when:fetched', shoe, =>
-          App.vent.trigger 'remove:header:headings'
-
           @thumbRegion(shoe)
           @titleRegion(shoe)
           @priceRegion(shoe)

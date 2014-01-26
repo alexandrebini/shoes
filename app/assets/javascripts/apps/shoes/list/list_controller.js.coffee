@@ -1,9 +1,5 @@
 @Shoes.module 'ShoesApp.List', (List, App, Backbone, Marionette, $, _) ->
   class List.Controller extends App.Components.ShoesList.Controller
-    initialize: (shoes) ->
-      # App.vent.trigger 'set:header:headings'
-
-      # App.Metas.Insert.getInstance()
-      # App.vent.trigger 'set:metas', { title: 'Busca sapato', description: 'Encontre seu sapato.'}
-
+    initialize: (page) ->
+      shoes = App.request('shoe:entities', page)
       super(shoes)
