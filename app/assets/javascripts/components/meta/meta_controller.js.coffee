@@ -2,6 +2,10 @@
   class Meta.Controller extends Marionette.Controller
     @getInstance: -> @_instance ?= new @(arguments...)
 
+    default: ->
+      @setTitleView('Busca Sapato')
+      @setMetaDescriptionView('http://buscasapato.com.br')
+
     set: (metas) ->
       @setTitleView(metas.get('title'))
       @setMetaDescriptionView(metas.get('metaDescription'))
