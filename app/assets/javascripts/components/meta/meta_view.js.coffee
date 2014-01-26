@@ -6,7 +6,7 @@
       title: $('title')
 
     set: (title) ->
-      @ui.title.html(title)
+      @ui.title.text(title)
 
   class View.MetaDescription
     @getInstance: ->
