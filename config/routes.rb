@@ -24,7 +24,11 @@ Shoes::Application.routes.draw do
   namespace :admin do
     mount Sidekiq::Web, at: '/sidekiq'
     root to: 'shoes#index'
-    resources :shoes
+    resources :brands, except: :show
+    resources :categories, except: :show
+    resources :colors, except: :show
+    resources :palettes, except: :show
+    resources :shoes, except: :show
   end
 
   constraints FormatConstraint.new(:html) do

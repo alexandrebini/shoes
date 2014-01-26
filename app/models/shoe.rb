@@ -6,10 +6,10 @@ class Shoe < ActiveRecord::Base
   belongs_to :category
   has_many :photos, dependent: :destroy
   has_many :prices, dependent: :destroy
-  has_many :numerations, dependent: :destroy
+  has_many :numerations, -> { order('number') }, dependent: :destroy
   has_and_belongs_to_many :colors
 
-  friendly_id :to_slug, use: [:slugged, :scoped], scope: [:category, :brand]
+  friendly_id :to_slug, use: [:slugged, :scoped, :finders], scope: [:category, :brand]
   paginates_per 86
 
   validates :name, presence: true
@@ -22,6 +22,8 @@ class Shoe < ActiveRecord::Base
   scope :downloaded, -> { joins(:photos).where(photos: { status: 'downloaded' }).uniq }
   scope :pending, -> { joins(:photos).where(photos: { status: 'pending' }).uniq }
   scope :ready, -> { with_category.downloaded.available }
+
+  accepts_nested_attributes_for :photos, reject_if: :all_blank, allow_destroy: true
 
   def available?
     numerations.present?

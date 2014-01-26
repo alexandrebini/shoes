@@ -6,6 +6,7 @@
       Routes.brand_path @get('slug')
 
   class Entities.BrandCollection extends Backbone.Collection
+    @getInstance: -> @_instance ?= new @(arguments...)
     model: Entities.Brand
     url: Routes.brands_path
 
@@ -16,7 +17,7 @@
       brand
 
     getBrands: ->
-      brands = new Entities.BrandCollection()
+      brands = Entities.BrandCollection.getInstance()
       brands.fetch()
       brands
 

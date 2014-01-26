@@ -9,8 +9,8 @@
     getLayoutView: ->
       new Show.Layout
 
-    logoRegion: (hasH1) ->
-      @hasH1 = hasH1
+    logoRegion: (options) ->
+      @hasH1 = options.hasH1
       @logoView = @getLogoView()
 
       @listenTo @logoView, 'logo:clicked', =>

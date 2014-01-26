@@ -1,8 +1,14 @@
 @Shoes.module 'Components.Meta', (Meta, App, Backbone, Marionette, $, _) ->
   class Meta.Controller extends Marionette.Controller
-    initialize: (options) ->
-      @setTitleView(options.get('title'))
-      @setMetaDescriptionView(options.get('metaDescription'))
+    @getInstance: -> @_instance ?= new @(arguments...)
+
+    default: ->
+      @setTitleView('Busca Sapato')
+      @setMetaDescriptionView('http://buscasapato.com.br')
+
+    set: (metas) ->
+      @setTitleView(metas.get('title'))
+      @setMetaDescriptionView(metas.get('metaDescription'))
 
     setTitleView: (title) ->
       App.Components.Meta.View.Title.getInstance().set(title)

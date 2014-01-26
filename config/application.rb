@@ -7,7 +7,7 @@ Bundler.require(:default, Rails.env)
 module Shoes
   class Application < Rails::Application
     require "#{ config.root }/app/models/settings"
-    config.autoload_paths += %W(#{ config.root }/lib/crawler #{ config.root }/app/workers)
+    config.autoload_paths += %W(#{ config.root }/lib/crawler #{ config.root }/app/workers #{ config.root }/lib/extras)
     config.active_record.timestamped_migrations = false
 
     config.action_controller.page_cache_directory = "#{ Rails.root }/public/cache"

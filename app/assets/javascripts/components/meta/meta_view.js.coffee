@@ -1,13 +1,12 @@
 @Shoes.module 'Components.Meta.View', (View, App, Backbone, Marionette, $, _) ->
   class View.Title
-    @getInstance: ->
-      @_instance ?= new @(arguments...)
+    @getInstance: -> @_instance ?= new @(arguments...)
 
     ui:
       title: $('title')
 
     set: (title) ->
-      @ui.title.html(title)
+      @ui.title.text(title)
 
   class View.MetaDescription
     @getInstance: ->
