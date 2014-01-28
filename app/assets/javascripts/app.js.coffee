@@ -16,6 +16,7 @@
     headerRegion: 'header'
     mainRegion: 'article.list'
     shoeRegion: 'article.shoe'
+    warningsRegion: 'article.warnings'
 
   App.addInitializer (options) ->
     App.module('HeaderApp').start()

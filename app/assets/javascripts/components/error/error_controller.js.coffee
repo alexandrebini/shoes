@@ -6,7 +6,7 @@
       @listenTo @layout, 'show', =>
         @errorRegion status
 
-      App.mainRegion.show @layout
+      App.warningsRegion.show @layout
 
     errorRegion: (status) ->
       errorView = @getErrorView(status)
