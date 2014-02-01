@@ -128,3 +128,25 @@ vim ~/.bash_profile
 
 vim ~/.ssh/authorized_keys
 
+
+// Uncomplicated firewall
+
+apt-get install ufw
+
+ufw default deny
+ufw logging on
+ufw logging low
+ufw allow 22
+ufw allow www
+ufw allow https
+ufw allow ssh
+ufw limit ssh
+ufw allow 53
+ufw allow 53/tcp
+ufw allow 53/udp
+ufw enable
+reboot
+sudo nginx
+
+cap production puma:start
+cap production deploy:restart
