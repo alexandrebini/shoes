@@ -1,1 +1,3 @@
-= @number
+%div{ itemprop: 'offerDetails' itemscope itemtype='http://data-vocabulary.org/Offer' }
+  %span{ itemprop: 'condition', content: @number }
+    = @number

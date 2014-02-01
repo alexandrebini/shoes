@@ -8,11 +8,15 @@
   App.on 'initialize:after', ->
     @startHistory()
 
+  App.vent.on 'throw:error', (status) ->
+    new App.Components.Error.Controller(status)
+
   App.addRegions
     navRegion: 'nav'
     headerRegion: 'header'
     mainRegion: 'article.list'
     shoeRegion: 'article.shoe'
+    warningsRegion: 'article.warnings'
 
   App.addInitializer (options) ->
     App.module('HeaderApp').start()

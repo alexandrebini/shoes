@@ -8,6 +8,11 @@
     default: ->
       App.Components.Meta.Controller.getInstance().default()
 
+  App.vent.on 'throw:error', (status) ->
+    API.default()
+    error = App.Components.ErrorMeta.Entities.ErrorMeta.getInstance().parse(status)
+    API.metas(error)
+
   App.vent.on 'shoe:visited', (shoe) ->
     API.default()
 

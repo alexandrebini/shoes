@@ -28,7 +28,7 @@
     enable: ->
       @controller.enable()
 
-  App.vent.on 'shoe:visited', ->
+  App.vent.on 'shoe:visited throw:error', ->
     API.disable()
 
   App.vent.on 'home:visited', ->

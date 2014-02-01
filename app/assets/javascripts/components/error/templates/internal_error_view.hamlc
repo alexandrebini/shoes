@@ -1,0 +1,9 @@
+.error
+  %h1
+    Ops... Algum erro aconteceu...
+  %span
+    Estamos trabalhando para que este problema seja solucionado o mais rápido possível.
+
+  %br
+
+  %a{ href: '/', class: 'back', data: { internal: 'true' } } clique aqui para voltar a home

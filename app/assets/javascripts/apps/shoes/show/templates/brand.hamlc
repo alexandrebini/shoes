@@ -1,3 +1,4 @@
 - if @brand.logo
   %a{ href: @urlFor(@brand.slug), title: @brand.name, data-internal: true }
     %img{ src: @brand.logo.url, height: @brand.logo.height, width: @brand.logo.width, alt: @brand.name }
+    %span{ itemprop: 'brand' }= @brand.name

@@ -1,2 +1,2 @@
 .l-middle
-  %img{ src: @big_url, alt: @alt, align: 'middle' }
+  %img{ src: @big_url, alt: @alt, align: 'middle', itemprop: 'image' }

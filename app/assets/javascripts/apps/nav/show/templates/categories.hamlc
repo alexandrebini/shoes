@@ -1,2 +1,3 @@
-%h3 Categorias
-%ul
+%div{ itemscope itemtype='http://data-vocabulary.org/Breadcrumb' }
+  %h3 Categorias
+  %ul{ itemprop: 'breadcrumb' }

@@ -1,5 +1,7 @@
 %h2
-  %sup R$
-  = @price
-  %sub
-    , #{ @cents }
+  %span{ itemprop: 'offerDetails' itemscope itemtype='http://data-vocabulary.org/Offer' }
+    %meta{ itemprop: 'currency' content: 'R$' }
+    %sup R$
+    %span{ itemprop: 'price' }= @price
+    %sub
+      , #{ @cents }

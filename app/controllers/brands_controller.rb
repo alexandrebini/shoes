@@ -10,7 +10,12 @@ class BrandsController < ApplicationController
 
   def show
     @brand = Brand.with_shoes.where(slug: params[:slug]).first
-    respond_with @brand
+
+    if @brand.blank?
+      raise(ActiveRecord::RecordNotFound)
+    else
+      respond_with @brand
+    end
   end
 
   def shoes

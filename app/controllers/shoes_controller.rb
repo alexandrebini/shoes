@@ -10,6 +10,11 @@ class ShoesController < ApplicationController
 
   def show
     @shoe = Shoe.ready.where(slug: params[:slug]).first
-    respond_with @shoe
+
+    if @shoe.blank?
+      raise ActiveRecord::RecordNotFound
+    else
+      respond_with @shoe
+    end
   end
 end

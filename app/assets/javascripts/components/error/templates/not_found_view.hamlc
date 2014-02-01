@@ -1,0 +1,15 @@
+.error
+  .big 404
+
+  %h1
+    Ops, página não encontrada...
+  %span E todas choram :'(
+
+  %p
+    %b Solução:
+  %ul
+    %li 1º Verifique se a url esta correta.
+    %li 2º Tente outra url
+    %li
+      3º Volte para a
+      %a{ href: '/', class: 'back', data: { internal: 'true' } } home

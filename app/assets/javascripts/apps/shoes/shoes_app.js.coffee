@@ -25,6 +25,12 @@
       @listController.enable() if @listController
       @showController.disable() if @showController
 
+    disableShow: ->
+      @showController.disable() if @showController
+
+  App.vent.on 'throw:error', ->
+    API.disableShow()
+
   App.vent.on 'visit:home', ->
     API.list()
     API.enableList()
