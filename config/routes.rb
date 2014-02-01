@@ -34,6 +34,12 @@ Shoes::Application.routes.draw do
   constraints FormatConstraint.new(:html) do
     root to: 'application#index'
     get '*path' => 'application#index'
+    # routes above are just mocks
+    get '/(pg-:page)/' => 'application#index', as: :html_shoes, constraints: PageConstraint
+    get "/:slug/(pg-:page)/" => 'application#index', as: :html_brand_shoes, constraints: PageConstraint
+    get "/:slug/(pg-:page)/" => 'application#index', as: :html_category_shoes, constraints: PageConstraint
+    get "/:slug/:brand/(pg-:page)/" => 'application#index', as: :html_category_brand_shoes, constraints: PageConstraint
+    get '/:category/:brand/:slug/' => 'application#index', as: :html_shoe
   end
 
   constraints FormatConstraint.new(:json) do
