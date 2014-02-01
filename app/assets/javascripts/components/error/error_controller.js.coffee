@@ -13,6 +13,7 @@
 
       @listenTo errorView, 'error:button:clicked', ->
         App.vent.trigger 'visit:home'
+        @close()
 
       @layout.errorRegion.show errorView
 
