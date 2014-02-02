@@ -32,8 +32,8 @@ SitemapGenerator::Sitemap.create do
     end
   end
 
-  # Shoe.ready.each do |shoe|
-  #   add html_shoe_path(shoe.category.slug, shoe.brand.slug, shoe.slug, trailing_slash: true),
-  #     priority: 0.5, lastmod: shoe.updated_at, changefreq: 'weekly'
-  # end
+  Shoe.ready.each do |shoe|
+    add html_shoe_path(shoe.category.slug, shoe.brand.slug, shoe.slug, trailing_slash: true),
+      priority: 0.5, lastmod: shoe.updated_at, changefreq: 'weekly'
+  end
 end

@@ -34,12 +34,6 @@ Shoes::Application.routes.draw do
   constraints FormatConstraint.new(:html) do
     root to: 'application#index'
     get '*path' => 'application#index'
-    # routes above are just mocks
-    get '/(pg-:page)/' => 'application#index', as: :html_shoes, constraints: PageConstraint
-    get "/:slug/(pg-:page)/" => 'application#index', as: :html_brand_shoes, constraints: PageConstraint
-    get "/:slug/(pg-:page)/" => 'application#index', as: :html_category_shoes, constraints: PageConstraint
-    get "/:slug/:brand/(pg-:page)/" => 'application#index', as: :html_category_brand_shoes, constraints: PageConstraint
-    get '/:category/:brand/:slug/' => 'application#index', as: :html_shoe
   end
 
   constraints FormatConstraint.new(:json) do
@@ -53,5 +47,14 @@ Shoes::Application.routes.draw do
     get '/:category/:brand/:slug/' => 'shoes#show', as: :shoe
     get '/categories/:slug/shoes/(pg-:page)/' => 'categories#shoes', as: :category_shoes
     get '/:slug/:brand/shoes/(pg-:page)/' => 'categories#brand_shoes', as: :category_brand_shoes
+  end
+
+  # routes below are just mocks
+  constraints FormatConstraint.new(:html) do
+    get '/(pg-:page)/' => 'application#index', as: :html_shoes, constraints: PageConstraint
+    get "/:slug/(pg-:page)/" => 'application#index', as: :html_brand_shoes, constraints: PageConstraint
+    get "/:slug/(pg-:page)/" => 'application#index', as: :html_category_shoes, constraints: PageConstraint
+    get "/:slug/:brand/(pg-:page)/" => 'application#index', as: :html_category_brand_shoes, constraints: PageConstraint
+    get '/:category/:brand/:slug/' => 'application#index', as: :html_shoe
   end
 end
