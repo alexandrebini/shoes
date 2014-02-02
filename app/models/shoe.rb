@@ -22,6 +22,7 @@ class Shoe < ActiveRecord::Base
   scope :downloaded, -> { joins(:photos).where(photos: { status: 'downloaded' }).uniq }
   scope :pending, -> { joins(:photos).where(photos: { status: 'pending' }).uniq }
   scope :ready, -> { with_category.downloaded.available }
+  scope :recent, -> { order('shoes.crawled_at DESC') }
 
   accepts_nested_attributes_for :photos, reject_if: :all_blank, allow_destroy: true
 

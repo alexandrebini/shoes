@@ -15,14 +15,14 @@ class CategoriesController < ApplicationController
 
   def shoes
     @category = Category.with_shoes.where(slug: params[:slug]).first
-    @shoes = @category.shoes.page(params[:page]).per(params[:per_page])
+    @shoes = @category.shoes.ready.recent.page(params[:page]).per(params[:per_page])
     respond_with @shoes
   end
 
   def brand_shoes
     @category = Category.with_shoes.where(slug: params[:slug]).first
     @brand = @category.brands.with_shoes.where(slug: params[:brand]).first
-    @shoes = @category.shoes.where(brand: @brand).page(params[:page]).per(params[:per_page])
+    @shoes = @category.shoes.ready.recent.where(brand: @brand).page(params[:page]).per(params[:per_page])
     respond_with @shoes
   end
 end

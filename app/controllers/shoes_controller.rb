@@ -4,7 +4,7 @@ class ShoesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   def index
-    @shoes = Shoe.ready.page(params[:page]).per(params[:per_page])
+    @shoes = Shoe.ready.recent.page(params[:page]).per(params[:per_page])
     respond_with @shoes
   end
 
