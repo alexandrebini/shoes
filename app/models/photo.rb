@@ -25,7 +25,7 @@ class Photo < ActiveRecord::Base
   scope :downloading, -> { where(status: 'downloading') }
   scope :downloaded, -> { where(status: 'downloaded') }
   scope :pending, -> { where(status: 'pending') }
-  scope :recent, -> { order('wallpapers.created_at DESC') }
+  scope :recent, -> { order('photos.created_at DESC') }
 
   # callbacks
   after_create :download_image

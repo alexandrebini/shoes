@@ -15,7 +15,7 @@ class BrandsController < ApplicationController
 
   def shoes
     @brand = Brand.with_shoes.where(slug: params[:slug]).first
-    @shoes = @brand.shoes.page(params[:page]).per(params[:per_page])
+    @shoes = @brand.shoes.ready.recent.page(params[:page]).per(params[:per_page])
     respond_with @shoes
   end
 end
