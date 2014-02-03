@@ -159,8 +159,15 @@
         url: Routes.shoe_path(category, brand, slug)
       shoe
 
+    view: (category, brand, slug) ->
+      new Backbone.Model().fetch
+        url: Routes.shoe_view_path category, brand, slug
+
   App.reqres.setHandler 'shoe:entity', (category, brand, slug) ->
-    API.getShoe(category, brand, slug)
+    shoe = API.getShoe(category, brand, slug)
+    App.execute 'when:fetched', shoe, =>
+      API.view(category, brand, slug)
+    shoe
 
   App.reqres.setHandler 'shoe:entities', (page) ->
     API.getShoes(page)

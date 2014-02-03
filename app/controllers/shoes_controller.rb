@@ -12,4 +12,10 @@ class ShoesController < ApplicationController
     @shoe = Shoe.ready.where(slug: params[:slug]).first
     respond_with @shoe
   end
+
+  def view
+    @shoe = Shoe.ready.where(slug: params[:slug]).readonly(false).first
+    @shoe.increment!(:views)
+    render nothing: true
+  end
 end
