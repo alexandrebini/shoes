@@ -4,7 +4,7 @@
     initialize: ->
       @layout = @getLayoutView()
       App.headerRegion.show @layout
-      @page = new App.PageChanger.Changer()
+      @model = App.request 'header:entity'
 
     getLayoutView: ->
       new Show.Layout
@@ -13,13 +13,15 @@
       @hasH1 = options.hasH1
       @logoView = @getLogoView()
 
-      @listenTo @logoView, 'logo:clicked', =>
-        App.vent.trigger 'visit:home'
+      @listenTo @logoView, 'logo:clicked', (args) =>
+        App.vent.trigger 'visit', { route: args.model.get('logoPath'), visit: true }
 
       @layout.logoRegion.show @logoView
 
     getLogoView: () ->
       if @hasH1
-        new Show.LogoH1
+        new Show.LogoWithHeading
+          model: @model
       else
-        new Show.Logo
+        new Show.LogoWithoutHeading
+          model: @model

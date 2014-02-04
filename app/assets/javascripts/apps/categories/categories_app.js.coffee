@@ -34,12 +34,12 @@
   App.vent.on 'visit:category', (slug) ->
     API.show(slug)
     API.enable()
-    App.vent.trigger 'visit', slug
+    App.vent.trigger 'visit', { route: slug, visit: false }
 
   App.vent.on 'visit:category:brand', (slug, brand) ->
     API.brand(slug, brand)
     API.enable()
-    App.vent.trigger 'visit', "#{ slug }/#{ brand }"
+    App.vent.trigger 'visit', { route: "#{ slug }/#{ brand }", visit: false }
 
   CategoriesApp.on 'start', ->
     new CategoriesApp.Router

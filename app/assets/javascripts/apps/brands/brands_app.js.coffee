@@ -26,7 +26,7 @@
   App.vent.on 'visit:brand', (slug) ->
     API.show(slug)
     API.enable()
-    App.vent.trigger 'visit', slug
+    App.vent.trigger 'visit', { route: slug, visit: false }
 
   BrandsApp.on 'start', (slugs) ->
     router = new BrandsApp.Router

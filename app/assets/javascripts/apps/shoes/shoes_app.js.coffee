@@ -34,12 +34,12 @@
   App.vent.on 'visit:home', ->
     API.list()
     API.enableList()
-    App.vent.trigger 'visit', '/'
+    App.vent.trigger 'visit', { route: '/', visit: false }
 
   App.vent.on 'visit:shoe', (slug) ->
     split = _.compact slug.split('/')
     API.show split[0], split[1], split[2]
-    App.vent.trigger 'visit', slug
+    App.vent.trigger 'visit', { route: slug, visit: false }
     API.enableShow()
 
   App.vent.on 'home:visited brand:visited category:visited category:brand:visited', ->

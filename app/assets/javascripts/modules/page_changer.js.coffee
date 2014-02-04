@@ -3,13 +3,25 @@
     @getInstance: ->
       @_instance ?= new @(arguments...)
 
-    navigate: (route, options = {}) ->
+    constructor: ->
+      @history = []
+
+    navigate: (route, options) ->
       route = App.UrlHelper.Helper.getInstance().urlFor(route)
       Backbone.history.navigate route, options
       @trackPageView(route)
+      @storeRoute()
 
     changePage: (page) ->
       @navigate App.UrlHelper.Helper.getInstance().pagePath(page)
+
+    storeRoute: ->
+      @history.push Backbone.history.fragment
+      window.foo = @history
+
+    previousPath: ->
+      step = 2
+      @history[@history.length - step]
 
     trackPageView: (route) ->
       return if App.isSearchEngine
@@ -19,8 +31,8 @@
         ga 'send', 'pageview'
 
   API =
-    navigate: (route) ->
-      PageChanger.Changer.getInstance().navigate(route)
+    navigate: (options) ->
+      PageChanger.Changer.getInstance().navigate(options.route, options.visit)
 
     changePage: (page) ->
       PageChanger.Changer.getInstance().changePage(page)
@@ -28,5 +40,5 @@
   App.vent.on 'page:change', (page) ->
     API.changePage(page)
 
-  App.vent.on 'visit', (route) ->
-    API.navigate(route)
+  App.vent.on 'visit', (options) ->
+    API.navigate(options)

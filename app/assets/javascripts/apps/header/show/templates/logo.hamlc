@@ -1,1 +1,1 @@
-%a.logo{ href: '/', title: 'Busca Sapato', data-internal: true } Busca Sapato
+%a.logo{ href: @logoPath, title: 'Busca Sapato', data-internal: true } Busca Sapato

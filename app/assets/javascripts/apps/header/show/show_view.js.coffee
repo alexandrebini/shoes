@@ -8,15 +8,21 @@
       logoRegion: '.logo'
 
   class Show.Logo extends Marionette.ItemView
+    className: 'header--logo'
+    triggers:
+      'click a' : 'logo:clicked'
+
+    modelEvents:
+      'change:logoPath' : 'changePath'
+
+    ui:
+      logo: 'a.logo'
+
+    changePath: ->
+      @ui.logo.attr href: @model.get('logoPath')
+
+  class Show.LogoWithoutHeading extends Show.Logo
     template: 'header/show/templates/logo'
-    className: 'header--logo'
 
-    triggers:
-      'click a' : 'logo:clicked'
-
-  class Show.LogoH1 extends Marionette.ItemView
+  class Show.LogoWithHeading extends Show.Logo
     template: 'header/show/templates/logo_h1'
-    className: 'header--logo'
-
-    triggers:
-      'click a' : 'logo:clicked'
