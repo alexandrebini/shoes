@@ -2,7 +2,7 @@
   @startWithParent = false
 
   class CategoriesApp.Router extends Marionette.AppRouter
-    addBrandsRoutes: (slugs) ->
+    addCategoriesRoutes: (slugs) ->
       _.each slugs, (slug) =>
         @route "#{ slug }/", => API.show(slug)
         @route "#{ slug }/pg-:page/", (page) => API.show(slug, page)
@@ -48,5 +48,5 @@
     router = new CategoriesApp.Router
       controller: API
 
-    router.addBrandsRoutes(slugs)
+    router.addCategoriesRoutes(slugs)
     router

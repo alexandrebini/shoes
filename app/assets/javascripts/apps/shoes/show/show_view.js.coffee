@@ -13,9 +13,6 @@
       brandRegion: 'section.shoe-description .brand'
       buttonRegion: 'section.shoe-description .button'
 
-    initialize: ->
-      new App.ResizeComponent.Component(@)
-
   class Show.Thumb extends Marionette.ItemView
     template: 'shoes/show/templates/thumb'
     tagName: 'li'
@@ -50,8 +47,7 @@
         @render @model
 
     onRender: ->
-      @$el.hide().fadeIn =>
-        App.vent.trigger 'resize:main:photo'
+      @$el.hide().fadeIn => @$el.height(@$el.height())
 
   class Show.Title extends Marionette.ItemView
     template: 'shoes/show/templates/title'

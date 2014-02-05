@@ -94,15 +94,13 @@
 
   .title
     background: $primary-color
-    height: rem($shoe-title-height)
+    position: relative
     &:after
       @extend %down-tip
 
-    h1
-      line-height: $shoe-title-height
-      a
-        cursor: normal
-        text-decoration: none
+    h1 a
+      cursor: normal
+      text-decoration: none
 
   .brand
     padding: rem($default-padding * 2)
@@ -143,11 +141,12 @@
     .visit_link
       background-color: #236aa8
       a
+        display: block
         height: rem($btn-height)
         line-height: rem($btn-height)
         margin: 0 auto
-        text-align: right
-        width: rem($shoe-button-visit-link)
+        text-align: center
+        width: 100%
         i
           @extend %i
           @extend %cart
