@@ -23,7 +23,7 @@
   App.vent.on 'home:visited category:visited brand:visited category:brand:visited', ->
     App.request 'header:update:logo:path', { beforePath: false }
 
-  App.vent.on 'shoe:visited', ->
+  App.vent.on 'shoe:visited navigate', ->
     App.request 'header:update:logo:path', { beforePath: true }
 
   HeaderApp.on 'start', ->

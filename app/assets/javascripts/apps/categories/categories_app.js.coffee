@@ -19,8 +19,8 @@
       category = App.request('category:entity', slug)
       brand = App.request('brand:entity', brandSlug)
       shoes = App.request('category:brand:shoes:entities', slug, brandSlug, page)
-      @controller = new CategoriesApp.Brand.Controller(shoes)
       App.vent.trigger 'category:brand:visited', category, brand, shoes
+      @controller = new CategoriesApp.Brand.Controller(shoes)
 
     disable: ->
       @controller.disable() if @controller
