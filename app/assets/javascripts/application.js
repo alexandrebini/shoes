@@ -11,4 +11,8 @@
 //= require_tree ./modules
 //= require_tree ./components
 //= require_tree ./entities
-//= require_tree ./apps
+//= require_tree ./apps/shoes
+//= require_tree ./apps/brands
+//= require_tree ./apps/header
+//= require_tree ./apps/nav
+//= require_tree ./apps/categories

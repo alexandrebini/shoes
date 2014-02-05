@@ -17,6 +17,7 @@
 
     storeRoute: ->
       @history.push Backbone.history.fragment
+      window.foo = @history
 
     previousPath: ->
       step = 2

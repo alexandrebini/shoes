@@ -2,9 +2,12 @@
   @startWithParent = false
 
   class CategoriesApp.Router extends Marionette.AppRouter
+    addBrandsRoutes: (slugs) ->
+      _.each slugs, (slug) =>
+        @route "#{ slug }/", => API.show(slug)
+        @route "#{ slug }/pg-:page/", (page) => API.show(slug, page)
+
     appRoutes:
-      ':slug/' : 'show'
-      ':slug/pg-:page/' : 'show'
       ':slug/:brand/' : 'brand'
       ':slug/:brand/pg-:page/' : 'brand'
 
@@ -12,8 +15,8 @@
     show: (slug, page) ->
       category = App.request('category:entity', slug)
       shoes = App.request('category:shoes:entities', slug, page)
-      @controller = new CategoriesApp.Show.Controller(shoes)
       App.vent.trigger 'category:visited', category
+      @controller = new CategoriesApp.Show.Controller(shoes)
 
     brand: (slug, brandSlug, page) ->
       category = App.request('category:entity', slug)
@@ -41,6 +44,9 @@
     API.enable()
     App.vent.trigger 'visit', { route: "#{ slug }/#{ brand }", visit: false }
 
-  CategoriesApp.on 'start', ->
-    new CategoriesApp.Router
+  CategoriesApp.on 'start', (slugs) ->
+    router = new CategoriesApp.Router
       controller: API
+
+    router.addBrandsRoutes(slugs)
+    router

@@ -4,6 +4,7 @@
       Shoes.start({
         environment: '#{ Rails.env }',
         brandsSlugs: #{ brands_slugs.to_json },
+        categoriesSlugs: #{ categories_slugs.to_json },
         isSearchEngine: #{ is_search_engine? }
       })
     })

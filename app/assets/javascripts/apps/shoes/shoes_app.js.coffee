@@ -14,8 +14,8 @@
 
     show: (category, brand, slug) ->
       shoe = App.request('shoe:entity', category, brand, slug)
-      @showController = new ShoesApp.Show.Controller(shoe)
       App.vent.trigger 'shoe:visited', shoe
+      @showController = new ShoesApp.Show.Controller(shoe)
 
     enableShow: ->
       @showController.enable() if @showController

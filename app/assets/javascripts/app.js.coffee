@@ -22,7 +22,7 @@
     App.module('HeaderApp').start()
     App.module('NavApp').start()
     App.module('ShoesApp').start()
-    App.module('CategoriesApp').start()
+    App.module('CategoriesApp').start(options.categoriesSlugs)
     App.module('BrandsApp').start(options.brandsSlugs)
     App.module('MetasApp').start()
 
