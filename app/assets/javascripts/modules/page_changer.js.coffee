@@ -12,7 +12,7 @@
       @navigate App.UrlHelper.Helper.getInstance().pagePath(page)
 
     trackPageView: (route) ->
-      return if App.isSearchEngine
+      # return if App.isSearchEngine
       if route?
         ga 'send', 'pageview', route
       else
